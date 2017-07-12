@@ -1,4 +1,4 @@
-package com.skplanet.iba.web.login.controller;
+package com.skplanet.iba.web.login;
 
 import java.util.HashMap;
 import java.util.Map;

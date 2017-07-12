@@ -14,7 +14,7 @@ import com.skplanet.iba.domain.user.User;
 import com.skplanet.iba.domain.user.UserAuthority;
 import com.skplanet.iba.domain.user.UserAuthorityService;
 import com.skplanet.iba.domain.user.UserService;
-import com.skplanet.iba.security.authentication.model.CustomUserDetail;
+import com.skplanet.iba.security.authentication.customization.CustomUserDetail;
 
 public class CustomUserDetailService implements UserDetailsService {
 	

@@ -1,4 +1,4 @@
-package com.skplanet.iba.security.authentication.model;
+package com.skplanet.iba.security.authentication.customization;
 
 import java.util.Collection;
 
