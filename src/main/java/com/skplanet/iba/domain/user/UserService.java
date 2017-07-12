@@ -17,6 +17,12 @@ public class UserService {
 		return userMapper.selectOne(user);
 	}
 	
+	public User retrieveUser(String userId) {
+		User user = new User();
+		user.setUserId(userId);
+		return this.retrieveUser(user);
+	}
+	
 	public List<User> retrieveList(User user) {
 		return userMapper.selectList(user);
 	}

@@ -11,11 +11,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(locations = {
-		"classpath:/skp/bo/adm/spring/context-properties.xml",
-		"classpath:/skp/bo/adm/spring/context-datasource.xml",
-		"classpath:/skp/bo/adm/spring/context-mybatis.xml",
-		"classpath:/skp/bo/adm/spring/context-root.xml",
-		"classpath:/skp/bo/adm/spring/web/dispatcher-servlet.xml"
+		"classpath:spring/context-properties.xml",
+		"classpath:spring/context-datasource.xml",
+		"classpath:spring/context-root.xml",
+		"classpath:spring/web/dispatcher-servlet.xml"
 })
 public class AbstractJUnit {
 	

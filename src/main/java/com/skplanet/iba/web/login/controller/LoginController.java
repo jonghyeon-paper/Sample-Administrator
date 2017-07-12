@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class LoginController {
 	
-	@Autowired
-	private FilterChainProxy filterChainProxy;
+//	@Autowired
+//	private FilterChainProxy filterChainProxy;
 	
 	@RequestMapping("/login.do")
 	public String login() {
@@ -33,20 +33,20 @@ public class LoginController {
 		return "denied";
 	}
 
-	@RequestMapping("/filterchain.do")
-	public @ResponseBody
-	Map<Integer, Map<Integer, String>> getSecurityFilterChainProxy(){
-		Map<Integer, Map<Integer, String>> filterChains= new HashMap<Integer, Map<Integer, String>>();
-		int i = 1;
-		for(SecurityFilterChain secfc :  this.filterChainProxy.getFilterChains()){
-			//filters.put(i++, secfc.getClass().getName());
-			Map<Integer, String> filters = new HashMap<Integer, String>();
-			int j = 1;
-			for(Filter filter : secfc.getFilters()){
-				filters.put(j++, filter.getClass().getName());
-			}
-			filterChains.put(i++, filters);
-		}
-		return filterChains;
-	}
+//	@RequestMapping("/filterchain.do")
+//	public @ResponseBody
+//	Map<Integer, Map<Integer, String>> getSecurityFilterChainProxy(){
+//		Map<Integer, Map<Integer, String>> filterChains= new HashMap<Integer, Map<Integer, String>>();
+//		int i = 1;
+//		for(SecurityFilterChain secfc :  this.filterChainProxy.getFilterChains()){
+//			//filters.put(i++, secfc.getClass().getName());
+//			Map<Integer, String> filters = new HashMap<Integer, String>();
+//			int j = 1;
+//			for(Filter filter : secfc.getFilters()){
+//				filters.put(j++, filter.getClass().getName());
+//			}
+//			filterChains.put(i++, filters);
+//		}
+//		return filterChains;
+//	}
 }

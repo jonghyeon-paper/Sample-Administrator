@@ -31,7 +31,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 			// id 사용(Backoffice Database)
 			UserDetails userDetail = customUserDetailService.loadUserByUsername(auth.getPrincipal().toString());
 			
-			// principal에 사용자 정보를 모두 넣는다.
+			// principal에 사용자 이름이 아닌 사용자 정보를 모두 넣는다.
 			return new UsernamePasswordAuthenticationToken(userDetail, auth.getCredentials(), userDetail.getAuthorities());
 		} else {
 			LOGGER.warn("Bad Credentials");
