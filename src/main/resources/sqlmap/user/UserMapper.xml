@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.skplanet.iba.domain.user.UserMapper">
+
+	<select id="selectList" resultType="com.skplanet.iba.domain.user.User">
+	SELECT USER_ID,
+	       USER_NAME,
+	       USE_STATE
+	  FROM USER
+	<where>
+	  <if test="userId != null and !''.equals(userId)">
+	       USER_ID = #{userId}
+	  </if>
+	  <if test="useState != null and !''.equals(useState)">
+	   AND USE_STATE = #{useState}
+	  </if>
+	</where>
+	</select>
+
+	<select id="selectOne" resultType="com.skplanet.iba.domain.user.User">
+	SELECT USER_ID,
+	       USER_NAME,
+	       USE_STATE
+	  FROM USER
+	<where>
+	  <if test="userId != null and !''.equals(userId)">
+	       USER_ID = #{userId}
+	  </if>
+	  <if test="useState != null and !''.equals(useState)">
+	   AND USE_STATE = #{useState}
+	  </if>
+	</where>
+	</select>
+	
+	<insert id="insert">
+	INSERT INTO USER(
+		USER_ID,
+		USER_NAME,
+		USE_STATE,
+		REG_USER_ID,
+		REG_DATE,
+		MOD_USER_ID,
+		MOD_DATE
+	) VALUES
+	<foreach collection="list" item="item" separator=", ">
+	(
+		#{item.userId},
+		#{item.userName},
+		#{item.useState},
+		#{item.regUserId},
+		NOW(),
+		#{item.modUserId},
+		NOW()
+	)
+	</foreach>
+	</insert>
+	
+	<update id="update">
+	UPDATE USER
+	   <set>
+	    <if test="useState != null and !''.equals(useState)">
+	       USE_STATE = #{useState},
+	    </if>
+	    <if test="modUserId != null and !''.equals(modUserId)">
+	       MOD_USER_ID = #{modUserId},
+	       MOD_DATE = NOW()
+	    </if>
+	   </set>
+	 WHERE USER_ID = #{userId}
+	</update>
+
+	<delete id="delete">
+	DELETE FROM USER
+	 WHERE USER_ID = #{userId}
+	</delete>	
+</mapper>

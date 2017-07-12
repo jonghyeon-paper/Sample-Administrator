@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.skplanet.iba.domain.code.CodeMapper">
+
+	<select id="selectList" resultType="com.skplanet.iba.domain.code.Code">
+	SELECT CODE_ID,
+	       PARENT_CODE_ID,
+	       CODE_NAME,
+	       DESCRIPTION,
+	       USE_STATE
+	  FROM CODE
+	<where>
+	  <if test="codeId != null and !''.equals(codeId)">
+	       CODE_ID = #{codeId}
+	  </if>
+	  <if test="parentCodeId != null and !''.equals(parentCodeId)">
+	   AND PARENT_CODE_ID = #{parentCodeId}
+	  </if>
+	  <if test="useState != null and !''.equals(useState)">
+	   AND USE_STATE = #{useState}
+	  </if>
+	</where>
+	 ORDER BY PARENT_CODE_ID ASC, CODE_ID ASC
+	</select>
+
+	<select id="selectOne" resultType="com.skplanet.iba.domain.code.Code">
+	SELECT CODE_ID,
+	       PARENT_CODE_ID,
+	       CODE_NAME,
+	       DESCRIPTION,
+	       USE_STATE
+	  FROM CODE
+	<where>
+	  <if test="codeId != null and !''.equals(codeId)">
+	       CODE_ID = #{codeId}
+	  </if>
+	  <if test="parentCodeId != null and !''.equals(parentCodeId)">
+	   AND PARENT_CODE_ID = #{parentCodeId}
+	  </if>
+	  <if test="useState != null and !''.equals(useState)">
+	   AND USE_STATE = #{useState}
+	  </if>
+	</where>
+	</select>
+	
+	<insert id="insert">
+	INSERT INTO CODE(
+		CODE_ID,
+		PARENT_CODE_ID,
+		CODE_NAME,
+		DESCRIPTION,
+		USE_STATE,
+		REG_USER_ID,
+		REG_DATE,
+		MOD_USER_ID,
+		MOD_DATE
+	) VALUES
+	<foreach collection="list" item="item" separator=", ">
+	(
+		#{item.codeId},
+		#{item.parentCodeId},
+		#{item.codeName},
+		#{item.description},
+		#{item.useState},
+		#{item.regUserId},
+		NOW(),
+		#{item.modUserId},
+		NOW()
+	)
+	</foreach>
+	</insert>
+	
+	<update id="update">
+	UPDATE CODE
+	   <set>
+	    <if test="codeName != null and !''.equals(codeName)">
+	       CODE_NAME = #{codeName},
+	    </if>
+	    <if test="description != null and !''.equals(description)">
+	       DESCRIPTION = #{description},
+	    </if>
+	    <if test="useState != null and !''.equals(useState)">
+	       USE_STATE = #{useState},
+	    </if>
+	    <if test="modUserId != null and !''.equals(modUserId)">
+	       MOD_USER_ID = #{modUserId},
+	       MOD_DATE = NOW()
+	    </if>
+	   </set>
+	 WHERE CODE_ID = #{codeId}
+	</update>
+
+	<delete id="delete">
+	DELETE FROM CODE
+	 WHERE CODE_ID = #{codeId}
+	</delete>	
+</mapper>
