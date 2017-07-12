@@ -1,2 +1,2 @@
 # maven-Sample-Administrator
-maven-Sample-Administrator
+Sample-Administrator
