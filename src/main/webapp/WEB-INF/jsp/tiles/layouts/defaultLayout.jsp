@@ -9,8 +9,8 @@
 	<title>SK Planet IBAS</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<!-- Common CSS -->
-	<link href="${contextPath }/css/ibas.css" rel="stylesheet" type="text/css">
-	<link href="${contextPath }/css/ibasstyle.css" rel="stylesheet" type="text/css">
+	<link href="${contextPath }/resources/css/ibas.css" rel="stylesheet" type="text/css">
+	<link href="${contextPath }/resources/css/ibasstyle.css" rel="stylesheet" type="text/css">
 	
 	<!--[if IE 7]><link rel="stylesheet" type="text/css" href="/resources/css/styleIE7.css" /><![endif]-->
 	<!--[if lte IE 6]><script type="text/javascript"> location.href='/resources/html/errors/ie6notice.htm';</script><![endif]-->

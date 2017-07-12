@@ -55,7 +55,7 @@
 		
 		<csrf disabled="true"/>
 		
-		<custom-filter ref="filterSecurityInterceptor" before="FILTER_SECURITY_INTERCEPTOR"/>
+<!-- 		<custom-filter ref="filterSecurityInterceptor" before="FILTER_SECURITY_INTERCEPTOR"/> -->
 	</http>
 	
 	<beans:bean id="customAuthenticationProvider" class="com.skplanet.iba.security.authentication.CustomAuthenticationProvider"/>

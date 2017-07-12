@@ -20,17 +20,17 @@ public class LoginController {
 	
 	@RequestMapping("/login.do")
 	public String login() {
-		return "login";
+		return "/login";
 	}
 	
 	@RequestMapping("/main.do")
 	public String main() {
-		return "main";
+		return "/main.page";
 	}
 	
 	@RequestMapping("/denied.do")
 	public String denied() {
-		return "denied";
+		return "/denied";
 	}
 
 //	@RequestMapping("/filterchain.do")

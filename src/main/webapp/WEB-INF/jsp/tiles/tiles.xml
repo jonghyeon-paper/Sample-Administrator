@@ -14,6 +14,9 @@
 	</definition>
 	
 	<!-- page view pattern -->
+	<definition name="/*.page" extends="page-layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}.jsp"/>
+	</definition>
 	<definition name="/*/*.page" extends="page-layout">
 		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}.jsp"/>
 	</definition>
@@ -28,6 +31,9 @@
 	</definition>
 	
 	<!-- part view pattern -->
+	<definition name="/*.part" extends="empty-layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}.jsp"/>
+	</definition>
 	<definition name="/*/*.part" extends="empty-layout">
 		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}.jsp"/>
 	</definition>
