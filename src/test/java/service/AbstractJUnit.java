@@ -1,4 +1,4 @@
-package bo_adm;
+package service;
 
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;

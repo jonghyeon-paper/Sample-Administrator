@@ -1,4 +1,4 @@
-package bo_adm;
+package service;
 
 import java.util.List;
 
