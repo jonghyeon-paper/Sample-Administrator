@@ -1,0 +1,175 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>SK Planet IBAS</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- Common CSS -->
+<link href="css/ibas.css" rel="stylesheet" type="text/css">
+<link href="css/ibasstyle.css" rel="stylesheet" type="text/css">
+
+<!--[if IE 7]><link rel="stylesheet" type="text/css" href="/resources/css/styleIE7.css" /><![endif]-->
+<!--[if lte IE 6]><script type="text/javascript"> location.href='/resources/html/errors/ie6notice.htm';</script><![endif]-->
+<!--[if lt IE 9]><script src="/resources/js/html5.js"></script><![endif]-->
+
+</head>
+<body>
+	<!-- [s]crash logger title -->
+	<div class="ibas_title">
+		<div class="ibas_title_detail">
+			<p class="ibas_txt1">IBAS - Intranet Backoffice & API System</p>
+		</div>
+		<div class="ibas_location">
+		</div>
+	</div>
+	<!-- [e]crash logger title -->
+	<!-- [s]crash logger header -->
+	<header id="ibas_header">
+		<ul class="ibas_menu">
+			<li class="menu">Menu 1</li>
+			<li class="menu">Menu 2</li>
+			<li class="menu">Menu 3</li>
+			<li class="menu">Menu 4</li>
+			<li class="menu">Menu 5</li>
+			<li class="menu">Menu 6</li>
+		</ul>
+
+		<ul class="ibas_mymenu">
+			<li>Logged in as <span class="mymenu_user">1003055</span></li>
+			<li class="menu" >Log-out</li>
+		</ul>
+	</header>
+	<!-- [e]crash logger header -->
+	<article id="mycontent">
+		<!-- START:MAIN Area -->
+
+		<div class="bgbox_develop">
+			<div class="contbox">
+				<!-- [s]content -->
+				<!-- [s]IBAS -->
+
+				<!-- [s]IBAS Graph -->
+				<div class="ibas_graph_wrap">
+
+					<h4 style="margin-top: 0px;">New User</h4>
+
+
+				</div>
+				<!-- [e]IBAS Graph -->
+				<!-- [s]IBAS Table -->
+				<div class="ibas_table_wrap" style="margin-top: -20px;">
+
+
+
+					<input type="hidden" value="1" id="is_add"> <input
+						type="hidden" value="/adm/user/" id="list_url">
+					<form action="/adm/user/add/0" method="post" id="user_form">
+						<table summary="IBAS" class="tbl_write1">
+							<caption style="visibility: hidden; width: 0; height: 0;">Crash
+								Logger Table</caption>
+							<colgroup>
+								<col style="width: 27%">
+								<col style="width: 73%">
+							</colgroup>
+							<tbody>
+								<!-- [s]리스트 반복 부분 -->
+
+								<tr>
+									<th>ID</th>
+									<td class="sort"><input id="tstoreid" name="tstoreid"
+										class="tbox1 size7" type="text" value=""></td>
+								</tr>
+								<!-- [e]리스트 반복 부분 -->
+								<!-- [s]리스트 반복 부분 -->
+								<tr>
+									<th>Name</th>
+									<td class="sort"><input id="name" name="name"
+										class="tbox1 size7" type="text" value=""></td>
+								</tr>
+								<tr>
+									<th>Organization</th>
+									<td class="sort"><input id="organ" name="organ"
+										class="tbox1 size7" type="text" value=""></td>
+								</tr>
+
+								<!-- [e]리스트 반복 부분 -->
+								<!-- [s]리스트 반복 부분 -->
+								<tr>
+									<th>Group</th>
+									<td class="sort"><select title="Group" name="group_code"
+										id="group_code" class="sbox1">
+
+
+
+											<option value="0" title="User">User</option>
+
+
+
+
+
+											<option value="1" title="Visitor">Visitor</option>
+
+
+
+
+
+											<option value="9999" title="Admin">Admin</option>
+
+
+									</select></td>
+								</tr>
+								<!-- [e]리스트 반복 부분 -->
+								<!-- [s]리스트 반복 부분 -->
+
+								<tr>
+									<th>Password</th>
+									<td class="sort"><input id="passwd1" name="passwd1"
+										class="tbox1 size7" type="password" value=""></td>
+								</tr>
+								<!-- [e]리스트 반복 부분 -->
+								<!-- [s]리스트 반복 부분 -->
+								<tr>
+									<th>Password Confirm</th>
+									<td class="sort"><input id="passwd2" name="passwd2"
+										class="tbox1 size7" type="password" value=""></td>
+								</tr>
+
+
+								<!-- [e]리스트 반복 부분 -->
+								<!-- [s]리스트 반복 부분 -->
+
+								<tr>
+									<th>E-mail address</th>
+									<td class="sort"><input id="email" name="email"
+										class="tbox1 size7" type="text" value=""></td>
+								</tr>
+
+								<!-- [e]리스트 반복 부분 -->
+							</tbody>
+						</table>
+					</form>
+					<!-- [e]IBAS Table -->
+
+					<!-- [s]IBAS buttons -->
+					<div class="ibas_btns">
+						<span class="btn6">
+
+
+							<button id="regist" type="submit" value="Submit">Create</button>
+
+
+						</span> <span class="btn10" style="margin-left: 20px;">
+							<button type="button" id="cancel"
+								onclick="location.href='/adm/user/'">Cancel</button>
+						</span>
+					</div>
+					<!-- [e]IBAS buttons -->
+					<!-- [e]content -->
+				</div>
+			</div>
+		</div>
+		<!-- END:MAIN Area -->
+	</article>
+
+</body>
+</html>

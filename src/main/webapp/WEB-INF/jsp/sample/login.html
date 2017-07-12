@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Crash Logger Login</title>
+<link href="css/common.css" type="text/css"  rel="stylesheet" />
+<style type="text/css">
+body {  }
+#container { width: 930px; margin: 0 auto; padding: 0 35px; }
+/*header 영역*/
+#header { position: relative; height: 72px; z-index: 999; }
+#header h1 { float: left; width: 200px; height: 22px; margin: 9px 0 5px 0; font-size: 0; }
+/*컨텐츠 영역*/
+#middle { padding-bottom: 60px; overflow: hidden; min-height: 650px; height: 100%; }
+/*로그인 영역*/
+.loginwrap { position: relative; width: 604px; height: 175px; margin: 0 auto; background:url(img/bg_loginbox_01.gif) no-repeat left top; margin-top:300px; overflow: hidden; }
+.loginwrap dl { width: 240px; margin:30px 0 18px 195px; overflow: hidden; }
+.loginwrap dl dt { width: 67px; padding-top: 8px; float:left; }
+.loginwrap dl dd { padding-bottom: 7px; float:left; }
+.loginwrap dl dd .txtInput { width: 150px; height: 16px; padding: 6px 0 2px 2px; border: 1px solid #DADAF0; background: white; font-size: 12px; }
+.loginwrap p.btn { position: absolute; right: 98px; top: 38px; width: 73px; font: 11px dotum, "돋움"; letter-spacing: -1px; }
+.loginwrap .btn .submit { position: absolute; right: 3px; top: 25px; }
+.loginwrap .help { clear: both; position: relative; padding: 23px 0 23px 42px; background: url(img/bg_loginbox_02.gif) no-repeat left top; }
+.loginwrap .help a { position: absolute; right: 48px; top: 26px; padding: 0 10px 0 0; background: url(img/con_03.gif) no-repeat right 2px; text-decoration: underline; font: normal 11px dotum, "돋움"; letter-spacing: -1px; }
+</style>
+
+</head>
+
+<body>
+<div id="container"> 
+	<!--logo and header menu-->
+	<div id="header">
+		<h1><img src="img/logo_open.png" alt="SKPlanet" " style="cursor: hand;"></h1>
+	</div>
+	<div id="middle">
+		<div class="loginwrap">
+			<dl>
+				<dt>
+					<label for="lb_id1"><img src="img/tit_id.gif" alt="아이디"></label>
+				</dt>
+				<dd>
+					<input type="text" class="txtInput" name="id" id="memberIdLogin" size="22" style="ime-mode: inactive">
+				</dd>
+				<dt>
+					<label for="lb_pw1"><img src="img/tit_pw.gif" alt="패스워드"></label>
+				</dt>
+				<dd>
+					<input type="password" class="txtInput" name="password" id="password" >
+				</dd>
+			</dl>
+				<p class="btn">
+					<a href="html/list.html"><input type="image" src="img/btn_login_02.gif" name="loginBtn" id="loginBtn" alt="로그인" class="submit" style="cursor:pointer;" />
+					</a>
+				</p>
+				
+				<p class="help">
+					<img src="img/txt_help_01.gif"><br>
+					<font color="red">SK Planet 임직원의 경우 10사번, 그외에는 가사번(92등)을 사용하여 로그인해 주세요.</font> 
+				</p>
+		</div>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" 
+	"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions> 
+	
+	<!-- whole page definition -->
+	<!-- page template -->
+	<definition name="page-layout" template="/WEB-INF/jsp/tiles/layouts/defaultLayout.jsp">
+		<put-attribute name="top"      value="/WEB-INF/jsp/tiles/layouts/defaultTop.jsp"/>
+		<put-attribute name="leftmenu" value="/WEB-INF/jsp/tiles/layouts/defaultLeftMenu.jsp"/>
+		<put-attribute name="body"     value="" />
+		<put-attribute name="footer"   value="/WEB-INF/jsp/tiles/layouts/defaultFooter.jsp"/>
+	</definition>
+	
+	<!-- page view pattern -->
+	<definition name="/*/*.page" extends="page-layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}.jsp"/>
+	</definition>
+	<definition name="/*/*/*.page" extends="page-layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}/{3}.jsp"/>
+	</definition>
+	
+	<!-- parts page definition -->
+	<!-- empty template -->
+	<definition name="empty-layout" template="/WEB-INF/jsp/tiles/layouts/emptyLayout.jsp">
+		<put-attribute name="body" value=""/>
+	</definition>
+	
+	<!-- part view pattern -->
+	<definition name="/*/*.part" extends="empty-layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}.jsp"/>
+	</definition>
+	<definition name="/*/*/*.part" extends="empty-layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}/{3}.jsp"/>
+	</definition>
+	
+</tiles-definitions>
