@@ -24,6 +24,18 @@
 	</where>
 	 ORDER BY PARENT_MENU_ID ASC, MENU_ID ASC
 	</select>
+	
+	<select id="selectListByMenuIds" resultType="com.skplanet.iba.domain.menu.Menu">
+	SELECT MENU_ID,
+	       PARENT_MENU_ID,
+	       MENU_NAME,
+	       URI,
+	       DESCRIPTION,
+	       USE_STATE
+	  FROM MENU
+	 WHERE MENU_ID IN (<foreach collection="array" item="item" separator=",">#{item}</foreach>)
+	 ORDER BY PARENT_MENU_ID ASC, MENU_ID ASC
+	</select>
 
 	<select id="selectOne" resultType="com.skplanet.iba.domain.menu.Menu">
 	SELECT MENU_ID,

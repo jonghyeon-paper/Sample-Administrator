@@ -3,6 +3,7 @@ package com.skplanet.iba.domain.user;
 import java.util.List;
 
 import com.skplanet.iba.domain.common.BaseEntity;
+import com.skplanet.iba.domain.menu.Menu;
 import com.skplanet.iba.share.enumdata.UseState;
 
 public class User extends BaseEntity {
@@ -12,6 +13,8 @@ public class User extends BaseEntity {
 	private UseState useState;
 	
 	private List<UserAuthority> userAuthorityList;
+	
+	private Menu accessableMenu;
 	
 	public String getUserId() {
 		return userId;
@@ -36,5 +39,11 @@ public class User extends BaseEntity {
 	}
 	public void setUserAuthorityList(List<UserAuthority> userAuthorityList) {
 		this.userAuthorityList = userAuthorityList;
+	}
+	public Menu getAccessableMenu() {
+		return accessableMenu;
+	}
+	public void setAccessableMenu(Menu accessableMenu) {
+		this.accessableMenu = accessableMenu;
 	}
 }

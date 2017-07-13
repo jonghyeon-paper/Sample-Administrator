@@ -23,6 +23,10 @@ public class MenuService {
 		return menuMapper.selectList(menu);
 	}
 	
+	public List<Menu> retrieveListByMenuIds(Integer... menuIds) {
+		return menuMapper.selectListByMenuIds(menuIds);
+	}
+	
 	@Transactional
 	public Boolean addMenu(List<Menu> menuList) {
 		// 등록,수정자 id 설정
@@ -71,7 +75,7 @@ public class MenuService {
 		return createHierarchyMenu(menuList);
 	}
 	
-	private Menu createHierarchyMenu(List<Menu> menuList) {
+	public Menu createHierarchyMenu(List<Menu> menuList) {
 		Menu dummyTop = new Menu();
 		dummyTop.setMenuId(-1);
 		for (int i = menuList.size() - 1; i > -1; i--) {
