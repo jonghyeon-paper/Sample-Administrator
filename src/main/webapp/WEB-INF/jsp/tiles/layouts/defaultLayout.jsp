@@ -12,6 +12,10 @@
 	<link href="${contextPath }/resources/css/ibas.css" rel="stylesheet" type="text/css">
 	<link href="${contextPath }/resources/css/ibasstyle.css" rel="stylesheet" type="text/css">
 	
+	<script type="text/javascript" src="${contextPath }/resources/js/jquery/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="${contextPath }/resources/js/common/IbaUtil.js"></script>
+	<script type="text/javascript" src="${contextPath }/resources/js/common/PageUtil-0.0.1.js"></script>
+	
 	<!--[if IE 7]><link rel="stylesheet" type="text/css" href="/resources/css/styleIE7.css" /><![endif]-->
 	<!--[if lte IE 6]><script type="text/javascript"> location.href='/resources/html/errors/ie6notice.htm';</script><![endif]-->
 	<!--[if lt IE 9]><script src="/resources/js/html5.js"></script><![endif]-->

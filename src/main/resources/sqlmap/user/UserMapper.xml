@@ -73,5 +73,34 @@
 	<delete id="delete">
 	DELETE FROM USER
 	 WHERE USER_ID = #{userId}
-	</delete>	
+	</delete>
+	
+	<select id="selectPageList" resultType="com.skplanet.iba.domain.user.User">
+	SELECT USER_ID,
+	       USER_NAME,
+	       USE_STATE
+	  FROM USER
+	<where>
+	  <if test="userId != null and !''.equals(userId)">
+	       USER_ID = #{userId}
+	  </if>
+	  <if test="useState != null and !''.equals(useState)">
+	   AND USE_STATE = #{useState}
+	  </if>
+	</where>
+	<include refid="common.page"/>
+	</select>
+	
+	<select id="selectCount" resultType="integer">
+	SELECT COUNT(1)
+	  FROM USER
+	<where>
+	  <if test="userId != null and !''.equals(userId)">
+	       USER_ID = #{userId}
+	  </if>
+	  <if test="useState != null and !''.equals(useState)">
+	   AND USE_STATE = #{useState}
+	  </if>
+	</where>
+	</select>	
 </mapper>

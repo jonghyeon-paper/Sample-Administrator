@@ -22,6 +22,19 @@ public class PagingContents<CONTENT> {
 		this.totalPage = totalPage;
 		this.contents = contents;
 	}
+	
+	/*
+	 * Constructor
+	 * made by jonghyeon.
+	 * history
+	 * - 2017.07.13. added.
+	 */
+	public PagingContents(int page, int countPerPage, List<CONTENT> contents, int totalCount) {
+		this.page = page;
+		this.countPerPage = countPerPage;
+		this.totalPage = (totalCount / countPerPage) + (totalCount % countPerPage == 0 ? 0 : 1);
+		this.contents = contents;
+	}
 
 	public int getPage() {
 		return page;

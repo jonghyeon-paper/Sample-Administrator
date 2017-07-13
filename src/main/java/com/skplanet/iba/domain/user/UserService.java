@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.skplanet.iba.framework.data.PagingContents;
+import com.skplanet.iba.framework.data.PagingRequest;
+
 @Service
 public class UserService {
 
@@ -66,5 +69,19 @@ public class UserService {
 		User user = new User();
 		user.setUserId(userId);
 		return this.removeUser(user);
+	}
+	
+	/**
+	 * 페이지 처리된 user목록 객체를 조회
+	 * @param user
+	 * @param pagingRequest
+	 * @return
+	 */
+	public PagingContents<User> retrievePageList(User user, PagingRequest pagingRequest) {
+		user.setStart(pagingRequest.getStartIndex());
+		user.setOffset(pagingRequest.getCountPerPage());
+		List<User> userList = userMapper.selectPageList(user);
+		Integer userCount = userMapper.selectCount(user);
+		return new PagingContents<User>(pagingRequest.getPage(), pagingRequest.getCountPerPage(), userList, userCount);
 	}
 }

@@ -1,19 +1,25 @@
 package com.skplanet.iba.domain.user;
 
+import java.io.Serializable;
 import java.util.List;
 
-import com.skplanet.iba.domain.common.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.skplanet.iba.domain.common.PageEntity;
 import com.skplanet.iba.domain.menu.Menu;
 import com.skplanet.iba.share.enumdata.UseState;
 
-public class User extends BaseEntity {
+public class User extends PageEntity implements Serializable {
 
+	private static final long serialVersionUID = 6131414886995573263L;
+	
 	private String userId;
 	private String userName;
 	private UseState useState;
 	
+	@JsonIgnore
 	private List<UserAuthority> userAuthorityList;
 	
+	@JsonIgnore
 	private Menu accessableMenu;
 	
 	public String getUserId() {

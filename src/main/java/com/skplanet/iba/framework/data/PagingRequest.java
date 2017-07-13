@@ -32,4 +32,8 @@ public class PagingRequest {
 	public int calcOffset() {
 		return (page - 1) * countPerPage;
 	}
+	
+	public Integer getStartIndex() {
+		return (page - 1) * countPerPage;
+	}
 }
