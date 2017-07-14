@@ -16,6 +16,9 @@ public class UserService {
 	@Autowired
 	private UserMapper userMapper;
 	
+	@Autowired
+	private UserAuthorityService userAuthorityService;
+	
 	public User retrieveUser(User user) {
 		return userMapper.selectOne(user);
 	}
@@ -32,8 +35,20 @@ public class UserService {
 	
 	@Transactional
 	public Boolean addUser(List<User> userList) {
-		// 등록,수정자 id 설정
+		for (User item : userList) {
+			// 등록,수정자 id 설정
+		}
+		// 사용자 정보 등록
 		int insertCount = userMapper.insert(userList);
+		
+		// 사용자 권한 등록
+		if (insertCount > 0) {
+			for (User item : userList) {
+				if (item.getUserAuthorityList() != null && !item.getUserAuthorityList().isEmpty()) {
+					userAuthorityService.addUserAuthority(item.getUserAuthorityList());
+				}
+			}
+		}
 		return insertCount > 0 ? true : false;
 	}
 	
@@ -47,12 +62,26 @@ public class UserService {
 	@Transactional
 	public Boolean editUser(User user) {
 		// 수정자 id 설정
+		
+		// 사용자 정보 수정
 		int updateCount = userMapper.update(user);
+		
+		// 사용자 권한 수정
+		// 기존 권한 제거
+		userAuthorityService.removeUserAuthorityByUserId(user.getUserId());
+		if (user.getUserAuthorityList() != null && !user.getUserAuthorityList().isEmpty()) {
+			// 신규 권한 등록
+			userAuthorityService.addUserAuthority(user.getUserAuthorityList());
+		}
 		return updateCount > 0 ? true : false;
 	}
 	
 	@Transactional
 	public Boolean removeUser(User user) {
+		// 사용자 권한 삭제
+		userAuthorityService.removeUserAuthorityByUserId(user.getUserId());
+		
+		// 사용자 정보 삭제
 		int deleteCount = userMapper.delete(user);
 		return deleteCount > 0 ? true : false;
 	}

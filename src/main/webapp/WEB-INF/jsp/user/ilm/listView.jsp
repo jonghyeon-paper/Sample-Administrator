@@ -227,20 +227,12 @@
 			
 			$('#buttonArea').on('click', '#remove', function(){
 				var $targetArea = $('#userListArea');
-				var userId = $targetArea.find('input:radio[name=user]:checked').val();
-				
-				if (userId === null || userId === undefined || userId === '') {
-					alert('선택된 사용자가 없습니다.');
-					return false;
-				} 
 				
 				var parameters = {
-						userId: userId
+						userId: $targetArea.find('input:radio[name=user]:checked').val()
 				};
 				
-				if (confirm('선택된 사용자를 삭제하시겠습니까?')) {
-					remove(parameters);
-				}
+				remove(parameters);
 			});
 		};
 		
@@ -332,13 +324,12 @@
 			           .submit();
 		};
 		
-		var remove = function(parameters) {
+		var remove = function() {
 			parameters = parameters || {};
 			
 			IbaUtil.jsonAjax('${contextPath}/user/remove.do', parameters, function(reponse){
 				if (reponse.responseCode === 'SUCCESS') {
 					alert(reponse.responseMessage);
-					location.reload();
 				} else {
 					alert(reponse.responseMessage);
 				}

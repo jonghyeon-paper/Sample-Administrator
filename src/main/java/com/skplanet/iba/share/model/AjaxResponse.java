@@ -13,6 +13,7 @@ public class AjaxResponse {
 	}
 	public void setResponseCode(ResponseCode responseCode) {
 		this.responseCode = responseCode;
+		this.responseMessage = responseCode.getDescription();
 	}
 	public String getResponseMessage() {
 		return responseMessage;

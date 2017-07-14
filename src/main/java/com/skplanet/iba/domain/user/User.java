@@ -16,7 +16,6 @@ public class User extends PageEntity implements Serializable {
 	private String userName;
 	private UseState useState;
 	
-	@JsonIgnore
 	private List<UserAuthority> userAuthorityList;
 	
 	@JsonIgnore
