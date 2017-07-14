@@ -9,10 +9,12 @@
 	<title>SK Planet IBAS</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<!-- Common CSS -->
-	<link href="${contextPath }/resources/css/ibas.css" rel="stylesheet" type="text/css">
-	<link href="${contextPath }/resources/css/ibasstyle.css" rel="stylesheet" type="text/css">
+	<link type="text/css" rel="stylesheet" href="${contextPath }/resources/css/ibas.css">
+	<link type="text/css" rel="stylesheet" href="${contextPath }/resources/css/ibasstyle.css">
+	<link type="text/css" rel="stylesheet" href="${contextPath }/resources/js/jquery/jquery-ui-1.12.1.custom/jquery-ui.min.css">
 	
 	<script type="text/javascript" src="${contextPath }/resources/js/jquery/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="${contextPath }/resources/js/jquery/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="${contextPath }/resources/js/common/IbaUtil.js"></script>
 	<script type="text/javascript" src="${contextPath }/resources/js/common/PageUtil-0.0.1.js"></script>
 	

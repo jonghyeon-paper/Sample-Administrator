@@ -18,7 +18,11 @@
 							<tbody>
 								<tr>
 									<th>사번</th>
-									<td class="sort"><input id="userId" name="userId" class="tbox1 size7" type="text" value="" readonly></td>
+									<td class="sort">
+										<input id="userId" name="userId" class="tbox1 size7" type="text" value="" readonly>
+										<input type="button" value="사용자 검색" id="ilmUserSearch">
+									</td>
+									
 								</tr>
 								<tr>
 									<th>이름</th>
@@ -50,12 +54,56 @@
 		</div>
 	</article>
 	
+	<div style="display: none;" id="ilmUserLayer">
+		<div id="ilmUserSearchArea">
+			<input type="text" id="hname">
+			<input type="button" id="search" value="검색">
+		</div>
+		
+		<div style="width: 580px; height:290px; overflow:auto;" id="ilmUserListArea">
+			<table class="tbl_list1">
+				<colgroup>
+					<col width="10%">
+					<col width="30%">
+					<col width="30%">
+					<col width="30%">
+				</colgroup>
+				<thead></thead>
+				<tbody>
+					<tr>
+						<th>선택</th>
+						<th>이름</th>
+						<th>사번</th>
+						<th>부서</th>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
+		<div id="ilmUserButtonArea">
+			<input type="button" id="confirm" value="확인">
+			<input type="button" id="cancel" value="취소">
+		</div>
+	</div>
+	
 	<script type="text/javascript">
 	var userId = '<c:out value="${user.userId}"/>';
 	
 	var user = (function(){
 		var initialize = function() {
-			loadUserInfo({userId: userId});
+			if (userId) {
+				loadUserInfo({userId: userId});
+			}
+			
+			$('#userInfoArea').on('click', '#ilmUserSearch', function() {
+				// 사용자 검색 레이어 팝업
+				$("#ilmUserLayer").dialog({
+					title: '사용자 검색',
+					modal: true,
+					width: '600',
+					height: '400'
+				});
+			});
 			
 			$('#buttonArea').on('click', '#save', function(){
 				var $targetArea = $('#userInfoArea');
@@ -81,7 +129,9 @@
 			});
 			
 			$('#buttonArea').on('click', '#cancel', function(){
-				cancel();
+				$('<form>').attr({action: '${contextPath}/user/listview.do', method: 'get'})
+				           .appendTo('body')
+				           .submit();
 			});
 		};
 		
@@ -97,9 +147,9 @@
 		var applyUserInfo = function(data) {
 			var $targetArea = $('#userInfoArea');
 			
-			$targetArea .find('#userId').val(data.userId);
-			$targetArea .find('#userName').val(data.userName);
-			$targetArea .find('#department').val(data.department);
+			$targetArea.find('#userId').val(data.userId);
+			$targetArea.find('#userName').val(data.userName);
+			$targetArea.find('#department').val(data.department);
 		};
 		
 		var applyUserAuthority = function(data) {
@@ -141,15 +191,10 @@
 			});
 		};
 		
-		var cancel = function() {
-			$('<form>').attr({action: '${contextPath}/user/listview.do', method: 'get'})
-			           .appendTo('body')
-			           .submit();
-		};
-		
 		return {
 			initialize: initialize,
-			loadUserInfo: loadUserInfo
+			loadUserInfo: loadUserInfo,
+			applyUserInfo: applyUserInfo
 		};
 	}());
 	
@@ -193,17 +238,110 @@
 		};
 	}());
 	
-	$(function(){
-		if (userId === null || userId === undefined || userId === '') {
-			// add mode
-			authority.initialize();
+	var ilmUser = (function(){
+		var initialize = function() {
+			//loadUserList();
 			
-			// 사용자 검색 레이어 팝업
-			alert('사용자 검색 기능 미구현');
-		} else {
-			// edit mode
-			authority.initialize();
-			user.initialize();
-		}
+			$('#ilmUserSearchArea').on('click', '#search', function(){
+				var parameters = {
+						hname: $('#ilmUserSearchArea').find('#hname').val()
+				};
+				
+				if (parameters.hname === null ||
+						parameters.hname === undefined ||
+						parameters.hname === '') {
+					alert('이름을 입력해 주세요.');
+					return false;
+				}
+				
+				loadUserList(parameters);
+			});
+			
+			$('#ilmUserButtonArea').on('click', '#confirm', function(){
+				var ilmUserDataObject = $('#ilmUserListArea').find('input:radio:checked').data('ilmUserInfo');
+				
+				if (ilmUserDataObject === null ||
+					ilmUserDataObject === undefined ||
+					ilmUserDataObject === '') {
+					alert('선택된 사용자가 없습니다.');
+					return false;
+				}
+				
+				var parameters = {
+						userId: ilmUserDataObject.empno,
+						userName: ilmUserDataObject.hname,
+						department: ilmUserDataObject.deptnm,
+						useState: 'USE'
+				};
+				user.applyUserInfo(parameters);
+				$("#ilmUserLayer").dialog('close');
+			});
+			
+			$('#ilmUserButtonArea').on('click', '#cancel', function(){
+				$("#ilmUserLayer").dialog('close');
+			});
+		};
+		
+		var loadUserList = function(parameters){
+			parameters = parameters || {};
+			
+			IbaUtil.jsonAjax('${contextPath}/ilmuser/list.do', parameters, function(reponse){
+				var $targetArea = $('#ilmUserListArea').empty();
+				
+				var $userListObject = drawUserListObject(reponse);
+				$userListObject.appendTo($targetArea);
+			});
+		};
+		
+		var drawUserListObject= function(data){
+			var $table = $('<table>').addClass('tbl_list1');
+			
+			var $colgroup = $('<colgroup>').appendTo($table);
+			$colgroup.append($('<col>').attr({width: '10%'}))
+			         .append($('<col>').attr({width: '30%'}))
+			         .append($('<col>').attr({width: '30%'}))
+			         .append($('<col>').attr({width: '30%'}))
+			
+			var $thead = $('<thead>').appendTo($table);
+			
+			var $tbody = $('<tbody>').appendTo($table);
+			
+			var $titleTr = $('<tr>').appendTo($tbody);
+			$titleTr.append($('<th>').html('선택'))
+			        .append($('<th>').html('이름'))
+			        .append($('<th>').html('사번'))
+			        .append($('<th>').html('부서'))
+			
+			var userList = data;
+			for (let item of userList) {
+				var $tr = $('<tr>').data('user-info', item)
+				                   .appendTo($tbody);
+				
+				$('<td>').addClass('txt1')
+				         .append($('<input>').attr({type: 'radio', name: 'user'}).data('ilm-user-info', item))
+				         .appendTo($tr);
+				$('<td>').addClass('txt1')
+				         .html(item.hname)
+				         .appendTo($tr);
+				$('<td>').addClass('txt1')
+				         .html(item.empno)
+				         .appendTo($tr);
+				$('<td>').addClass('txt1')
+				         .html(item.deptnm)
+				         .appendTo($tr);
+			}
+			
+			return $table;
+		};
+		
+		return {
+			initialize: initialize
+		};
+	}());
+	
+	$(function(){
+		authority.initialize();
+		ilmUser.initialize();
+		user.initialize();
 	});
 	</script>

@@ -10,7 +10,7 @@
 	  FROM INF_PERSON_INFO_RCV
 	<where>
 	  <if test="hname != null and !''.equals(hname)">
-	       EMPNO = #{hname}
+	       HNAME LIKE CONCAT('%', #{hname}, '%')
 	  </if>
 	</where>
 	</select>

@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<<script>
+function go_ticket(){
+	window.location.href = '${contextPath}/ticket/listView.do';
+}
+</script>
 	<!-- [s]crash logger title -->
 	<div class="ibas_title">
 		<div class="ibas_title_detail">
@@ -12,12 +16,15 @@
 	<!-- [s]crash logger header -->
 	<header id="ibas_header">
 		<ul class="ibas_menu">
-			<li class="menu">Menu 1</li>
-			<li class="menu">Menu 2</li>
-			<li class="menu">Menu 3</li>
-			<li class="menu">Menu 4</li>
-			<li class="menu">Menu 5</li>
-			<li class="menu">Menu 6</li>
+			<li class="menu">
+				<a href="${contextPath}/user/listview.do">사용자관리</a>
+			</li>
+			<li class="menu">
+				<a href="${contextPath}/code/view.do">코드관리</a>
+			</li>
+			<li class="menu" onClick="go_ticket();">IT요청현황</li>
+			<li class="menu">단말기관리</li>
+			<li class="menu">통신사관리</li>
 		</ul>
 
 		<ul class="ibas_mymenu">
