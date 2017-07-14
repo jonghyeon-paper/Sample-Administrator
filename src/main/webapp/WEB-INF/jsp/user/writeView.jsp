@@ -8,8 +8,8 @@
 					<h4 style="margin-top: 0px;">사용자 정보</h4>
 				</div>
 				
-				<div class="ibas_table_wrap" style="margin-top: -20px;" id="userInfoArea">
-					<div style="float: left; width: 70%; padding: 1px;">
+				<div class="ibas_table_wrap" style="margin-top: -20px;">
+					<div style="float: left; width: 70%; padding: 1px;" id="userInfoArea">
 						<table class="tbl_write1">
 							<colgroup>
 								<col style="width: 27%">

@@ -61,4 +61,44 @@ public class CodeService {
 		code.setCodeId(codeId);
 		return this.removeCode(code);
 	}
+	
+	public Code getHierarchyCode(Code code) {
+		List<Code> codeList = this.retrieveList(code);
+		return createHierarchyCode(codeList);
+	}
+	
+	public Code createHierarchyCode(List<Code> codeList) {
+		Code dummyTop = new Code();
+		dummyTop.setCodeName("TOP");
+		dummyTop.setDescription("최상위 코드");
+		for (int i = codeList.size() - 1; i > -1; i--) {
+			Code temporary = codeList.get(i);
+			if (temporary.getParentCodeId() != null && !"".equals(temporary.getParentCodeId())) {
+				for (int j = codeList.size() - 2; j > -1; j--) {
+					Code target = codeList.get(j);
+					if (target.getCodeId().equals(temporary.getParentCodeId())) {
+						target.getChildCode().add(temporary);
+						break;
+					}
+				}
+			} else {
+				dummyTop.getChildCode().add(temporary);
+			}
+			codeList.remove(i);
+		}
+		sortHierarchyCode(dummyTop);
+		return dummyTop;
+	}
+	
+	private void sortHierarchyCode(Code code) {
+		if (code.hasChildCode()) {
+			List<Code> codeList = code.getChildCode();
+			List<Code> sortedCodeList = new ArrayList<>();
+			for (int i = codeList.size() - 1; i > -1; i--) {
+				sortHierarchyCode(codeList.get(i));
+				sortedCodeList.add(codeList.get(i));
+			}
+			code.setChildCode(sortedCodeList);
+		}
+	}
 }

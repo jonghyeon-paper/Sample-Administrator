@@ -1,5 +1,8 @@
 package com.skplanet.iba.domain.code;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.skplanet.iba.domain.common.BaseEntity;
 import com.skplanet.iba.share.enumdata.UseState;
 
@@ -10,6 +13,9 @@ public class Code extends BaseEntity {
 	String codeName;
 	String description;
 	UseState useState;
+	
+	List<Code> childCode;
+	
 	public String getCodeId() {
 		return codeId;
 	}
@@ -40,5 +46,22 @@ public class Code extends BaseEntity {
 	public void setUseState(UseState useState) {
 		this.useState = useState;
 	}
-	
+	public List<Code> getChildCode() {
+		if (this.childCode == null) {
+			this.childCode = new ArrayList<>();
+		}
+		return childCode;
+	}
+	public void setChildCode(List<Code> childCode) {
+		this.childCode = childCode;
+	}
+	public void addChildCode(Code code) {
+		if (this.childCode == null) {
+			this.childCode = new ArrayList<>();
+		}
+		this.childCode.add(code);
+	}
+	public boolean hasChildCode() {
+		return this.childCode != null && this.childCode.size() > 0;
+	}
 }

@@ -24,7 +24,7 @@ public class CodeController {
 	
 	@GetMapping("/view.do")
 	public String view() {
-		return "/code/view";
+		return "/code/view.page";
 	}
 	
 	@PostMapping("/info.do")
@@ -70,5 +70,11 @@ public class CodeController {
 		response.setResponseCode(flag ? ResponseCode.SUCCESS : ResponseCode.FAIL);
 		response.setResponseMessage(response.getResponseCode().getDescription());
 		return response;
+	}
+	
+	@PostMapping("/hierarchy.do")
+	@ResponseBody
+	public Code getHierarchyCode(@RequestBody Code code) {
+		return codeService.getHierarchyCode(code);
 	}
 }

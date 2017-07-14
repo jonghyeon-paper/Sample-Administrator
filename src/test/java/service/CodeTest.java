@@ -82,4 +82,10 @@ public class CodeTest extends AbstractJUnit {
 		codeuService.removeCodeByCodeId(T0001);
 		codeuService.removeCodeByCodeId(T0000);
 	}
+	
+	@Test
+	public void hierarchy() {
+		Code result = codeuService.getHierarchyCode(new Code());
+		print(result);
+	}
 }
