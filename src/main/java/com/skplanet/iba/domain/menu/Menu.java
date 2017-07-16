@@ -1,13 +1,16 @@
 package com.skplanet.iba.domain.menu;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.skplanet.iba.domain.common.BaseEntity;
 import com.skplanet.iba.share.enumdata.UseState;
 
-public class Menu extends BaseEntity {
+public class Menu extends BaseEntity implements Serializable {
 
+	private static final long serialVersionUID = -5063771347758618898L;
+	
 	private Integer menuId;
 	private Integer parentMenuId;
 	private String menuName;
