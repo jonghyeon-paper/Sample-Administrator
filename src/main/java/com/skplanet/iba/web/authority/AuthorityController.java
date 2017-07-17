@@ -24,7 +24,7 @@ public class AuthorityController {
 	
 	@GetMapping("/view.do")
 	public String view() {
-		return "/authority/view";
+		return "/authority/view.page";
 	}
 	
 	@PostMapping("/info.do")
@@ -46,7 +46,6 @@ public class AuthorityController {
 		
 		AjaxResponse response = new AjaxResponse();
 		response.setResponseCode(flag ? ResponseCode.SUCCESS : ResponseCode.FAIL);
-		response.setResponseMessage(response.getResponseCode().getDescription());
 		return response;
 	}
 	
@@ -57,7 +56,6 @@ public class AuthorityController {
 		
 		AjaxResponse response = new AjaxResponse();
 		response.setResponseCode(flag ? ResponseCode.SUCCESS : ResponseCode.FAIL);
-		response.setResponseMessage(response.getResponseCode().getDescription());
 		return response;
 	}
 	
@@ -68,7 +66,6 @@ public class AuthorityController {
 		
 		AjaxResponse response = new AjaxResponse();
 		response.setResponseCode(flag ? ResponseCode.SUCCESS : ResponseCode.FAIL);
-		response.setResponseMessage(response.getResponseCode().getDescription());
 		return response;
 	}
 }

@@ -17,10 +17,13 @@ function go_ticket(){
 	<header id="ibas_header">
 		<ul class="ibas_menu">
 			<li class="menu">
-				<a href="${contextPath}/user/listview.do">사용자관리</a>
+				<a href="${contextPath}/user/listview.do" style="color: #fff;">사용자 관리</a>
 			</li>
 			<li class="menu">
-				<a href="${contextPath}/code/view.do">코드관리</a>
+				<a href="${contextPath}/code/view.do" style="color: #fff;">코드 관리</a>
+			</li>
+			<li class="menu">
+				<a href="${contextPath}/authority/view.do" style="color: #fff;">권한 관리</a>
 			</li>
 			<li class="menu" onClick="go_ticket();">IT요청현황</li>
 			<li class="menu">단말기관리</li>
