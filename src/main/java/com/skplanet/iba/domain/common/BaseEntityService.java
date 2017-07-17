@@ -76,9 +76,8 @@ public class BaseEntityService<ENTITY_TYPE extends BaseEntity, ENTITY_MAPPER ext
 	
 	public PagingContents<ENTITY_TYPE> selectPage(PagingRequest pagingRequest, ENTITY_TYPE entity) {
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
-		
-		PageParameter pageParameter = new PageParameter((pagingRequest.getPage() - 1) * pagingRequest.getCountPerPage(), pagingRequest.getCountPerPage());
-		parameterMap.put("pageParameter", pageParameter);
+		parameterMap.put("start", pagingRequest.getStartIndex());
+		parameterMap.put("offset", pagingRequest.getCountPerPage());
 		
 		if (entity != null) {
 			Pattern pattern = Pattern.compile("^get[\\w]{1}");
@@ -99,7 +98,7 @@ public class BaseEntityService<ENTITY_TYPE extends BaseEntity, ENTITY_MAPPER ext
 				}
 			}
 		}
-		System.out.println("parameterMap > " + parameterMap.toString());
+		
 		List<ENTITY_TYPE> entities = entityMapper.selectPage(parameterMap);
 		return createPagingContents(null, parameterMap, pagingRequest, entities);
 	}
