@@ -93,6 +93,7 @@ public class UserController {
 	@RequestMapping(value = "/list.do", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
 	@ResponseBody
 	public PagingContents<User> getUserList(User user, PagingRequest pagingRequest) {
-		return userService.retrievePageList(user, pagingRequest);
+		//return userService.retrievePageList(user, pagingRequest);
+		return userService.selectPage(pagingRequest, user);
 	}
 }

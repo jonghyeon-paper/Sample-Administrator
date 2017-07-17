@@ -13,9 +13,12 @@ public class UserPageTest extends AbstractJUnit {
 	@Autowired
 	public UserService userService;
 	
-	//@Test
+	@Test
 	public void get() {
-		PagingContents<User> result = userService.retrievePageList(new User(), new PagingRequest(1, 15));
+//		PagingContents<User> result = userService.retrievePageList(new User(), new PagingRequest(1, 15));
+		User params = new User();
+		params.setUserId("TestSuperUser@partner.sk.com");
+		PagingContents<User> result = userService.selectPage(new PagingRequest(1, 15), params);
 		print(result);
 	}
 	

@@ -81,7 +81,7 @@
 	 WHERE USER_ID = #{userId}
 	</delete>
 	
-	<select id="selectPageList" resultType="com.skplanet.iba.domain.user.User">
+	<select id="selectPage" resultType="com.skplanet.iba.domain.user.User">
 	SELECT USER_ID,
 	       USER_NAME,
 	       USE_STATE
@@ -97,7 +97,7 @@
 	<include refid="common.page"/>
 	</select>
 	
-	<select id="selectCount" resultType="integer">
+	<select id="selectTotalCount" resultType="integer">
 	SELECT COUNT(1)
 	  FROM USER
 	<where>

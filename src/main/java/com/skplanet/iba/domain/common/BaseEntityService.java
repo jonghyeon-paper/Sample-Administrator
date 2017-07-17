@@ -1,18 +1,29 @@
 package com.skplanet.iba.domain.common;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 
 import com.skplanet.iba.domain.user.User;
-import com.skplanet.iba.framework.data.MapperParameter;
-import com.skplanet.iba.framework.data.MapperParameter.Builder;
+import com.skplanet.iba.framework.data.PageParameter;
 import com.skplanet.iba.framework.data.PagingContents;
 import com.skplanet.iba.framework.data.PagingRequest;
 
-public class BaseEntityService<ENTITY_TYPE extends BaseEntity, ENTITY_MAPPER extends BaseEntityMapper<ENTITY_TYPE>>  {
+public class BaseEntityService<ENTITY_TYPE extends BaseEntity, ENTITY_MAPPER extends BaseEntityMapper<ENTITY_TYPE>> {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(BaseEntityService.class);
+	
 	@Autowired
 	ENTITY_MAPPER entityMapper;
 
@@ -39,14 +50,58 @@ public class BaseEntityService<ENTITY_TYPE extends BaseEntity, ENTITY_MAPPER ext
 	}
 	
 	public List<ENTITY_TYPE> selectList(User user, ENTITY_TYPE entity) {
-		return entityMapper.selectList(entity);
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+		
+		parameterMap.put("pageParameter", new PageParameter(0, 0));
+		if (entity != null) {
+			String key = toCamelCase(entity.getClass().getSimpleName());
+			parameterMap.put(key, entity);
+		}
+		
+		return entityMapper.selectList(parameterMap);
 	}
 
-	public PagingContents<ENTITY_TYPE> selectPageList(User user, PagingRequest pagingRequest, ENTITY_TYPE entity) {
-		Builder builder = MapperParameter.newBuilder();		
-		builder.withPage(pagingRequest.getPage() - 1, pagingRequest.getCountPerPage());
-		List<ENTITY_TYPE> entities = entityMapper.selectPageList(builder.build());
-		return createPagingContents(user, builder.build(), pagingRequest, entities);
+	public PagingContents<ENTITY_TYPE> selectList(User user, PagingRequest pagingRequest, ENTITY_TYPE entity) {
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+		
+		parameterMap.put("pageParameter", new PageParameter((pagingRequest.getPage() - 1) * pagingRequest.getCountPerPage(), pagingRequest.getCountPerPage()));
+		if (entity != null) {
+			String key = toCamelCase(entity.getClass().getSimpleName());
+			parameterMap.put(key, entity);
+		}
+		List<ENTITY_TYPE> entities = entityMapper.selectList(parameterMap);
+		
+		return createPagingContents(user, parameterMap, pagingRequest, entities);
+	}
+	
+	public PagingContents<ENTITY_TYPE> selectPage(PagingRequest pagingRequest, ENTITY_TYPE entity) {
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+		
+		PageParameter pageParameter = new PageParameter((pagingRequest.getPage() - 1) * pagingRequest.getCountPerPage(), pagingRequest.getCountPerPage());
+		parameterMap.put("pageParameter", pageParameter);
+		
+		if (entity != null) {
+			Pattern pattern = Pattern.compile("^get[\\w]{1}");
+			Matcher matcher = null;
+			Method[] methods = entity.getClass().getDeclaredMethods();
+			for (Method method : methods) {
+				matcher = pattern.matcher(method.getName().toString());
+				if (matcher.find()) {
+					try {
+						String variableName = matcher.replaceAll(matcher.group().replaceAll("^get", "").toLowerCase());
+						Object variableValue = method.invoke(entity);
+						parameterMap.put(variableName, variableValue);
+					} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+						//e.printStackTrace();
+						LOGGER.error(e.getMessage());
+						throw new RuntimeException("parameter bind exception!!");
+					}
+				}
+			}
+		}
+		System.out.println("parameterMap > " + parameterMap.toString());
+		List<ENTITY_TYPE> entities = entityMapper.selectPage(parameterMap);
+		return createPagingContents(null, parameterMap, pagingRequest, entities);
 	}
 	
 	public ENTITY_TYPE selectOne(User user, ENTITY_TYPE entity) {
@@ -66,34 +121,21 @@ public class BaseEntityService<ENTITY_TYPE extends BaseEntity, ENTITY_MAPPER ext
 	public void delete(User user, ENTITY_TYPE entity) {
 		entityMapper.delete(entity);
 	}
-	
-	protected PagingRequest createPageRequest(PagingRequest pagingRequest) {
-		return new PagingRequest(pagingRequest.getPage() - 1, pagingRequest.getCountPerPage());
-	}
 
-	protected PagingContents<ENTITY_TYPE> createPagingContents(User user, MapperParameter mapperParameter, PagingRequest pagingRequest, List<ENTITY_TYPE> entities) {
-		return createPagingContents(pagingRequest, getTotalPageByMapperParameter(user, pagingRequest.getCountPerPage(), mapperParameter), entities);
+	protected PagingContents<ENTITY_TYPE> createPagingContents(User user, Map<String, Object> parameterMap, PagingRequest pagingRequest, List<ENTITY_TYPE> entities) {
+		return createPagingContents(pagingRequest, getTotalPageByMapperParameter(user, pagingRequest.getCountPerPage(), parameterMap), entities);
 	}
 	
 	protected PagingContents<ENTITY_TYPE> createPagingContents(PagingRequest pagingRequest, int totalPage, List<ENTITY_TYPE> entities) {
 		return new PagingContents<ENTITY_TYPE>(pagingRequest.getPage(), pagingRequest.getCountPerPage(), totalPage, entities);
 	}
 	
-	protected int getTotalPage(User user, int countPerPage) {
-		return getTotalPage(user, countPerPage, null);
-	}
-
-	protected <SEARCH_PARAMETER> int getTotalPage(User user, int countPerPage, SEARCH_PARAMETER searchParameter) {
-		Builder builder = MapperParameter.newBuilder();
-		builder.with("countPerPage", countPerPage);
-		if (searchParameter != null) {
-			builder.with(searchParameter);
-		}
-		return getTotalPageByMapperParameter(user, countPerPage, builder.build());
-	}
-
-	protected int getTotalPageByMapperParameter(User user, int countPerPage, MapperParameter mapperParameter) {
-		int totalCount = entityMapper.selectTotalCount(mapperParameter);
+	protected int getTotalPageByMapperParameter(User user, int countPerPage, Map<String, Object> parameterMap) {
+		int totalCount = entityMapper.selectTotalCount(parameterMap);
 		return (int) (totalCount / countPerPage) + (totalCount % countPerPage == 0 ? 0 : 1);
+	}
+	
+	private String toCamelCase(String target) {
+		return StringUtils.uncapitalize(target);
 	}
 }

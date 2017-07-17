@@ -7,11 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.skplanet.iba.domain.common.BaseEntityService;
 import com.skplanet.iba.framework.data.PagingContents;
 import com.skplanet.iba.framework.data.PagingRequest;
 
 @Service
-public class UserService {
+public class UserService extends BaseEntityService<User, UserMapper> {
 
 	@Autowired
 	private UserMapper userMapper;
@@ -106,11 +107,11 @@ public class UserService {
 	 * @param pagingRequest
 	 * @return
 	 */
-	public PagingContents<User> retrievePageList(User user, PagingRequest pagingRequest) {
-		user.setStart(pagingRequest.getStartIndex());
-		user.setOffset(pagingRequest.getCountPerPage());
-		List<User> userList = userMapper.selectPageList(user);
-		Integer userCount = userMapper.selectCount(user);
-		return new PagingContents<User>(pagingRequest.getPage(), pagingRequest.getCountPerPage(), userList, userCount);
-	}
+//	public PagingContents<User> retrievePageList(User user, PagingRequest pagingRequest) {
+//		user.setStart(pagingRequest.getStartIndex());
+//		user.setOffset(pagingRequest.getCountPerPage());
+//		List<User> userList = userMapper.selectPageList(user);
+//		Integer userCount = userMapper.selectCount(user);
+//		return new PagingContents<User>(pagingRequest.getPage(), pagingRequest.getCountPerPage(), userList, userCount);
+//	}
 }
