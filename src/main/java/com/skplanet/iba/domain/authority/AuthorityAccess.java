@@ -3,7 +3,7 @@ package com.skplanet.iba.domain.authority;
 import com.skplanet.iba.domain.authority.enumdata.AccessMode;
 import com.skplanet.iba.domain.common.BaseEntity;
 
-public class AuthorityAccessMode extends BaseEntity {
+public class AuthorityAccess extends BaseEntity {
 
 	private String authorityId;
 	private AccessMode accessMode;

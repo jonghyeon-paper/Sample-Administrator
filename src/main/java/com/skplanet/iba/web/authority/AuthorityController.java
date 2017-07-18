@@ -1,6 +1,8 @@
 package com.skplanet.iba.web.authority;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.skplanet.iba.domain.authority.Authority;
 import com.skplanet.iba.domain.authority.AuthorityService;
+import com.skplanet.iba.domain.authority.enumdata.AccessMode;
 import com.skplanet.iba.share.enumdata.ResponseCode;
 import com.skplanet.iba.share.model.AjaxResponse;
 
@@ -67,5 +70,15 @@ public class AuthorityController {
 		AjaxResponse response = new AjaxResponse();
 		response.setResponseCode(flag ? ResponseCode.SUCCESS : ResponseCode.FAIL);
 		return response;
+	}
+	
+	@PostMapping("/access/list.do")
+	@ResponseBody
+	public List<Map<String, String>> getAuthorityList() {
+		List<Map<String, String>> list = new ArrayList<>();
+		for (AccessMode item : AccessMode.values()) {
+			list.add(item.getJson());
+		}
+		return list;
 	}
 }

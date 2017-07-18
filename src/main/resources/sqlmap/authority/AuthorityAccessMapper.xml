@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.skplanet.iba.domain.authority.AuthorityAccessModeMapper">
+<mapper namespace="com.skplanet.iba.domain.authority.AuthorityAccessMapper">
 
-	<select id="selectList" resultType="com.skplanet.iba.domain.authority.AuthorityAccessMode">
+	<select id="selectList" resultType="com.skplanet.iba.domain.authority.AuthorityAccess">
 	SELECT AUTHORITY_ID,
 	       ACCESS_MODE
-	  FROM AUTHORITY_ACCESS_MODE
+	  FROM AUTHORITY_ACCESS
 	<where>
 	  <if test="authorityId != null and !''.equals(authorityId)">
 	       AUTHORITY_ID = #{authorityId}
@@ -17,10 +17,10 @@
 	</where>
 	</select>
 
-	<select id="selectOne" resultType="com.skplanet.iba.domain.authority.AuthorityAccessMode">
+	<select id="selectOne" resultType="com.skplanet.iba.domain.authority.AuthorityAccess">
 	SELECT AUTHORITY_ID,
 	       ACCESS_MODE
-	  FROM AUTHORITY_ACCESS_MODE
+	  FROM AUTHORITY_ACCESS
 	<where>
 	  <if test="authorityId != null and !''.equals(authorityId)">
 	       AUTHORITY_ID = #{authorityId}
@@ -32,7 +32,7 @@
 	</select>
 	
 	<insert id="insert">
-	INSERT INTO AUTHORITY_ACCESS_MODE(
+	INSERT INTO AUTHORITY_ACCESS(
 		AUTHORITY_ID,
 		ACCESS_MODE,
 		REG_USER_ID,
@@ -49,7 +49,7 @@
 	</insert>
 	
 	<delete id="delete">
-	DELETE FROM AUTHORITY_ACCESS_MODE
+	DELETE FROM AUTHORITY_ACCESS
 	 WHERE AUTHORITY_ID = #{authorityId}
 	  <if test="accessMode != null and !''.equals(accessMode)">
 	   AND ACCESS_MODE = #{accessMode}

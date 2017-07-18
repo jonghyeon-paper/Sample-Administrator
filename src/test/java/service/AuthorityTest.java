@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.skplanet.iba.domain.authority.Authority;
-import com.skplanet.iba.domain.authority.AuthorityAccessMode;
-import com.skplanet.iba.domain.authority.AuthorityAccessModeService;
+import com.skplanet.iba.domain.authority.AuthorityAccess;
+import com.skplanet.iba.domain.authority.AuthorityAccessService;
 import com.skplanet.iba.domain.authority.AuthorityMenu;
 import com.skplanet.iba.domain.authority.AuthorityMenuService;
 import com.skplanet.iba.domain.authority.AuthorityService;
@@ -29,7 +29,7 @@ public class AuthorityTest extends AbstractJUnit {
 	private AuthorityMenuService authorityMenuService;
 	
 	@Autowired
-	private AuthorityAccessModeService authorityAccessModeService;
+	private AuthorityAccessService authorityAccessModeService;
 	
 	@Autowired
 	private MenuService menuService;
@@ -69,23 +69,23 @@ public class AuthorityTest extends AbstractJUnit {
 		}
 		
 		// Add authority access mode
-		AuthorityAccessMode readMode = new AuthorityAccessMode();
+		AuthorityAccess readMode = new AuthorityAccess();
 		readMode.setAuthorityId(AUTHORITY_ID);
 		readMode.setAccessMode(AccessMode.READ);
 		
-		AuthorityAccessMode writedMode = new AuthorityAccessMode();
+		AuthorityAccess writedMode = new AuthorityAccess();
 		writedMode.setAuthorityId(AUTHORITY_ID);
 		writedMode.setAccessMode(AccessMode.WRITE);
 		
-		AuthorityAccessMode excuteMode = new AuthorityAccessMode();
+		AuthorityAccess excuteMode = new AuthorityAccess();
 		excuteMode.setAuthorityId(AUTHORITY_ID);
 		excuteMode.setAccessMode(AccessMode.EXCUTE);
 		
-		List<AuthorityAccessMode> authorityAccessModeList = new ArrayList<>();
+		List<AuthorityAccess> authorityAccessModeList = new ArrayList<>();
 		authorityAccessModeList.add(readMode);
 		authorityAccessModeList.add(writedMode);
 		authorityAccessModeList.add(excuteMode);
-		authorityAccessModeService.addAuthorityAccessMode(authorityAccessModeList);
+		authorityAccessModeService.addAuthorityAccess(authorityAccessModeList);
 		
 		Authority authoritySearchCondition = new Authority();
 		authoritySearchCondition.setAuthorityId(AUTHORITY_ID);
@@ -106,7 +106,7 @@ public class AuthorityTest extends AbstractJUnit {
 	
 	//@Test
 	public void remove() {
-		authorityAccessModeService.removeAuthorityAccessModeByAuthorityId(AUTHORITY_ID);
+		authorityAccessModeService.removeAuthorityAccessByAuthorityId(AUTHORITY_ID);
 		authorityMenuService.removeAuthorityMenuByAuthorityId(AUTHORITY_ID);
 		authorityService.removeAuthorityByAuthorityId(AUTHORITY_ID);
 		

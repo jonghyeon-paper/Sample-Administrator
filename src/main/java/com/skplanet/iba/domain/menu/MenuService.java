@@ -68,15 +68,16 @@ public class MenuService {
 		return this.removeMenu(menu);
 	}
 	
-	public Menu getHierarchyMenu() {
+	public Menu getMenuHierarchy() {
 		Menu conditon = new Menu();
 		conditon.setUseState(UseState.USE);
 		List<Menu> menuList = this.retrieveList(conditon);
-		return createHierarchyMenu(menuList);
+		return createMenuHierarchy(menuList);
 	}
 	
-	public Menu createHierarchyMenu(List<Menu> menuList) {
+	public Menu createMenuHierarchy(List<Menu> menuList) {
 		Menu dummyTop = new Menu();
+		dummyTop.setMenuName("TOP");
 		dummyTop.setMenuId(-1);
 		for (int i = menuList.size() - 1; i > -1; i--) {
 			Menu temporary = menuList.get(i);
@@ -93,16 +94,16 @@ public class MenuService {
 			}
 			menuList.remove(i);
 		}
-		sortHierarchyMenu(dummyTop);
+		sortMenuHierarchy(dummyTop);
 		return dummyTop;
 	}
 	
-	private void sortHierarchyMenu(Menu menu) {
+	private void sortMenuHierarchy(Menu menu) {
 		if (menu.hasChildMenu()) {
 			List<Menu> menuList = menu.getChildMenu();
 			List<Menu> sortedMenuList = new ArrayList<>();
 			for (int i = menuList.size() - 1; i > -1; i--) {
-				sortHierarchyMenu(menuList.get(i));
+				sortMenuHierarchy(menuList.get(i));
 				sortedMenuList.add(menuList.get(i));
 			}
 			menu.setChildMenu(sortedMenuList);

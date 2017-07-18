@@ -13,7 +13,7 @@ public class Authority extends BaseEntity {
 	private UseState useState;
 	
 	private List<AuthorityMenu> authorityMenuList;
-	private List<AuthorityAccessMode> authorityAccessModeList;
+	private List<AuthorityAccess> authorityAccessList;
 	
 	public String getAuthorityId() {
 		return authorityId;
@@ -45,11 +45,11 @@ public class Authority extends BaseEntity {
 	public void setAuthorityMenuList(List<AuthorityMenu> authorityMenuList) {
 		this.authorityMenuList = authorityMenuList;
 	}
-	public List<AuthorityAccessMode> getAuthorityAccessModeList() {
-		return authorityAccessModeList;
+	public List<AuthorityAccess> getAuthorityAccessList() {
+		return authorityAccessList;
 	}
-	public void setAuthorityAccessModeList(List<AuthorityAccessMode> authorityAccessModeList) {
-		this.authorityAccessModeList = authorityAccessModeList;
+	public void setAuthorityAccessList(List<AuthorityAccess> authorityAccessList) {
+		this.authorityAccessList = authorityAccessList;
 	}
 	
 }

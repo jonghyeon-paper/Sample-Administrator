@@ -58,7 +58,7 @@ public class SigninSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 		}
 		Integer[] dummyIntegerArray = new Integer[temporaryMenu.size()];
 		List<Menu> accessableMenuList = menuService.retrieveListByMenuIds(temporaryMenu.toArray(dummyIntegerArray));
-		Menu hierarchyMenu = menuService.createHierarchyMenu(accessableMenuList);
+		Menu hierarchyMenu = menuService.createMenuHierarchy(accessableMenuList);
 		
 		CustomUserDetail UserDetails = (CustomUserDetail) authentication.getPrincipal();
 		User user = (User) UserDetails.getCustomUserData();

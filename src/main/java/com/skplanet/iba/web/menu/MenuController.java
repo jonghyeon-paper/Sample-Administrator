@@ -31,12 +31,7 @@ public class MenuController {
 	public String view2() {
 		return "/menu/view.part";
 	}
-	
-	@PostMapping("/hierarchy")
-	@ResponseBody
-	public Menu getHierarchy(@RequestBody Menu menu) {
-		return menuService.getHierarchyMenu();
-	}
+
 	
 	@PostMapping("/info.do")
 	@ResponseBody
@@ -57,7 +52,6 @@ public class MenuController {
 		
 		AjaxResponse response = new AjaxResponse();
 		response.setResponseCode(flag ? ResponseCode.SUCCESS : ResponseCode.FAIL);
-		response.setResponseMessage(response.getResponseCode().getDescription());
 		return response;
 	}
 	
@@ -68,7 +62,6 @@ public class MenuController {
 		
 		AjaxResponse response = new AjaxResponse();
 		response.setResponseCode(flag ? ResponseCode.SUCCESS : ResponseCode.FAIL);
-		response.setResponseMessage(response.getResponseCode().getDescription());
 		return response;
 	}
 	
@@ -79,7 +72,13 @@ public class MenuController {
 		
 		AjaxResponse response = new AjaxResponse();
 		response.setResponseCode(flag ? ResponseCode.SUCCESS : ResponseCode.FAIL);
-		response.setResponseMessage(response.getResponseCode().getDescription());
 		return response;
+	}
+	
+	
+	@PostMapping("/hierarchy")
+	@ResponseBody
+	public Menu getMenuHierarchy(@RequestBody Menu menu) {
+		return menuService.getMenuHierarchy();
 	}
 }
