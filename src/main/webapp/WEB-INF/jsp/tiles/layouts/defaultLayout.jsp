@@ -12,8 +12,12 @@
 	<link type="text/css" rel="stylesheet" href="${contextPath }/resources/css/ibas.css">
 	<link type="text/css" rel="stylesheet" href="${contextPath }/resources/css/ibasstyle.css">
 	<link type="text/css" rel="stylesheet" href="${contextPath }/resources/js/jquery/jquery-ui-1.12.1.custom/jquery-ui.min.css">
+	<link href="${contextPath}/resources/css/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link href="${contextPath}/resources/css/bootstrap/bootstrap-theme.css" rel="stylesheet" type="text/css">	
 	
-	<script type="text/javascript" src="${contextPath }/resources/js/jquery/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="${contextPath}/resources/js/jquery/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="${contextPath}/resources/js/bootstrap/bootstrap.min.js"></script>
+	<!-- <script type="text/javascript" src="${contextPath }/resources/js/jquery/jquery-1.7.2.min.js"></script> -->
 	<script type="text/javascript" src="${contextPath }/resources/js/jquery/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="${contextPath }/resources/js/common/IbaUtil.js"></script>
 	<script type="text/javascript" src="${contextPath }/resources/js/common/PageUtil-0.0.1.js"></script>

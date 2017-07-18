@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<<script>
+<script>
 function go_ticket(){
 	window.location.href = '${contextPath}/ticket/listView.do';
 }
