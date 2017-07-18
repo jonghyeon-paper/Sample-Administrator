@@ -36,8 +36,14 @@
 	 WHERE MENU_ID IN (<foreach collection="array" item="item" separator=",">#{item}</foreach>)
 	 ORDER BY PARENT_MENU_ID ASC, MENU_ID ASC
 	</select>
+	
+	<resultMap id="menuWithDependence" type="com.skplanet.iba.domain.menu.Menu">
+		<result property="menuId" column="MENU_ID"/>
+		<collection property="menuDependenceList" column="{menuId=MENU_ID}"
+			select="com.skplanet.iba.domain.menu.MenuDependenceMapper.selectList"/>
+	</resultMap>
 
-	<select id="selectOne" resultType="com.skplanet.iba.domain.menu.Menu">
+	<select id="selectOne" resultMap="menuWithDependence">
 	SELECT MENU_ID,
 	       PARENT_MENU_ID,
 	       MENU_NAME,
@@ -70,21 +76,18 @@
 		REG_DATE,
 		MOD_USER_ID,
 		MOD_DATE
-	) VALUES
-	<foreach collection="list" item="item" separator=", ">
-	(
-		#{item.menuId},
-		#{item.parentMenuId},
-		#{item.menuName},
-		#{item.uri},
-		#{item.description},
-		#{item.useState},
-		#{item.regUserId},
+	)VALUES(
+		#{menuId},
+		#{parentMenuId},
+		#{menuName},
+		#{uri},
+		#{description},
+		#{useState},
+		#{regUserId},
 		NOW(),
-		#{item.modUserId},
+		#{modUserId},
 		NOW()
 	)
-	</foreach>
 	</insert>
 	
 	<update id="update">
@@ -109,6 +112,6 @@
 
 	<delete id="delete">
 	DELETE FROM MENU
-	 WHERE MENU_ID = #{item.menuId}
+	 WHERE MENU_ID = #{menuId}
 	</delete>	
 </mapper>

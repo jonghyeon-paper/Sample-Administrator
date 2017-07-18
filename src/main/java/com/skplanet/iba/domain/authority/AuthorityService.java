@@ -50,7 +50,7 @@ public class AuthorityService {
 	
 	@Transactional
 	public Boolean addAuthority(List<Authority> authorityList) {
-		Boolean flag = false;
+		Boolean flag = true;
 		for (Authority authority : authorityList) {
 			flag = flag && this.addAuthority(authority);
 		}

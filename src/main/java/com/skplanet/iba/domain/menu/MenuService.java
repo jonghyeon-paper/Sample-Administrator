@@ -15,6 +15,9 @@ public class MenuService {
 	@Autowired
 	private MenuMapper menuMapper;
 	
+	@Autowired
+	private MenuDependenceService menuDependenceService;
+	
 	public Menu retrieveMenu(Menu menu) {
 		return menuMapper.selectOne(menu);
 	}
@@ -28,23 +31,53 @@ public class MenuService {
 	}
 	
 	@Transactional
-	public Boolean addMenu(List<Menu> menuList) {
+	public Boolean addMenu(Menu menu) {
 		// 등록,수정자 id 설정
-		int insertCount = menuMapper.insert(menuList);
+		
+		// 메뉴 등록
+		int insertCount = menuMapper.insert(menu);
+		
+		if (insertCount > 0) {
+			// 의존 URI 등록
+			if (menu.getMenuDependenceList() != null && !menu.getMenuDependenceList().isEmpty()) {
+				// 메뉴 ID 설정
+				for (MenuDependence menuDependence : menu.getMenuDependenceList()) {
+					menuDependence.setMenuId(menu.getMenuId());
+				}
+				menuDependenceService.add(menu.getMenuDependenceList());
+			}
+		}
 		return insertCount > 0 ? true : false;
 	}
 	
 	@Transactional
-	public Boolean addMenu(Menu menu) {
-		List<Menu> menuList = new ArrayList<>();
-		menuList.add(menu);
-		return this.addMenu(menuList);
+	public Boolean addMenu(List<Menu> menuList) {
+		Boolean flag = true;
+		for (Menu menu : menuList) {
+			flag = flag && this.addMenu(menu);
+		}
+		return flag;
 	}
 	
 	@Transactional
 	public Boolean editMenu(Menu menu) {
 		// 수정자 id 설정
+		
+		// 메뉴 수정
 		int updateCount = menuMapper.update(menu);
+		
+		if (updateCount > 0) {
+			// 의존 URI 삭제, 등록
+			if (menu.getMenuDependenceList() != null && !menu.getMenuDependenceList().isEmpty()) {
+				menuDependenceService.removeByMenuId(menu.getMenuId());
+				// 메뉴 ID 설정
+				for (MenuDependence menuDependence : menu.getMenuDependenceList()) {
+					menuDependence.setMenuId(menu.getMenuId());
+				}
+				menuDependenceService.add(menu.getMenuDependenceList());
+			}
+		}
+		
 		return updateCount > 0 ? true : false;
 	}
 	
@@ -70,7 +103,7 @@ public class MenuService {
 	
 	public Menu getMenuHierarchy() {
 		Menu conditon = new Menu();
-		conditon.setUseState(UseState.USE);
+		//conditon.setUseState(UseState.USE);
 		List<Menu> menuList = this.retrieveList(conditon);
 		return createMenuHierarchy(menuList);
 	}

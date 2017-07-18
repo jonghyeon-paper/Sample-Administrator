@@ -25,6 +25,9 @@ function go_ticket(){
 			<li class="menu">
 				<a href="${contextPath}/authority/view.do" style="color: #fff;">권한 관리</a>
 			</li>
+			<li class="menu">
+				<a href="${contextPath}/menu/view.do" style="color: #fff;">메뉴 관리</a>
+			</li>
 			<li class="menu" onClick="go_ticket();">IT요청현황</li>
 			<li class="menu">단말기관리</li>
 			<li class="menu">통신사관리</li>

@@ -18,6 +18,8 @@ public class Menu extends BaseEntity implements Serializable {
 	private String description;
 	private UseState useState;
 	
+	private List<MenuDependence> menuDependenceList;
+	
 	private List<Menu> childMenu;
 	
 	public Integer getMenuId() {
@@ -55,6 +57,12 @@ public class Menu extends BaseEntity implements Serializable {
 	}
 	public void setUseState(UseState useState) {
 		this.useState = useState;
+	}
+	public List<MenuDependence> getMenuDependenceList() {
+		return menuDependenceList;
+	}
+	public void setMenuDependenceList(List<MenuDependence> menuDependenceList) {
+		this.menuDependenceList = menuDependenceList;
 	}
 	public List<Menu> getChildMenu() {
 		if (this.childMenu == null) {

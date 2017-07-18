@@ -26,11 +26,6 @@ public class MenuController {
 	public String view() {
 		return "/menu/view.page";
 	}
-	
-	@GetMapping("/viewpart.do")
-	public String view2() {
-		return "/menu/view.part";
-	}
 
 	
 	@PostMapping("/info.do")
@@ -74,7 +69,6 @@ public class MenuController {
 		response.setResponseCode(flag ? ResponseCode.SUCCESS : ResponseCode.FAIL);
 		return response;
 	}
-	
 	
 	@PostMapping("/hierarchy")
 	@ResponseBody
