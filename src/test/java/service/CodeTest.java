@@ -29,7 +29,7 @@ public class CodeTest extends AbstractJUnit {
 		systemCode.setCodeName("테스트 코드");
 		systemCode.setUseState(UseState.USE);
 		
-		codeuService.addCode(systemCode);
+		codeuService.add(systemCode);
 		
 		Code sampleCode1 = new Code();
 		sampleCode1.setCodeId(T0001);
@@ -54,7 +54,7 @@ public class CodeTest extends AbstractJUnit {
 		codeList.add(sampleCode2);
 		codeList.add(sampleCode3);
 		
-		codeuService.addCode(codeList);
+		codeuService.add(codeList);
 		
 		List<Code> resultList = codeuService.retrieveList(new Code());
 		print(resultList);
@@ -67,25 +67,25 @@ public class CodeTest extends AbstractJUnit {
 		code.setCodeName("sample99999");
 		code.setUseState(UseState.UNUSE);
 		
-		codeuService.editCode(code);
+		codeuService.edit(code);
 		
 		Code condition = new Code();
 		condition.setCodeId(T0000);
-		Code resultCode = codeuService.retrieveCode(condition);
+		Code resultCode = codeuService.retrieve(condition);
 		print(resultCode);
 	}
 	
 	//@Test
 	public void remove() {
-		codeuService.removeCodeByCodeId(T0003);
-		codeuService.removeCodeByCodeId(T0002);
-		codeuService.removeCodeByCodeId(T0001);
-		codeuService.removeCodeByCodeId(T0000);
+		codeuService.removeByCodeId(T0003);
+		codeuService.removeByCodeId(T0002);
+		codeuService.removeByCodeId(T0001);
+		codeuService.removeByCodeId(T0000);
 	}
 	
 	@Test
 	public void hierarchy() {
-		Code result = codeuService.getHierarchyCode(new Code());
+		Code result = codeuService.getCodeHierarchy(new Code());
 		print(result);
 	}
 }
