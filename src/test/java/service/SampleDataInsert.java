@@ -84,7 +84,7 @@ public class SampleDataInsert extends AbstractJUnit {
 		user.setUserId(USER_ID);
 		user.setUserName("gildong");
 		user.setUseState(UseState.USE);
-		userService.addUser(user);
+		userService.add(user);
 		
 		// Add user authority
 		List<UserAuthority> userAuthorityList = new ArrayList<>();
@@ -147,7 +147,7 @@ public class SampleDataInsert extends AbstractJUnit {
 		
 		// remove user
 		userAuthorityService.removeUserAuthorityByUserId(USER_ID);
-		userService.removeUserByUserId(USER_ID);
+		userService.removeByUserId(USER_ID);
 		
 		// Remove authority
 		authorityAccessModeService.removeAuthorityAccessByAuthorityId(AUTHORITY_ID);

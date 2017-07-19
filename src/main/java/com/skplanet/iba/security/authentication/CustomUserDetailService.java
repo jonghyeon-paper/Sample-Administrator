@@ -35,7 +35,7 @@ public class CustomUserDetailService implements UserDetailsService {
 		 */
 		
 		String userId = username;
-		User user = userService.retrieveUser(userId);
+		User user = userService.retrieve(userId);
 		if (user == null) {
 			throw new UsernameNotFoundException(userId);
 		}

@@ -32,7 +32,7 @@ public class UserTest extends AbstractJUnit {
 		user.setUserId(USER_ID);
 		user.setUserName("gildong");
 		user.setUseState(UseState.USE);
-		userService.addUser(user);
+		userService.add(user);
 		
 		List<UserAuthority> userAuthorityList = new ArrayList<>();
 		for (String authorityId : Arrays.asList(AUTHORITY_ID)) {
@@ -45,7 +45,7 @@ public class UserTest extends AbstractJUnit {
 		
 		User userSearchCondition = new User();
 		userSearchCondition.setUserId(USER_ID);
-		User result = userService.retrieveUser(userSearchCondition);
+		User result = userService.retrieve(userSearchCondition);
 		print(result);
 		
 		//remove
@@ -57,17 +57,17 @@ public class UserTest extends AbstractJUnit {
 		User user = new User();
 		user.setUserId(USER_ID);
 		user.setUseState(UseState.UNUSE);
-		userService.editUser(user);
+		userService.edit(user);
 	}
 	
 	//@Test
 	public void remove() {
 		userAuthorityService.removeUserAuthorityByUserId(USER_ID);
-		userService.removeUserByUserId(USER_ID);
+		userService.removeByUserId(USER_ID);
 		
 		User userSearchCondition = new User();
 		userSearchCondition.setUserId(USER_ID);
-		User result = userService.retrieveUser(userSearchCondition);
+		User result = userService.retrieve(userSearchCondition);
 		print(result);
 	}
 }

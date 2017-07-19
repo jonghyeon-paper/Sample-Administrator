@@ -13,20 +13,33 @@ PageUtil.draw = function(pagingContents, parameters, loadFunction) {
 	var start = pageNumber - remainder + 1;
 	var end = start + blockSize <= totalPage ? start + blockSize : totalPage;
 	
-	var $pageObject = $('<div>').addClass('page');
+	var $ul = $('<ul>').addClass('pagination');
 	
-	$pageObject.append($('<a href="#" onclick="return false;" class="paging" pageIndex="' + prev + '"> <img src="/resources/img/common/btn_paging_pre.gif" border="0" alt="Previous" /></a>&nbsp;'));
+	var $privLi = $('<li>').appendTo($ul);
+	$('<a>').attr({href: '#', onclick: 'return false;'})
+	        .data('page-index', prev)
+	        .html('&lt;')
+	        .appendTo($privLi);
+	
 	for (var i = start; i <= end; i++) {
+		var $li = $('<li>').appendTo($ul);
 		if (i === pageNumber) {
-			$pageObject.append($('<a href="#" onclick="return false;" class="paging" pageIndex="' + i + '" style="color: blue;">' + i + '</a>&nbsp;'));
-		} else {
-			$pageObject.append($('<a href="#" onclick="return false;" class="paging" pageIndex="' + i + '" >' + i + '</a>&nbsp;')); 
+			$li.addClass('active');
 		}
+		$('<a>').attr({href: '#', onclick: 'return false;'})
+		        .data('page-index', i)
+		        .html(i)
+		        .appendTo($li);
 	}
-	$pageObject.append($('<a href="#" onclick="return false;" class="paging" pageIndex="' + next + '"> <img src="/resources/img/common/btn_paging_next.gif" border="0" alt="Next" /></a>&nbsp;'));
 	
-	$pageObject.on('click', 'a', function(){
-		var pageNumber = parseInt($(this).attr('pageIndex'), 10);
+	var $nextLi = $('<li>').appendTo($ul);
+	$('<a>').attr({href: '#', onclick: 'return false;'})
+	        .data('page-index', next)
+	        .html('&gt;')
+	        .appendTo($nextLi);
+	
+	$ul.on('click', 'a', function(){
+		var pageNumber = parseInt($(this).data('pageIndex'), 10);
 		if (pageNumber < 1) {
 			return false;
 		}
@@ -37,5 +50,5 @@ PageUtil.draw = function(pagingContents, parameters, loadFunction) {
 		}
 	});
 	
-	return $pageObject;
+	return $ul;
 };

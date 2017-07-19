@@ -46,18 +46,13 @@ public class UserController {
 	@PostMapping("/info.do")
 	@ResponseBody
 	public User getUserInfo(@RequestBody User user) {
-		return userService.retrieveUser(user);
-	}
-	
-	@GetMapping("/writeview.do")
-	public String writeView(@ModelAttribute("user") User user) {
-		return "/user/writeView.page";
+		return userService.retrieve(user);
 	}
 	
 	@PostMapping("/add.do")
 	@ResponseBody
 	public AjaxResponse addUser(@RequestBody User user) {
-		Boolean flag = userService.addUser(user);
+		Boolean flag = userService.add(user);
 		
 		AjaxResponse response = new AjaxResponse();
 		response.setResponseCode(flag ? ResponseCode.SUCCESS : ResponseCode.FAIL);
@@ -67,7 +62,7 @@ public class UserController {
 	@PostMapping("/edit.do")
 	@ResponseBody
 	public AjaxResponse editUser(@RequestBody User user) {
-		Boolean flag = userService.editUser(user);
+		Boolean flag = userService.edit(user);
 		
 		AjaxResponse response = new AjaxResponse();
 		response.setResponseCode(flag ? ResponseCode.SUCCESS : ResponseCode.FAIL);
@@ -77,7 +72,7 @@ public class UserController {
 	@PostMapping("/remove.do")
 	@ResponseBody
 	public AjaxResponse removeUser(@RequestBody User user) {
-		Boolean flag = userService.removeUser(user);
+		Boolean flag = userService.remove(user);
 		
 		AjaxResponse response = new AjaxResponse();
 		response.setResponseCode(flag ? ResponseCode.SUCCESS : ResponseCode.FAIL);
@@ -93,7 +88,6 @@ public class UserController {
 	@RequestMapping(value = "/list.do", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
 	@ResponseBody
 	public PagingContents<User> getUserList(User user, PagingRequest pagingRequest) {
-		//return userService.retrievePageList(user, pagingRequest);
-		return userService.selectPage(pagingRequest, user);
+		return userService.retrievePage(pagingRequest, user);
 	}
 }

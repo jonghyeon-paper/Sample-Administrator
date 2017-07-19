@@ -1,6 +1,5 @@
 package com.skplanet.iba.domain.user;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.skplanet.iba.domain.common.BaseEntityService;
-import com.skplanet.iba.framework.data.PagingContents;
-import com.skplanet.iba.framework.data.PagingRequest;
 
 @Service
 public class UserService extends BaseEntityService<User, UserMapper> {
@@ -20,14 +17,14 @@ public class UserService extends BaseEntityService<User, UserMapper> {
 	@Autowired
 	private UserAuthorityService userAuthorityService;
 	
-	public User retrieveUser(User user) {
+	public User retrieve(User user) {
 		return userMapper.selectOne(user);
 	}
 	
-	public User retrieveUser(String userId) {
+	public User retrieve(String userId) {
 		User user = new User();
 		user.setUserId(userId);
-		return this.retrieveUser(user);
+		return this.retrieve(user);
 	}
 	
 	public List<User> retrieveList(User user) {
@@ -35,50 +32,52 @@ public class UserService extends BaseEntityService<User, UserMapper> {
 	}
 	
 	@Transactional
-	public Boolean addUser(List<User> userList) {
-		for (User item : userList) {
-			// 등록,수정자 id 설정
-		}
-		// 사용자 정보 등록
-		int insertCount = userMapper.insert(userList);
+	public Boolean add(User user) {
+		// 등록, 수정자 id 설정
 		
-		// 사용자 권한 등록
+		// 사용자 등록
+		int insertCount = userMapper.insert(user);
+		
+		// 추가 정보 등록
 		if (insertCount > 0) {
-			for (User item : userList) {
-				if (item.getUserAuthorityList() != null && !item.getUserAuthorityList().isEmpty()) {
-					userAuthorityService.addUserAuthority(item.getUserAuthorityList());
-				}
+			// 사용자 권한 등록
+			if (user.getUserAuthorityList() != null && !user.getUserAuthorityList().isEmpty()) {
+				userAuthorityService.addUserAuthority(user.getUserAuthorityList());
 			}
 		}
 		return insertCount > 0 ? true : false;
 	}
 	
 	@Transactional
-	public Boolean addUser(User user) {
-		List<User> userList = new ArrayList<>();
-		userList.add(user);
-		return this.addUser(userList);
+	public Boolean add(List<User> userList) {
+		Boolean flag = true;
+		for (User user : userList) {
+			flag = flag && this.add(user);
+		}
+		return flag;
 	}
 	
 	@Transactional
-	public Boolean editUser(User user) {
+	public Boolean edit(User user) {
 		// 수정자 id 설정
 		
 		// 사용자 정보 수정
 		int updateCount = userMapper.update(user);
 		
-		// 사용자 권한 수정
-		// 기존 권한 제거
-		userAuthorityService.removeUserAuthorityByUserId(user.getUserId());
-		if (user.getUserAuthorityList() != null && !user.getUserAuthorityList().isEmpty()) {
-			// 신규 권한 등록
-			userAuthorityService.addUserAuthority(user.getUserAuthorityList());
+		// 추가 정보 수정
+		if (updateCount > 0) {
+			// 기존 권한 제거
+			userAuthorityService.removeUserAuthorityByUserId(user.getUserId());
+			if (user.getUserAuthorityList() != null && !user.getUserAuthorityList().isEmpty()) {
+				// 신규 권한 등록
+				userAuthorityService.addUserAuthority(user.getUserAuthorityList());
+			}
 		}
 		return updateCount > 0 ? true : false;
 	}
 	
 	@Transactional
-	public Boolean removeUser(User user) {
+	public Boolean remove(User user) {
 		// 사용자 권한 삭제
 		userAuthorityService.removeUserAuthorityByUserId(user.getUserId());
 		
@@ -88,17 +87,17 @@ public class UserService extends BaseEntityService<User, UserMapper> {
 	}
 	
 	@Transactional
-	public Boolean removeUserByUserId(String userId) {
+	public Boolean removeByUserId(String userId) {
 		User user = new User();
 		user.setUserId(userId);
-		return this.removeUser(user);
+		return this.remove(user);
 	}
 	
 	@Transactional
-	public Boolean removeUserByPrimaryKey(String userId) {
+	public Boolean removeByPrimaryKey(String userId) {
 		User user = new User();
 		user.setUserId(userId);
-		return this.removeUser(user);
+		return this.remove(user);
 	}
 	
 	/**

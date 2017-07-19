@@ -6,6 +6,7 @@
 	<select id="selectList" resultType="com.skplanet.iba.domain.user.User">
 	SELECT USER_ID,
 	       USER_NAME,
+	       DEPARTMENT,
 	       USE_STATE
 	  FROM USER
 	<where>
@@ -27,6 +28,7 @@
 	<select id="selectOne" resultMap="userWithAuthority">
 	SELECT USER_ID,
 	       USER_NAME,
+	       DEPARTMENT,
 	       USE_STATE
 	  FROM USER
 	<where>
@@ -43,23 +45,22 @@
 	INSERT INTO USER(
 		USER_ID,
 		USER_NAME,
+		DEPARTMENT,
 		USE_STATE,
 		REG_USER_ID,
 		REG_DATE,
 		MOD_USER_ID,
 		MOD_DATE
-	) VALUES
-	<foreach collection="list" item="item" separator=", ">
-	(
-		#{item.userId},
-		#{item.userName},
-		#{item.useState},
-		#{item.regUserId},
+	)VALUES(
+		#{userId},
+		#{userName},
+		#{department},
+		#{useState},
+		#{regUserId},
 		NOW(),
-		#{item.modUserId},
+		#{modUserId},
 		NOW()
 	)
-	</foreach>
 	</insert>
 	
 	<update id="update">
@@ -84,6 +85,7 @@
 	<select id="selectPage" resultType="com.skplanet.iba.domain.user.User">
 	SELECT USER_ID,
 	       USER_NAME,
+	       DEPARTMENT,
 	       USE_STATE
 	  FROM USER
 	<where>

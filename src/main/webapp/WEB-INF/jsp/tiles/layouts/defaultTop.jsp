@@ -14,7 +14,7 @@ function go_ticket(){
 	</div>
 	<!-- [e]crash logger title -->
 	<!-- [s]crash logger header -->
-	<header id="ibas_header">
+	<div class="container-fluid">
 		<ul class="ibas_menu">
 			<li class="menu">
 				<a href="${contextPath}/user/listview.do" style="color: #fff;">사용자 관리</a>
@@ -37,4 +37,4 @@ function go_ticket(){
 			<li>Logged in as <span class="mymenu_user">1003055</span></li>
 			<li class="menu" >Log-out</li>
 		</ul>
-	</header>
+	</div>

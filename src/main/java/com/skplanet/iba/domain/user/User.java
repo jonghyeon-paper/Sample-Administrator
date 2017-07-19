@@ -4,16 +4,17 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.skplanet.iba.domain.common.PageEntity;
+import com.skplanet.iba.domain.common.BaseEntity;
 import com.skplanet.iba.domain.menu.Menu;
 import com.skplanet.iba.share.enumdata.UseState;
 
-public class User extends PageEntity implements Serializable {
+public class User extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 6131414886995573263L;
 	
 	private String userId;
 	private String userName;
+	private String department;
 	private UseState useState;
 	
 	private List<UserAuthority> userAuthorityList;
@@ -32,6 +33,12 @@ public class User extends PageEntity implements Serializable {
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+	public String getDepartment() {
+		return department;
+	}
+	public void setDepartment(String department) {
+		this.department = department;
 	}
 	public UseState getUseState() {
 		return useState;

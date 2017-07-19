@@ -74,7 +74,7 @@ public class BaseEntityService<ENTITY_TYPE extends BaseEntity, ENTITY_MAPPER ext
 		return createPagingContents(user, parameterMap, pagingRequest, entities);
 	}
 	
-	public PagingContents<ENTITY_TYPE> selectPage(PagingRequest pagingRequest, ENTITY_TYPE entity) {
+	public PagingContents<ENTITY_TYPE> retrievePage(PagingRequest pagingRequest, ENTITY_TYPE entity) {
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 		parameterMap.put("start", pagingRequest.getStartIndex());
 		parameterMap.put("offset", pagingRequest.getCountPerPage());

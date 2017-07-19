@@ -1,7 +1,5 @@
 package com.skplanet.iba.domain.user;
 
-import java.util.List;
-
 import com.skplanet.iba.domain.common.BaseEntityMapper;
 
 public interface UserMapper extends BaseEntityMapper<User> {
@@ -9,7 +7,7 @@ public interface UserMapper extends BaseEntityMapper<User> {
 	// 상속받음
 //	List<User> selectList(User user);
 //	User selectOne(User user);
-//	int insert(List<User> userList);
+	int insert(User user);
 //	int update(User user);
 //	int delete(User user);
 	
