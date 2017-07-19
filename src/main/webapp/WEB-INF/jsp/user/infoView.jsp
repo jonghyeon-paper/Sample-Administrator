@@ -53,7 +53,10 @@
 			loadUserInfo({userId: userId});
 			
 			$('#buttonArea').on('click', '#edit', function(){
-				loadUserInfo({userId: userId}, true);
+				var $targetArea = $('#userInfoArea');
+				var dataObject = $targetArea.find('#userInfoTable').data('userInfo');
+				
+				loadUserInfo({userId: dataObject.userId}, true);
 			});
 			
 			$('#buttonArea').on('click', '#cancel', function(){
@@ -185,7 +188,9 @@
 				$textObject = $('<span>');
 			}
 			
-			var $table = $('<table>').addClass('table table-bordered');
+			var $table = $('<table>').attr({id: 'userInfoTable'})
+			                         .addClass('table table-bordered')
+			                         .data('user-info', data);
 			
 			var $colgroup = $('<colgroup>').appendTo($table);
 			$colgroup.append($('<col>').attr({width: '30%'}))
@@ -224,7 +229,10 @@
 					$('<option>').attr({value: 'USE'}).html('사용').appendTo($select);
 					$('<option>').attr({value: 'UNUSE'}).html('미사용').appendTo($select);
 					// apply data in edit mode
-					$select.val(data.useState.displayValue);
+					// 사용자 추가 시 해당 값이 없다.
+					if (data.useState && data.useState.displayValue) {
+						$select.val(data.useState.displayValue);
+					}
 					
 					var $tr = $('<tr>').appendTo($tbody);
 					$('<th>').html('사용 상태')
