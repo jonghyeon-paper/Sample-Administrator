@@ -42,7 +42,7 @@ public class UserService extends BaseEntityService<User, UserMapper> {
 		if (insertCount > 0) {
 			// 사용자 권한 등록
 			if (user.getUserAuthorityList() != null && !user.getUserAuthorityList().isEmpty()) {
-				userAuthorityService.addUserAuthority(user.getUserAuthorityList());
+				userAuthorityService.add(user.getUserAuthorityList());
 			}
 		}
 		return insertCount > 0 ? true : false;
@@ -67,10 +67,10 @@ public class UserService extends BaseEntityService<User, UserMapper> {
 		// 추가 정보 수정
 		if (updateCount > 0) {
 			// 기존 권한 제거
-			userAuthorityService.removeUserAuthorityByUserId(user.getUserId());
+			userAuthorityService.removeByUserId(user.getUserId());
 			if (user.getUserAuthorityList() != null && !user.getUserAuthorityList().isEmpty()) {
 				// 신규 권한 등록
-				userAuthorityService.addUserAuthority(user.getUserAuthorityList());
+				userAuthorityService.add(user.getUserAuthorityList());
 			}
 		}
 		return updateCount > 0 ? true : false;
@@ -79,7 +79,7 @@ public class UserService extends BaseEntityService<User, UserMapper> {
 	@Transactional
 	public Boolean remove(User user) {
 		// 사용자 권한 삭제
-		userAuthorityService.removeUserAuthorityByUserId(user.getUserId());
+		userAuthorityService.removeByUserId(user.getUserId());
 		
 		// 사용자 정보 삭제
 		int deleteCount = userMapper.delete(user);

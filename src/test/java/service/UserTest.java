@@ -41,7 +41,7 @@ public class UserTest extends AbstractJUnit {
 			userAuthority.setAuthorityId(authorityId);
 			userAuthorityList.add(userAuthority);
 		}
-		userAuthorityService.addUserAuthority(userAuthorityList);
+		userAuthorityService.add(userAuthorityList);
 		
 		User userSearchCondition = new User();
 		userSearchCondition.setUserId(USER_ID);
@@ -62,7 +62,7 @@ public class UserTest extends AbstractJUnit {
 	
 	//@Test
 	public void remove() {
-		userAuthorityService.removeUserAuthorityByUserId(USER_ID);
+		userAuthorityService.removeByUserId(USER_ID);
 		userService.removeByUserId(USER_ID);
 		
 		User userSearchCondition = new User();

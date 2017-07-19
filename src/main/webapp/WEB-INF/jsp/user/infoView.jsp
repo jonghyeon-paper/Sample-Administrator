@@ -79,7 +79,7 @@
 						userId: $targetArea.find('#userId').val(),
 						userName: $targetArea.find('#userName').val(),
 						department: $targetArea.find('#department').val(),
-						useState: 'USE',
+						useState: $targetArea.find('#useState').val(),
 						userAuthorityList: userAuthorityList
 				};
 				
@@ -218,6 +218,20 @@
 					$('<td>').append($textObject.clone().attr({id: 'department', value: data.department}))
 					         .appendTo($tr);
 				}());
+				
+				(function(){
+					var $select = $('<select>').attr({id: 'useState'}).addClass('form-control');
+					$('<option>').attr({value: 'USE'}).html('사용').appendTo($select);
+					$('<option>').attr({value: 'UNUSE'}).html('미사용').appendTo($select);
+					// apply data in edit mode
+					$select.val(data.useState);
+					
+					var $tr = $('<tr>').appendTo($tbody);
+					$('<th>').html('사용 상태')
+					         .appendTo($tr);
+					$('<td>').append($select)
+					         .appendTo($tr);
+				}());
 			} else {
 				(function(){
 					var $tr = $('<tr>').appendTo($tbody);
@@ -240,6 +254,14 @@
 					$('<th>').html('부서')
 					         .appendTo($tr);
 					$('<td>').append($textObject.clone().html(data.department))
+					         .appendTo($tr);
+				}());
+				
+				(function(){
+					var $tr = $('<tr>').appendTo($tbody);
+					$('<th>').html('사용 상태')
+					         .appendTo($tr);
+					$('<td>').append($textObject.clone().html(data.useState))
 					         .appendTo($tr);
 				}());
 			}

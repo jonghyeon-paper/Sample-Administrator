@@ -1,6 +1,5 @@
 package com.skplanet.iba.domain.user;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,7 @@ public class UserAuthorityService {
 	@Autowired
 	private UserAuthorityMapper userAuthorityMapper;
 	
-	public UserAuthority retrieveAuthority(UserAuthority userAuthority) {
+	public UserAuthority retrieve(UserAuthority userAuthority) {
 		return userAuthorityMapper.selectOne(userAuthority);
 	}
 	
@@ -22,36 +21,38 @@ public class UserAuthorityService {
 	}
 	
 	@Transactional
-	public Boolean addUserAuthority(List<UserAuthority> userAuthorityList) {
+	public Boolean add(UserAuthority userAuthority) {
 		// 등록,수정자 id 설정
-		int insertCount = userAuthorityMapper.insert(userAuthorityList);
+		int insertCount = userAuthorityMapper.insert(userAuthority);
 		return insertCount > 0 ? true : false;
 	}
 	
 	@Transactional
-	public Boolean addUserAuthority(UserAuthority userAuthority) {
-		List<UserAuthority> userAuthorityList = new ArrayList<>();
-		userAuthorityList.add(userAuthority);
-		return this.addUserAuthority(userAuthorityList);
+	public Boolean add(List<UserAuthority> userAuthorityList) {
+		Boolean flag = true;
+		for (UserAuthority userAuthority : userAuthorityList) {
+			flag = flag && this.add(userAuthority);
+		}
+		return flag;
 	}
 	
 	@Transactional
-	public Boolean removeUserAuthority(UserAuthority userAuthority) {
+	public Boolean remove(UserAuthority userAuthority) {
 		int deleteCount = userAuthorityMapper.delete(userAuthority);
 		return deleteCount > 0 ? true : false;
 	}
 	
 	@Transactional
-	public Boolean removeUserAuthorityByUserId(String userId) {
+	public Boolean removeByUserId(String userId) {
 		UserAuthority userAuthority = new UserAuthority();
 		userAuthority.setUserId(userId);
-		return this.removeUserAuthority(userAuthority);
+		return this.remove(userAuthority);
 	}
 	
 	@Transactional
-	public Boolean removeUserAuthorityByPrimaryKey(String userId) {
+	public Boolean removeByPrimaryKey(String userId) {
 		UserAuthority userAuthority = new UserAuthority();
 		userAuthority.setUserId(userId);
-		return this.removeUserAuthority(userAuthority);
+		return this.remove(userAuthority);
 	}
 }

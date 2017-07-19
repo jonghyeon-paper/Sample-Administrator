@@ -6,6 +6,6 @@ public interface UserAuthorityMapper {
 
 	List<UserAuthority> selectList(UserAuthority userAuthority);
 	UserAuthority selectOne(UserAuthority userAuthority);
-	int insert(List<UserAuthority> userAuthorityList);
+	int insert(UserAuthority userAuthority);
 	int delete(UserAuthority userAuthority);
 }

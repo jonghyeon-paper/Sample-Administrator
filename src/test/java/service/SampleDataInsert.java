@@ -94,7 +94,7 @@ public class SampleDataInsert extends AbstractJUnit {
 			userAuthority.setAuthorityId(authorityId);
 			userAuthorityList.add(userAuthority);
 		}
-		userAuthorityService.addUserAuthority(userAuthorityList);
+		userAuthorityService.add(userAuthorityList);
 		
 		// Add authority
 		Authority supseruser = new Authority();
@@ -146,7 +146,7 @@ public class SampleDataInsert extends AbstractJUnit {
 		// Remove menu - 메뉴는 자동증가키값이라 불가능
 		
 		// remove user
-		userAuthorityService.removeUserAuthorityByUserId(USER_ID);
+		userAuthorityService.removeByUserId(USER_ID);
 		userService.removeByUserId(USER_ID);
 		
 		// Remove authority
