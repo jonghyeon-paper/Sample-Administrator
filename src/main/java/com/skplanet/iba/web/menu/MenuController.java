@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.skplanet.iba.domain.menu.Menu;
 import com.skplanet.iba.domain.menu.MenuService;
-import com.skplanet.iba.share.enumdata.ResponseCode;
-import com.skplanet.iba.share.model.AjaxResponse;
+import com.skplanet.iba.support.enumdata.ResponseCode;
+import com.skplanet.iba.support.model.AjaxResponse;
 
 @Controller
 @RequestMapping("/menu")

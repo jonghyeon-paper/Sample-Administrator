@@ -16,7 +16,7 @@ import com.skplanet.iba.domain.authority.AuthorityMenu;
 import com.skplanet.iba.domain.authority.AuthorityMenuService;
 import com.skplanet.iba.domain.menu.Menu;
 import com.skplanet.iba.domain.menu.MenuService;
-import com.skplanet.iba.share.enumdata.UseState;
+import com.skplanet.iba.support.enumdata.UseState;
 
 public class CustomFilterInvocationSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
 	

@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.skplanet.iba.domain.code.Code;
 import com.skplanet.iba.domain.code.CodeService;
-import com.skplanet.iba.share.enumdata.UseState;
+import com.skplanet.iba.support.enumdata.UseState;
 
 public class CodeTest extends AbstractJUnit {
 	

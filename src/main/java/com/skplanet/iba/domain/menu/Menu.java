@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.skplanet.iba.domain.common.BaseEntity;
-import com.skplanet.iba.share.enumdata.UseState;
+import com.skplanet.iba.support.enumdata.UseState;
 
 public class Menu extends BaseEntity implements Serializable {
 

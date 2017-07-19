@@ -1,6 +1,6 @@
-package com.skplanet.iba.share.model;
+package com.skplanet.iba.support.model;
 
-import com.skplanet.iba.share.enumdata.ResponseCode;
+import com.skplanet.iba.support.enumdata.ResponseCode;
 
 public class AjaxResponse {
 

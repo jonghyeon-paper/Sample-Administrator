@@ -224,7 +224,7 @@
 					$('<option>').attr({value: 'USE'}).html('사용').appendTo($select);
 					$('<option>').attr({value: 'UNUSE'}).html('미사용').appendTo($select);
 					// apply data in edit mode
-					$select.val(data.useState);
+					$select.val(data.useState.displayValue);
 					
 					var $tr = $('<tr>').appendTo($tbody);
 					$('<th>').html('사용 상태')
@@ -261,7 +261,7 @@
 					var $tr = $('<tr>').appendTo($tbody);
 					$('<th>').html('사용 상태')
 					         .appendTo($tr);
-					$('<td>').append($textObject.clone().html(data.useState))
+					$('<td>').append($textObject.clone().html(data.useState.description))
 					         .appendTo($tr);
 				}());
 			}

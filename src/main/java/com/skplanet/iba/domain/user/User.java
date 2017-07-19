@@ -6,7 +6,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.skplanet.iba.domain.common.BaseEntity;
 import com.skplanet.iba.domain.menu.Menu;
-import com.skplanet.iba.share.enumdata.UseState;
+import com.skplanet.iba.support.enumdata.UseState;
 
 public class User extends BaseEntity implements Serializable {
 

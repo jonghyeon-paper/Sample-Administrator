@@ -20,7 +20,7 @@ import com.skplanet.iba.domain.user.User;
 import com.skplanet.iba.domain.user.UserAuthority;
 import com.skplanet.iba.domain.user.UserAuthorityService;
 import com.skplanet.iba.domain.user.UserService;
-import com.skplanet.iba.share.enumdata.UseState;
+import com.skplanet.iba.support.enumdata.UseState;
 
 public class SampleDataInsert extends AbstractJUnit {
 	

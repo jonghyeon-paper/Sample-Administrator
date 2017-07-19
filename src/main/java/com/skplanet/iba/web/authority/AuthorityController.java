@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.skplanet.iba.domain.authority.Authority;
 import com.skplanet.iba.domain.authority.AuthorityService;
 import com.skplanet.iba.domain.authority.enumdata.AccessMode;
-import com.skplanet.iba.share.enumdata.ResponseCode;
-import com.skplanet.iba.share.model.AjaxResponse;
+import com.skplanet.iba.support.enumdata.ResponseCode;
+import com.skplanet.iba.support.model.AjaxResponse;
 
 @Controller
 @RequestMapping("/authority")

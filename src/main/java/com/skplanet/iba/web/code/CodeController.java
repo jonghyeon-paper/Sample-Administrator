@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.skplanet.iba.domain.code.Code;
 import com.skplanet.iba.domain.code.CodeService;
-import com.skplanet.iba.share.enumdata.ResponseCode;
-import com.skplanet.iba.share.model.AjaxResponse;
+import com.skplanet.iba.support.enumdata.ResponseCode;
+import com.skplanet.iba.support.model.AjaxResponse;
 
 @Controller
 @RequestMapping("/code")

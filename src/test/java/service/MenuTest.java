@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.skplanet.iba.domain.menu.Menu;
 import com.skplanet.iba.domain.menu.MenuService;
-import com.skplanet.iba.share.enumdata.UseState;
+import com.skplanet.iba.support.enumdata.UseState;
 
 public class MenuTest extends AbstractJUnit {
 

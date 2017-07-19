@@ -17,8 +17,8 @@ import com.skplanet.iba.domain.user.User;
 import com.skplanet.iba.domain.user.UserService;
 import com.skplanet.iba.framework.data.PagingContents;
 import com.skplanet.iba.framework.data.PagingRequest;
-import com.skplanet.iba.share.enumdata.ResponseCode;
-import com.skplanet.iba.share.model.AjaxResponse;
+import com.skplanet.iba.support.enumdata.ResponseCode;
+import com.skplanet.iba.support.model.AjaxResponse;
 
 @Controller
 @RequestMapping("/user")

@@ -1,4 +1,4 @@
-package com.skplanet.iba.share.enumdata;
+package com.skplanet.iba.support.enumdata;
 
 public enum ResponseCode {
 	SUCCESS("성공하였습니다."),

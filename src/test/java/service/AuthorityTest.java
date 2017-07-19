@@ -16,7 +16,7 @@ import com.skplanet.iba.domain.authority.AuthorityService;
 import com.skplanet.iba.domain.authority.enumdata.AccessMode;
 import com.skplanet.iba.domain.menu.Menu;
 import com.skplanet.iba.domain.menu.MenuService;
-import com.skplanet.iba.share.enumdata.UseState;
+import com.skplanet.iba.support.enumdata.UseState;
 
 public class AuthorityTest extends AbstractJUnit {
 

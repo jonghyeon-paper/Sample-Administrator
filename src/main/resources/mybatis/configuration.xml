@@ -5,4 +5,8 @@
 	<settings> 
 		<setting name="mapUnderscoreToCamelCase" value="true" />
 	</settings>
+	
+	<typeHandlers>
+		<typeHandler handler="com.skplanet.iba.supprot.mybatis.typehandler.CustomEnumTypeHandler" javaType="com.skplanet.iba.support.enumdata.UseState"/>
+	</typeHandlers>
 </configuration>
