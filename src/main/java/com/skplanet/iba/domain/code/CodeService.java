@@ -7,13 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.skplanet.iba.support.enumdata.UseState;
+
 @Service
 public class CodeService {
 
 	@Autowired
 	private CodeMapper codeMapper;
 	
-	public Code retrieveCode(Code code) {
+	public Code retrieve(Code code) {
 		return codeMapper.selectOne(code);
 	}
 	
@@ -22,55 +24,60 @@ public class CodeService {
 	}
 	
 	@Transactional
-	public Boolean addCode(List<Code> codeList) {
+	public Boolean add(Code code) {
 		// 등록,수정자 id 설정
-		int insertCount = codeMapper.insert(codeList);
+		int insertCount = codeMapper.insert(code);
 		return insertCount > 0 ? true : false;
 	}
 	
 	@Transactional
-	public Boolean addCode(Code code) {
-		List<Code> codeList = new ArrayList<>();
-		codeList.add(code);
-		return this.addCode(codeList);
+	public Boolean add(List<Code> codeList) {
+		Boolean flag = true;
+		for (Code code : codeList) {
+			flag = flag && this.add(code);
+		}
+		return flag;
 	}
 	
 	@Transactional
-	public Boolean editCode(Code code) {
+	public Boolean edit(Code code) {
 		// 수정자 id 설정
 		int updateCount = codeMapper.update(code);
 		return updateCount > 0 ? true : false;
 	}
 	
 	@Transactional
-	public Boolean removeCode(Code code) {
+	public Boolean remove(Code code) {
 		int deleteCount = codeMapper.delete(code);
 		return deleteCount > 0 ? true : false;
 	}
 	
 	@Transactional
-	public Boolean removeCodeByCodeId(String codeId) {
+	public Boolean removeByCodeId(String codeId) {
 		Code code = new Code();
 		code.setCodeId(codeId);
-		return this.removeCode(code);
+		return this.remove(code);
 	}
 	
 	@Transactional
-	public Boolean removeMenuByPrimaryKey(String codeId) {
+	public Boolean removeByPrimaryKey(String codeId) {
 		Code code = new Code();
 		code.setCodeId(codeId);
-		return this.removeCode(code);
+		return this.remove(code);
 	}
 	
-	public Code getHierarchyCode(Code code) {
+	public Code getCodeHierarchy(Code code) {
 		List<Code> codeList = this.retrieveList(code);
-		return createHierarchyCode(codeList);
+		return createCodeHierarchy(codeList);
 	}
 	
-	public Code createHierarchyCode(List<Code> codeList) {
+	public Code createCodeHierarchy(List<Code> codeList) {
 		Code dummyTop = new Code();
+		//dummyTop.setCodeId("-1");
+		//dummyTop.setParentCodeId("-1");
 		dummyTop.setCodeName("TOP");
 		dummyTop.setDescription("최상위 코드");
+		dummyTop.setUseState(UseState.USE);
 		for (int i = codeList.size() - 1; i > -1; i--) {
 			Code temporary = codeList.get(i);
 			if (temporary.getParentCodeId() != null && !"".equals(temporary.getParentCodeId())) {
@@ -86,16 +93,16 @@ public class CodeService {
 			}
 			codeList.remove(i);
 		}
-		sortHierarchyCode(dummyTop);
+		sortCodeHierarchy(dummyTop);
 		return dummyTop;
 	}
 	
-	private void sortHierarchyCode(Code code) {
+	private void sortCodeHierarchy(Code code) {
 		if (code.hasChildCode()) {
 			List<Code> codeList = code.getChildCode();
 			List<Code> sortedCodeList = new ArrayList<>();
 			for (int i = codeList.size() - 1; i > -1; i--) {
-				sortHierarchyCode(codeList.get(i));
+				sortCodeHierarchy(codeList.get(i));
 				sortedCodeList.add(codeList.get(i));
 			}
 			code.setChildCode(sortedCodeList);

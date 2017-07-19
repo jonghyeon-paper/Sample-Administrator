@@ -30,7 +30,7 @@ public class CodeController {
 	@PostMapping("/info.do")
 	@ResponseBody
 	public Code getCodeInfo(@RequestBody Code code) {
-		return codeService.retrieveCode(code);
+		return codeService.retrieve(code);
 	}
 	
 	@PostMapping("/list.do")
@@ -42,7 +42,7 @@ public class CodeController {
 	@PostMapping("/add.do")
 	@ResponseBody
 	public AjaxResponse addCode(@RequestBody Code code) {
-		Boolean flag = codeService.addCode(code);
+		Boolean flag = codeService.add(code);
 		
 		AjaxResponse response = new AjaxResponse();
 		response.setResponseCode(flag ? ResponseCode.SUCCESS : ResponseCode.FAIL);
@@ -53,7 +53,7 @@ public class CodeController {
 	@PostMapping("/edit.do")
 	@ResponseBody
 	public AjaxResponse editCode(@RequestBody Code code) {
-		Boolean flag = codeService.editCode(code);
+		Boolean flag = codeService.edit(code);
 		
 		AjaxResponse response = new AjaxResponse();
 		response.setResponseCode(flag ? ResponseCode.SUCCESS : ResponseCode.FAIL);
@@ -64,7 +64,7 @@ public class CodeController {
 	@PostMapping("/remove.do")
 	@ResponseBody
 	public AjaxResponse removeCode(@RequestBody Code code) {
-		Boolean flag = codeService.removeCode(code);
+		Boolean flag = codeService.remove(code);
 		
 		AjaxResponse response = new AjaxResponse();
 		response.setResponseCode(flag ? ResponseCode.SUCCESS : ResponseCode.FAIL);
@@ -75,6 +75,6 @@ public class CodeController {
 	@PostMapping("/hierarchy.do")
 	@ResponseBody
 	public Code getHierarchyCode(@RequestBody Code code) {
-		return codeService.getHierarchyCode(code);
+		return codeService.getCodeHierarchy(code);
 	}
 }

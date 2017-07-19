@@ -133,9 +133,8 @@
 				return false;
 			}
 			
+			// 파라미터가 있는 경우
 			IbaUtil.jsonAjax('${contextPath}/user/info.do', parameters, function(reponse){
-				//applyUserAuthority(reponse);
-				
 				(function(){
 					var $targetArea = $('#userInfoArea').empty();
 					var $userInfoObject = drawUserInfoOject(reponse, writeFlag);

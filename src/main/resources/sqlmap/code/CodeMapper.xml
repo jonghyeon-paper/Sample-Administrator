@@ -55,20 +55,17 @@
 		REG_DATE,
 		MOD_USER_ID,
 		MOD_DATE
-	) VALUES
-	<foreach collection="list" item="item" separator=", ">
-	(
-		#{item.codeId},
-		#{item.parentCodeId},
-		#{item.codeName},
-		#{item.description},
-		#{item.useState},
-		#{item.regUserId},
+	)VALUES(
+		#{codeId},
+		#{parentCodeId},
+		#{codeName},
+		#{description},
+		#{useState},
+		#{regUserId},
 		NOW(),
-		#{item.modUserId},
+		#{modUserId},
 		NOW()
 	)
-	</foreach>
 	</insert>
 	
 	<update id="update">
