@@ -37,15 +37,12 @@
 		ACCESS_MODE,
 		REG_USER_ID,
 		REG_DATE
-	) VALUES
-	<foreach collection="list" item="item" separator=", ">
-	(
-		#{item.authorityId},
-		#{item.accessMode},
-		#{item.regUserId},
+	)VALUES(
+		#{authorityId},
+		#{accessMode},
+		#{regUserId},
 		NOW()
 	)
-	</foreach>
 	</insert>
 	
 	<delete id="delete">

@@ -1,65 +1,36 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/jsp/common/include/taglib.jsp" %>
 
-	<article id="mycontent">
-		<div class="bgbox_develop">
-			<div class="contbox">
-				<div class="ibas_graph_wrap">
-					<h4 style="margin-top: 0px;">권한 정보</h4>
+	<div class="container">
+		<div class="contents">
+			<div class="row">
+				<div class="col-lg-3">
+					<h4><b>권한 목록</b></h4>
+					<div id="authorityListArea"></div>
 				</div>
 				
-				<div class="ibas_table_wrap" style="margin-top: -20px;">
-					<div style="float: left; width: 20%; padding: 1px;" id="authorityListArea"></div>
-					<div style="float: left; width: 40%; padding: 1px;">
-						<div id="authorityInfoArea">
-							<table id="authorityInfoTable" class="tbl_write1">
-								<colgroup>
-									<col width="27%">
-									<col width="73%">
-								</colgroup>
-								<thead></thead>
-								<tbody>
-									<tr>
-										<th>권한 ID</th>
-										<th><span></span></th>
-									</tr>
-									<tr>
-										<th>권한 이름</th>
-										<th><span></span></th>
-									</tr>
-									<tr>
-										<th>설명</th>
-										<th><span></span></th>
-									</tr>
-									<tr>
-										<th>사용 상태</th>
-										<th><span></span></th>
-									</tr>
-								</tbody>
-							</table>
-						</div>
+				<div class="col-lg-5">
+					<div>
+						<h4><b>권한 정보</b></h4>
+						<div id="authorityInfoArea"></div>
+						<h4><b>허가 정보</b></h4>
 						<div id="authorityAccessListArea"></div>
 					</div>
-					<div style="float: left; width: 35%; padding: 1px;" id="authorityMenuHierarchyArea"></div>
 				</div>
 				
-				<div class="ibas_table_wrap" style="margin-top: -20px;" id="buttonArea">
-					<div class="ibas_btns">
-						<span class="btn6">
-							<button type="button" style="display:none;" id="save">저장</button>
-						</span>
-						<span class="btn6" style="margin-left: 20px;">
-							<button type="button" style="display:none;" id="add">등록</button>
-						</span>
-						<span class="btn6" style="margin-left: 20px;">
-							<button type="button" style="display:none;" id="edit">수정</button>
-						</span>
-					</div>
+				<div class="col-lg-4">
+					<h4><b>접근 허가 메뉴</b></h4>
+					<div id="menuHierarchyArea"></div>
 				</div>
 			</div>
 			
+			<div class="btn-section text-center" id="buttonArea">
+				<button type="button" class="btn btn-default" style="display:none;" id="add">등록</button>
+				<button type="button" class="btn btn-default" style="display:none;" id="edit">수정</button>
+				<button type="button" class="btn btn-default" style="display:none;" id="save">저장</button>
+			</div>
 		</div>
-	</article>
+	</div>
 	
 	<script type="text/javascript">
 	var authority = (function(){
@@ -67,14 +38,14 @@
 			loadAuthorityList();
 			
 			$('#buttonArea').on('click', '#add', function(){
-				loadAuthorityForm();
+				loadAuthorityInfo();
 			});
 			
 			$('#buttonArea').on('click', '#edit', function(){
 				var $targetArea = $('#authorityInfoArea');
 				var dataObject = $targetArea.find('#authorityInfoTable').data('authorityInfo');
 				
-				loadAuthorityInfo({authorityId: dataObject.authorityId}, true);
+				loadAuthorityInfo(dataObject, true);
 			});
 			
 			$('#buttonArea').on('click', '#save', function(){
@@ -90,7 +61,7 @@
 				});
 				
 				var authorityMenuList = [];
-				$('#authorityMenuHierarchyArea').find('input:checkbox:checked').each(function(){
+				$('#menuHierarchyArea').find('input:checkbox:checked').each(function(){
 					authorityMenuList.push({
 							authorityId: dataObject.authorityId || $targetArea.find('#authorityId').val(),
 							menuId: $(this).val()
@@ -136,10 +107,9 @@
 			for (let item of list) {
 				var $li = $('<li>').css({'padding': '5px 0 5px 0'})
 				                   .appendTo($ul);
-				$('<span>').append($anchor.clone()
-				                          .attr({id: 'authrity-' + item.authorityId})
-				                          .data('authrity-info', item)
-				                          .html(item.authorityName)
+				$('<span>').append($anchor.clone().attr({id: 'authrity-' + item.authorityId})
+				                                  .data('authrity-info', item)
+				                                  .html(item.authorityName)
 				                  )
 				           .appendTo($li);
 			}
@@ -147,7 +117,7 @@
 			// click event
 			$div.on('click', 'a[id^=authrity-]', function() {
 				var dataObject = $(this).data('authrityInfo');
-				loadAuthorityInfo({authorityId: dataObject.authorityId});
+				loadAuthorityInfo(dataObject);
 			});
 			
 			return $div;
@@ -157,7 +127,44 @@
 			parameters = parameters || {};
 			writeFlag =  writeFlag === true ? true : false;
 			
-			IbaUtil.jsonAjax('${contextPath}/authority/info.do', parameters, function(reponse){
+			// 추가인 경우(파마티터가 없으면 빈 테이블만 그린다)
+			if (parameters.authorityId === null ||
+					parameters.authorityId === undefined ||
+					parameters.authorityId === '') {
+				
+				(function(){
+					var $targetArea = $('#authorityInfoArea').empty();
+					var $authorityInfoObject = drawAuthorityInfoOject({}, true);
+					$authorityInfoObject.appendTo($targetArea);
+					
+					// action type decision(add or edit)
+					$('<input>').attr({type: 'hidden', id: 'actionType', value: 'add'})
+					            .appendTo($authorityInfoObject);
+				}());
+				
+				(function(){
+					var $targetArea = $('#authorityAccessListArea').empty();
+					var authorityAccessList = authorityAccess.getAuthorityAccessList();
+	 				var $authorityAccessListObject = authorityAccess.drawAuthorityAccessListObject(authorityAccessList, true);
+	 				$authorityAccessListObject.appendTo($targetArea);
+				}());
+				
+				(function(){
+	 				var $targetArea = $('#menuHierarchyArea').empty();
+					var menuHierarchy = menu.getMenuHierarchy();
+	 				var $menuHierarchyObject = menu.drawMenuHierarchyObject(menuHierarchy, true);
+	 				$menuHierarchyObject.appendTo($targetArea);
+				}());
+				
+				// button controll
+				$('#buttonArea').find('#save').show();
+				$('#buttonArea').find('#edit, #add').hide();
+				// 영역을 비우고 종료
+				return false;
+			}
+			
+			// 상세 정보 확인(파라미터가 있는 경우)
+			IbaUtil.jsonAjax('${contextPath}/authority/info.do', {authorityId: parameters.authorityId}, function(reponse){
 				(function(){
 					var $targetArea = $('#authorityInfoArea').empty();
 					var $authorityInfoObject = drawAuthorityInfoOject(reponse, writeFlag);
@@ -169,11 +176,43 @@
 				}());
 				
 				(function(){
-					applyAuthrityAccess(reponse.authorityAccessList);
+					var $targetArea = $('#authorityAccessListArea').empty();
+					var authorityAccessList = authorityAccess.getAuthorityAccessList();
+	 				var $authorityAccessListObject = authorityAccess.drawAuthorityAccessListObject(authorityAccessList, writeFlag);
+	 				$authorityAccessListObject.appendTo($targetArea);
+	 				
+	 				var authorityAccessList = reponse.authorityAccessList;
+	 				for (let item of authorityAccessList) {
+	 					var authorityAccessMode = item.accessMode.displayValue;
+	 					
+	 					$authorityAccessListObject.find('input:checkbox').each(function(){
+	 						var accessMode = $(this).val();
+	 						if (authorityAccessMode === accessMode) {
+	 							$(this).prop('checked', true);
+	 							return false;
+	 						}
+	 					});
+	 				}
 				}());
 				
 				(function(){
-					applyAuthorityMenu(reponse.authorityMenuList);
+					var $targetArea = $('#menuHierarchyArea').empty();
+					var menuHierarchy = menu.getMenuHierarchy();
+	 				var $menuHierarchyObject = menu.drawMenuHierarchyObject(menuHierarchy, writeFlag);
+	 				$menuHierarchyObject.appendTo($targetArea);
+	 				
+	 				var authorityMenuList = reponse.authorityMenuList;
+	 	 			for (let item of authorityMenuList) {
+	 	 				var authorityMenuId = item.menuId;
+	 					
+	 	 				$menuHierarchyObject.find('input:checkbox').each(function(){
+	 	 					var menuId = parseInt($(this).val(), 10);
+	 	 					if (authorityMenuId === menuId) {
+	 	 						$(this).prop('checked', true);
+	 	 						return false;
+	 	 					}
+	 	 				});
+	 	 			}
 				}());
 				
 				// button controll
@@ -187,49 +226,23 @@
 			});
 		};
 		
-		var loadAuthorityForm = function() {
-			var $targetArea = $('#authorityInfoArea').empty();
-			var $authorityInfoObject = drawAuthorityInfoOject({}, true);
-			$authorityInfoObject.appendTo($targetArea);
-			
-			// action type decision(add or edit)
-			$('<input>').attr({type: 'hidden', id: 'actionType', value: 'add'})
-			            .appendTo($authorityInfoObject);
-			
-			(function(){
-				applyAuthrityAccess([]);
-			}());
-			
-			(function(){
-				applyAuthorityMenu([]);
-			}());
-			
-			// button controll
-			$('#buttonArea').find('#save').show();
-			$('#buttonArea').find('#edit, #add').hide();
-		};
-		
 		var drawAuthorityInfoOject = function(data, writeFlag) {
-			data = data || {};
-			writeFlag = writeFlag === true ? true : false;
-			
 			var $textObject = null;
 			if (writeFlag) {
-				$textObject = $('<input>').attr({type: 'text'});
+				$textObject = $('<input>').attr({type: 'text'}).addClass('form-control');
 			} else {
 				$textObject = $('<span>');
 			}
 			
 			var $table = $('<table>').attr({id: 'authorityInfoTable'})
-			                         .addClass('tbl_write1')
+			                         .addClass('table table-bordered')
 			                         .data('authority-info', data);
 			
 			var $colgroup = $('<colgroup>').appendTo($table);
-			$colgroup.append($('<col>').attr({width: '27%'}))
-			         .append($('<col>').attr({width: '73%'}));
+			$colgroup.append($('<col>').attr({width: '30%'}))
+			         .append($('<col>').attr({width: '70%'}));
 			
 			var $thead = $('<thead>').appendTo($table);
-			
 			var $tbody = $('<tbody>').appendTo($table);
 			
 			if (writeFlag) {
@@ -238,11 +251,9 @@
 					$('<th>').html('권한 ID')
 					         .appendTo($tr);
 					
-					var $authorityIdInputObject = $textObject.clone().attr({id: 'authorityId'});
-					
+					var $authorityIdInputObject = $textObject.clone().attr({id: 'authorityId', value: data.authorityId});
 					if (data.authorityId) {
-						$authorityIdInputObject.val(data.authorityId)
-						                       .prop('readonly', true);
+						$authorityIdInputObject.prop('readonly', true);
 					}
 					
 					$('<th>').append($authorityIdInputObject)
@@ -266,11 +277,14 @@
 				}());
 				
 				(function(){
-					var $select = $('<select>').attr({id: 'useState'});
+					var $select = $('<select>').attr({id: 'useState'}).addClass('form-control');
 					$('<option>').attr({value: 'USE'}).html('사용').appendTo($select);
 					$('<option>').attr({value: 'UNUSE'}).html('미사용').appendTo($select);
 					// apply data in edit mode
-					$select.val(data.useState);
+					// 권한 추가 시 해당 값이 없다.
+					if (data.useState && data.useState.displayValue) {
+						$select.val(data.useState.displayValue);
+					}
 					
 					var $tr = $('<tr>').appendTo($tbody);
 					$('<th>').html('사용 상태')
@@ -308,50 +322,12 @@
 					var $tr = $('<tr>').appendTo($tbody);
 					$('<th>').html('사용 상태')
 					         .appendTo($tr);
-					$('<th>').append($textObject.clone().html(data.useState))
+					$('<th>').append($textObject.clone().html(data.useState.description))
 					         .appendTo($tr);
 				}());
 			}
 			
 			return $table;
-		};
-		
-		var applyAuthrityAccess = function(data) {
-			var authorityAccessList = data;
-			
-			var $targetArea = $('#authorityAccessListArea');
-			$targetArea.find('input:checkbox').prop('checked', false);
-			
-			for (let item of authorityAccessList) {
-				var authorityAccessMode = item.accessMode.displayValue;
-				
-				$targetArea.find('input:checkbox').each(function(){
-					var accessMode = $(this).val();
-					if (authorityAccessMode === accessMode) {
-						$(this).prop('checked', true);
-						return false;
-					}
-				});
-			}
-		};
-		
-		var applyAuthorityMenu = function(data) {
-			var authorityMenuList = data;
-			
-			var $targetArea = $('#authorityMenuHierarchyArea');
-			$targetArea.find('input:checkbox').prop('checked', false);
-			
-			for (let item of authorityMenuList) {
-				var authorityMenuId = item.menuId;
-				
-				$targetArea.find('input:checkbox').each(function(){
-					var menuId = parseInt($(this).val(), 10);
-					if (authorityMenuId === menuId) {
-						$(this).prop('checked', true);
-						return false;
-					}
-				});
-			}
 		};
 		
 		var save = function(parameters) {
@@ -391,91 +367,116 @@
 	}());
 	
 	var authorityAccess = (function(){
+		var authorityAccessList = null;
+		
 		var initialize = function(){
-			loadAuthorityAccessList();
+			// nothing
 		};
 		
-		var loadAuthorityAccessList = function() {
-			IbaUtil.jsonAjax('${contextPath}/authority/access/list.do', {}, function(reponse){
-				var $targetArea = $('#authorityAccessListArea').empty();
-				
-				var $authorityAccessListObject = drawAuthorityAccessListObject(reponse);
-				$authorityAccessListObject.appendTo($targetArea);
-			});
-			
+		var getAuthorityAccessList = function() {
+			if (authorityAccessList === null) {
+				var parameters = {
+				};
+				IbaUtil.ajax('${contextPath}/authority/access/list.do', false, 'application/json', 'post', JSON.stringify(parameters), 'json', function(reponse){
+					authorityAccessList = reponse;
+				});
+			}
+			return authorityAccessList;
 		};
 		
-		var drawAuthorityAccessListObject = function(data) {
-			var authorityAccessList = data;
+		var drawAuthorityAccessListObject = function(data, writeFlag) {
+			writeFlag = writeFlag === true ? true : false;
 			
-			var $div = $('<div>').css({padding: '15px'});
+			var $div = $('<div>').addClass('checkbox');
+			var $checkbox = $('<input>').attr({type: 'checkbox'});
+			if (!writeFlag) {
+				$div.addClass('disabled');
+				$checkbox.prop('disabled', true);
+			}
+			
 			var $ul = $('<ul>').appendTo($div);
-			
-			for (let item of authorityAccessList) {
-				$('<li>').data('authority-access-info', item)
-				         .append($('<span>').append($('<input>').attr({type: 'checkbox',name: 'accessMode', value: item.displayValue})))
-				         .append($('<span>').html('&nbsp;'))
-				         .append($('<span>').html(item.description))
-				         .appendTo($ul);
+			for (let item of data) {
+				var $li = $('<li>').appendTo($ul);
+				
+				$('<label>').append($checkbox.clone().attr({id: 'accessMode-' + item.displayValue, value: item.displayValue})
+				                                     .data('authority-access-info', item)
+				                   )
+				            .append(item.description)
+				            .appendTo($li);
 			}
 			
 			return $div;
 		};
 		
 		return {
-			initialize: initialize
+			initialize: initialize,
+			getAuthorityAccessList: getAuthorityAccessList,
+			drawAuthorityAccessListObject: drawAuthorityAccessListObject
 		};
 	}());
 	
 	var menu = (function(){
-		var initialize =function() {
-			loadMenuHierarchy({useState: 'USE'});
+		var menuHierarchy = null;
+		
+		var initialize = function() {
+			// nothing
 		};
 		
-		var loadMenuHierarchy = function(parameters) {
-			parameters = parameters || {};
-			
-			IbaUtil.jsonAjax('${contextPath}/menu/hierarchy.do', parameters, function(reponse){
-				var $targetArea = $('#authorityMenuHierarchyArea').empty();
-				
-				var $menuHierarchyObject = drawMenuHierarchyObject(reponse);
-				$menuHierarchyObject.appendTo($targetArea);
-				
-			});
+		var getMenuHierarchy = function(parameters) {
+			if (menuHierarchy === null) {
+				parameters = {
+						useState: 'USE'
+				};
+				IbaUtil.ajax('${contextPath}/menu/hierarchy.do', false, 'application/json', 'post', JSON.stringify(parameters), 'json', function(reponse){
+					menuHierarchy = reponse;
+				});
+			}
+			return menuHierarchy;
 		}
 		
-		var drawMenuHierarchyObject = function(data){
-			var top = data;
+		var drawMenuHierarchyObject = function(data, writeFlag){
+			var dummyTop = [data];
+			writeFlag = writeFlag === true ? true : false;
 			
-			var $div = $('<div>').css({width: '100%', 'padding-top': '20px'});
+			var $div = $('<div>').addClass('checkbox');
+			if (!writeFlag) {
+				$div.addClass('disabled');
+			}
 			
-			var $topUl = $('<ul>').css({'list-style': 'disc', 'padding-left': '15px'}).appendTo($div);
-			var $topLi = $('<li>').css({'padding': '5px 0 5px 0'}).appendTo($topUl);
-			$('<span>').html(top.menuName)
-			           .appendTo($topLi);
-			
-			var $childMenuObject = drawChildMenuObject(top.childMenu);
+			var $childMenuObject = drawChildMenuObject(dummyTop, writeFlag);
 			if ($childMenuObject !== null) {
-				$childMenuObject.appendTo($topLi);
+				$childMenuObject.appendTo($div);
 			}
 			
 			return $div;
 		};
 		
-		var drawChildMenuObject = function(data) {
+		var drawChildMenuObject = function(data, writeFlag) {
+			writeFlag = writeFlag === true ? true : false;
+			
 			if (data && data.length > 0) {
-				var $anchor = $('<a>').attr({href: '#', onclick: 'return false;'});
 				var $checkbox = $('<input>').attr({type: 'checkbox'});
+				if (!writeFlag) {
+					$checkbox.prop('disabled', true);
+				}
 				
 				var $ul = $('<ul>').css({'list-style': 'disc', 'padding-left': '15px'});
 				for (let item of data) {
 					var $li = $('<li>').css({'padding': '5px 0 5px 0'}).appendTo($ul);
-					$('<span>').append($checkbox.clone().attr({id: 'menu-' + item.menuId, value: item.menuId}).data('menu-info', item))
-					           .appendTo($li);
-					$('<span>').html(item.menuName)
-					           .appendTo($li);
 					
-					var $childMenuObject = drawChildMenuObject(item.childMenu);
+					// 최상위 메뉴는 checkbox를 만들지 않는다.
+					if (item.menuName === 'TOP') {
+						$('<span>').html(item.menuName)
+						           .appendTo($li);
+					} else {
+						$('<label>').append($checkbox.clone().attr({id: 'menu-' + item.menuId, value: item.menuId})
+						                                     .data('menu-info', item)
+						                   )
+						            .append(item.menuName)
+						            .appendTo($li);
+					}
+					
+					var $childMenuObject = drawChildMenuObject(item.childMenu, writeFlag);
 					if ($childMenuObject !== null) {
 						$childMenuObject.appendTo($li);
 					}
@@ -487,7 +488,9 @@
 		};
 		
 		return {
-			initialize: initialize
+			initialize: initialize,
+			getMenuHierarchy: getMenuHierarchy,
+			drawMenuHierarchyObject: drawMenuHierarchyObject
 		};
 	}());
 	

@@ -1,6 +1,5 @@
 package com.skplanet.iba.domain.authority;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,7 @@ public class AuthorityMenuService {
 	@Autowired
 	private AuthorityMenuMapper authorityMenuMapper;
 	
-	public AuthorityMenu retrieveAuthority(AuthorityMenu authorityMenu) {
+	public AuthorityMenu retrieve(AuthorityMenu authorityMenu) {
 		return authorityMenuMapper.selectOne(authorityMenu);
 	}
 	
@@ -26,37 +25,39 @@ public class AuthorityMenuService {
 	}
 	
 	@Transactional
-	public Boolean addAuthorityMenu(List<AuthorityMenu> authorityMenuList) {
+	public Boolean add(AuthorityMenu authorityMenu) {
 		// 등록,수정자 id 설정
-		int insertCount = authorityMenuMapper.insert(authorityMenuList);
+		int insertCount = authorityMenuMapper.insert(authorityMenu);
 		return insertCount > 0 ? true : false;
 	}
 	
 	@Transactional
-	public Boolean addAuthorityMenu(AuthorityMenu authorityMenu) {
-		List<AuthorityMenu> authorityMenuList = new ArrayList<>();
-		authorityMenuList.add(authorityMenu);
-		return this.addAuthorityMenu(authorityMenuList);
+	public Boolean add(List<AuthorityMenu> authorityMenuList) {
+		Boolean flag = true;
+		for (AuthorityMenu authorityMenu : authorityMenuList) {
+			flag = flag && this.add(authorityMenu);
+		}
+		return flag;
 	}
 	
 	@Transactional
-	public Boolean removeAuthorityMenu(AuthorityMenu authorityMenu) {
+	public Boolean remove(AuthorityMenu authorityMenu) {
 		int deleteCount = authorityMenuMapper.delete(authorityMenu);
 		return deleteCount > 0 ? true : false;
 	}
 	
 	@Transactional
-	public Boolean removeAuthorityMenuByAuthorityId(String authorityId) {
+	public Boolean removeByAuthorityId(String authorityId) {
 		AuthorityMenu authorityMenu = new AuthorityMenu();
 		authorityMenu.setAuthorityId(authorityId);
-		return this.removeAuthorityMenu(authorityMenu);
+		return this.remove(authorityMenu);
 	}
 	
 	@Transactional
-	public Boolean removeAuthorityMenuByPrimaryKey(String authorityId, Integer menuId) {
+	public Boolean removeByPrimaryKey(String authorityId, Integer menuId) {
 		AuthorityMenu authorityMenu = new AuthorityMenu();
 		authorityMenu.setAuthorityId(authorityId);
 		authorityMenu.setMenuId(menuId);
-		return this.removeAuthorityMenu(authorityMenu);
+		return this.remove(authorityMenu);
 	}
 }

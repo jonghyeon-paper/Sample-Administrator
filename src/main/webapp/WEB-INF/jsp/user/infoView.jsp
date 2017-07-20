@@ -329,17 +329,14 @@
 			// nothing
 		};
 		
-		var getAuthrityList = function(parameters) {
-			parameters = parameters || {};
-			
-			IbaUtil.ajax('${contextPath}/authority/list.do', false, 'application/json', 'post', JSON.stringify(parameters), 'json', function(reponse){
-				authorityList = reponse;
-			});
-		};
-		
 		var getAuthorityList = function() {
 			if (authorityList === null) {
-				getAuthrityList({useState: 'USE'});
+				var parameters = {
+						useState: 'USE'
+				};
+				IbaUtil.ajax('${contextPath}/authority/list.do', false, 'application/json', 'post', JSON.stringify(parameters), 'json', function(reponse){
+					authorityList = reponse;
+				});
 			}
 			return authorityList;
 		};
@@ -357,11 +354,13 @@
 			
 			var $ul = $('<ul>').appendTo($div);
 			for (let item of authorityList) {
-				$('<li>').data('authority-info', item)
-				         .append($('<label>').append($checkbox.clone().attr({name: 'roleName', value: item.authorityId}))
-				                             .append(item.authorityName)
-				                )
-				         .appendTo($ul);
+				var $li = $('<li>').appendTo($ul);
+				
+				$('<label>').append($checkbox.clone().attr({id: 'authority-' + item.authorityId, value: item.authorityId})
+				                                     .data('authority-info', item)
+				                   )
+				            .append(item.authorityName)
+				            .appendTo($li);
 			}
 			
 			return $div;

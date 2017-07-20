@@ -199,16 +199,17 @@
 					var $tr = $('<tr>').appendTo($tbody);
 					$('<th>').html('코드')
 					         .appendTo($tr);
+					
+					var $codeIdInputObject = $textObject.clone().attr({id: 'codeId', value: data.codeId});
 					if (data.codeId !== null &&
 							data.codeId !== undefined &&
 							data.codeId !== '') {
 						
-						$('<td>').append($textObject.clone().attr({id: 'codeId', value: data.codeId}).prop('readonly', true))
-						         .appendTo($tr);
-					} else {
-						$('<td>').append($textObject.clone().attr({id: 'codeId', value: data.codeId}))
-						         .appendTo($tr);
+						$codeIdInputObject.prop('readonly', true);
 					}
+					
+					$('<td>').append($codeIdInputObject)
+					         .appendTo($tr);
 				}());
 				
 				(function(){

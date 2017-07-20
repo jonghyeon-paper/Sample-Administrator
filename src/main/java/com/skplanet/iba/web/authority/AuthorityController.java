@@ -33,7 +33,7 @@ public class AuthorityController {
 	@PostMapping("/info.do")
 	@ResponseBody
 	public Authority getAuthorityInfo(@RequestBody Authority authority) {
-		return authorityService.retrieveAuthority(authority);
+		return authorityService.retrieve(authority);
 	}
 	
 	@PostMapping("/list.do")
@@ -45,7 +45,7 @@ public class AuthorityController {
 	@PostMapping("/add.do")
 	@ResponseBody
 	public AjaxResponse addAuthority(@RequestBody Authority authority) {
-		Boolean flag = authorityService.addAuthority(authority);
+		Boolean flag = authorityService.add(authority);
 		
 		AjaxResponse response = new AjaxResponse();
 		response.setResponseCode(flag ? ResponseCode.SUCCESS : ResponseCode.FAIL);
@@ -55,7 +55,7 @@ public class AuthorityController {
 	@PostMapping("/edit.do")
 	@ResponseBody
 	public AjaxResponse editAuthority(@RequestBody Authority authority) {
-		Boolean flag = authorityService.editAuthority(authority);
+		Boolean flag = authorityService.edit(authority);
 		
 		AjaxResponse response = new AjaxResponse();
 		response.setResponseCode(flag ? ResponseCode.SUCCESS : ResponseCode.FAIL);
@@ -65,7 +65,7 @@ public class AuthorityController {
 	@PostMapping("/remove.do")
 	@ResponseBody
 	public AjaxResponse removeAuthority(@RequestBody Authority authority) {
-		Boolean flag = authorityService.removeAuthority(authority);
+		Boolean flag = authorityService.remove(authority);
 		
 		AjaxResponse response = new AjaxResponse();
 		response.setResponseCode(flag ? ResponseCode.SUCCESS : ResponseCode.FAIL);

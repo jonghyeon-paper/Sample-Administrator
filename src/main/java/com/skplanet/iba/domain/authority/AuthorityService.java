@@ -18,7 +18,7 @@ public class AuthorityService {
 	@Autowired
 	private AuthorityMenuService authorityMenuService;
 	
-	public Authority retrieveAuthority(Authority authority) {
+	public Authority retrieve(Authority authority) {
 		return authorityMapper.selectOne(authority);
 	}
 	
@@ -27,7 +27,7 @@ public class AuthorityService {
 	}
 	
 	@Transactional
-	public Boolean addAuthority(Authority authority) {
+	public Boolean add(Authority authority) {
 		// 등록,수정자 id 설정
 		
 		// 권한 정보 등록
@@ -37,28 +37,28 @@ public class AuthorityService {
 		if (insertCount > 0) {
 			// 접근 권한 등록
 			if (authority.getAuthorityAccessList() != null && !authority.getAuthorityAccessList().isEmpty()) {
-				authorityAccessService.addAuthorityAccess(authority.getAuthorityAccessList());
+				authorityAccessService.add(authority.getAuthorityAccessList());
 			}
 			
 			// 권한 메뉴 등록
 			if (authority.getAuthorityMenuList() != null && !authority.getAuthorityMenuList().isEmpty()) {
-				authorityMenuService.addAuthorityMenu(authority.getAuthorityMenuList());
+				authorityMenuService.add(authority.getAuthorityMenuList());
 			}
 		}
 		return insertCount > 0 ? true : false;
 	}
 	
 	@Transactional
-	public Boolean addAuthority(List<Authority> authorityList) {
+	public Boolean add(List<Authority> authorityList) {
 		Boolean flag = true;
 		for (Authority authority : authorityList) {
-			flag = flag && this.addAuthority(authority);
+			flag = flag && this.add(authority);
 		}
 		return flag;
 	}
 	
 	@Transactional
-	public Boolean editAuthority(Authority authority) {
+	public Boolean edit(Authority authority) {
 		// 수정자 id 설정
 		
 		// 권한 정보 수정
@@ -68,36 +68,36 @@ public class AuthorityService {
 		if (updateCount > 0) {
 			// 접근 권한 삭제, 등록
 			if (authority.getAuthorityAccessList() != null && !authority.getAuthorityAccessList().isEmpty()) {
-				authorityAccessService.removeAuthorityAccessByAuthorityId(authority.getAuthorityId());
-				authorityAccessService.addAuthorityAccess(authority.getAuthorityAccessList());
+				authorityAccessService.removeByAuthorityId(authority.getAuthorityId());
+				authorityAccessService.add(authority.getAuthorityAccessList());
 			}
 			
 			// 권한 메뉴 삭제, 등록
 			if (authority.getAuthorityMenuList() != null && !authority.getAuthorityMenuList().isEmpty()) {
-				authorityMenuService.removeAuthorityMenuByAuthorityId(authority.getAuthorityId());
-				authorityMenuService.addAuthorityMenu(authority.getAuthorityMenuList());
+				authorityMenuService.removeByAuthorityId(authority.getAuthorityId());
+				authorityMenuService.add(authority.getAuthorityMenuList());
 			}
 		}
 		return updateCount > 0 ? true : false;
 	}
 	
 	@Transactional
-	public Boolean removeAuthority(Authority authority) {
+	public Boolean remove(Authority authority) {
 		int deleteCount = authorityMapper.delete(authority);
 		return deleteCount > 0 ? true : false;
 	}
 	
 	@Transactional
-	public Boolean removeAuthorityByAuthorityId(String authorityId) {
+	public Boolean removeByAuthorityId(String authorityId) {
 		Authority authority = new Authority();
 		authority.setAuthorityId(authorityId);
-		return this.removeAuthority(authority);
+		return this.remove(authority);
 	}
 	
 	@Transactional
-	public Boolean removeAuthorityByPrimaryKey(String authorityId) {
+	public Boolean removeByPrimaryKey(String authorityId) {
 		Authority authority = new Authority();
 		authority.setAuthorityId(authorityId);
-		return this.removeAuthority(authority);
+		return this.remove(authority);
 	}
 }

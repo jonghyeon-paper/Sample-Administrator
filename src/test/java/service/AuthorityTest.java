@@ -38,7 +38,7 @@ public class AuthorityTest extends AbstractJUnit {
 	public void get() {
 		Authority authoritySearchCondition = new Authority();
 		authoritySearchCondition.setAuthorityId(AUTHORITY_ID);
-		Authority result = authorityService.retrieveAuthority(authoritySearchCondition);
+		Authority result = authorityService.retrieve(authoritySearchCondition);
 		print(result);
 	}
 	
@@ -51,7 +51,7 @@ public class AuthorityTest extends AbstractJUnit {
 		supseruser.setAuthorityName("SuperUser");
 		supseruser.setDescription("123");
 		supseruser.setUseState(UseState.USE);
-		authorityService.addAuthority(supseruser);
+		authorityService.add(supseruser);
 		
 		// Add authority menu
 		Menu menuSearchCondition = new Menu();
@@ -65,7 +65,7 @@ public class AuthorityTest extends AbstractJUnit {
 			authorityMenuList.add(authorityMenu);
 		}
 		if (authorityMenuList.size() > 0) {
-			authorityMenuService.addAuthorityMenu(authorityMenuList);
+			authorityMenuService.add(authorityMenuList);
 		}
 		
 		// Add authority access mode
@@ -85,11 +85,11 @@ public class AuthorityTest extends AbstractJUnit {
 		authorityAccessModeList.add(readMode);
 		authorityAccessModeList.add(writedMode);
 		authorityAccessModeList.add(excuteMode);
-		authorityAccessModeService.addAuthorityAccess(authorityAccessModeList);
+		authorityAccessModeService.add(authorityAccessModeList);
 		
 		Authority authoritySearchCondition = new Authority();
 		authoritySearchCondition.setAuthorityId(AUTHORITY_ID);
-		Authority result = authorityService.retrieveAuthority(authoritySearchCondition);
+		Authority result = authorityService.retrieve(authoritySearchCondition);
 		print(result);
 		
 		// remove test data - reverse process
@@ -106,13 +106,13 @@ public class AuthorityTest extends AbstractJUnit {
 	
 	//@Test
 	public void remove() {
-		authorityAccessModeService.removeAuthorityAccessByAuthorityId(AUTHORITY_ID);
-		authorityMenuService.removeAuthorityMenuByAuthorityId(AUTHORITY_ID);
-		authorityService.removeAuthorityByAuthorityId(AUTHORITY_ID);
+		authorityAccessModeService.removeByAuthorityId(AUTHORITY_ID);
+		authorityMenuService.removeByAuthorityId(AUTHORITY_ID);
+		authorityService.removeByAuthorityId(AUTHORITY_ID);
 		
 		Authority authoritySearchCondition = new Authority();
 		authoritySearchCondition.setAuthorityId(AUTHORITY_ID);
-		Authority result = authorityService.retrieveAuthority(authoritySearchCondition);
+		Authority result = authorityService.retrieve(authoritySearchCondition);
 		print(result);
 	}
 }

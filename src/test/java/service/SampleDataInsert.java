@@ -102,7 +102,7 @@ public class SampleDataInsert extends AbstractJUnit {
 		supseruser.setAuthorityName("SuperUser");
 		supseruser.setDescription("SuperUser blah~~blah~~");
 		supseruser.setUseState(UseState.USE);
-		authorityService.addAuthority(supseruser);
+		authorityService.add(supseruser);
 		
 		// Add authority menu - 메뉴를 먼저 등록해야함!!!
 		Menu menuSearchCondition = new Menu();
@@ -116,7 +116,7 @@ public class SampleDataInsert extends AbstractJUnit {
 			authorityMenuList.add(authorityMenu);
 		}
 		if (authorityMenuList.size() > 0) {
-			authorityMenuService.addAuthorityMenu(authorityMenuList);
+			authorityMenuService.add(authorityMenuList);
 		}
 		
 		// Add authority access
@@ -136,7 +136,7 @@ public class SampleDataInsert extends AbstractJUnit {
 		authorityAccessList.add(readMode);
 		authorityAccessList.add(writedMode);
 		authorityAccessList.add(excuteMode);
-		authorityAccessModeService.addAuthorityAccess(authorityAccessList);
+		authorityAccessModeService.add(authorityAccessList);
 		
 	}
 	
@@ -150,8 +150,8 @@ public class SampleDataInsert extends AbstractJUnit {
 		userService.removeByUserId(USER_ID);
 		
 		// Remove authority
-		authorityAccessModeService.removeAuthorityAccessByAuthorityId(AUTHORITY_ID);
-		authorityMenuService.removeAuthorityMenuByAuthorityId(AUTHORITY_ID);
-		authorityService.removeAuthorityByAuthorityId(AUTHORITY_ID);
+		authorityAccessModeService.removeByAuthorityId(AUTHORITY_ID);
+		authorityMenuService.removeByAuthorityId(AUTHORITY_ID);
+		authorityService.removeByAuthorityId(AUTHORITY_ID);
 	}
 }

@@ -44,15 +44,12 @@
 		MENU_ID,
 		REG_USER_ID,
 		REG_DATE
-	) VALUES
-	<foreach collection="list" item="item" separator=", ">
-	(
-		#{item.authorityId},
-		#{item.menuId},
-		#{item.regUserId},
+	)VALUES(
+		#{authorityId},
+		#{menuId},
+		#{regUserId},
 		NOW()
 	)
-	</foreach>
 	</insert>
 	
 	<delete id="delete">
