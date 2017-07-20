@@ -53,7 +53,7 @@ public class SampleDataInsert extends AbstractJUnit {
 		Menu systemManage = new Menu();
 		systemManage.setMenuName("System manage");
 		systemManage.setUseState(UseState.USE);
-		menuService.addMenu(systemManage);
+		menuService.add(systemManage);
 		
 		Menu menuManage = new Menu();
 		menuManage.setMenuName("Menu manage");
@@ -77,7 +77,7 @@ public class SampleDataInsert extends AbstractJUnit {
 		menuList.add(menuManage);
 		menuList.add(userManage);
 		menuList.add(codeManage);
-		menuService.addMenu(menuList);
+		menuService.add(menuList);
 		
 		// Add user
 		User user = new User();

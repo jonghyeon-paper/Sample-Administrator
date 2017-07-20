@@ -23,7 +23,7 @@ public class MenuTest extends AbstractJUnit {
 		systemMenu.setMenuName("System manage");
 		systemMenu.setUseState(UseState.USE);
 		
-		menuService.addMenu(systemMenu);
+		menuService.add(systemMenu);
 		
 		Menu menu = new Menu();
 		menu.setMenuName("Menu manage");
@@ -48,7 +48,7 @@ public class MenuTest extends AbstractJUnit {
 		menuList.add(user);
 		menuList.add(code);
 		
-		menuService.addMenu(menuList);
+		menuService.add(menuList);
 		
 		List<Menu> resultList = menuService.retrieveList(new Menu());
 		print(resultList);
@@ -61,7 +61,7 @@ public class MenuTest extends AbstractJUnit {
 		menu.setMenuName("Menu manage!!");
 		menu.setUseState(UseState.UNUSE);
 		
-		menuService.editMenu(menu);
+		menuService.edit(menu);
 		
 		Menu condition = new Menu();
 		condition.setMenuId(6);

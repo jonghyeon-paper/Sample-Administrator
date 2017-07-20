@@ -66,7 +66,6 @@
 	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="menuId">
 	INSERT INTO MENU(
-		MENU_ID,
 		PARENT_MENU_ID,
 		MENU_NAME,
 		URI,
@@ -77,7 +76,6 @@
 		MOD_USER_ID,
 		MOD_DATE
 	)VALUES(
-		#{menuId},
 		#{parentMenuId},
 		#{menuName},
 		#{uri},

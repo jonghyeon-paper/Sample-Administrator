@@ -1,56 +1,44 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/jsp/common/include/taglib.jsp" %>
 
-	<article id="mycontent">
-		<div class="bgbox_develop">
-			<div class="contbox">
-				<div class="ibas_graph_wrap">
-					<h4 style="margin-top: 0px;">메뉴 관리</h4>
+	<div class="container">
+		<div class="contents">
+			<div class="row">
+				<div class="col-lg-3">
+					<h4><b>메뉴 계층</b></h4>
+					<div id="meuHierarchyArea"></div>
 				</div>
 				
-				<div class="ibas_table_wrap" style="margin-top: -20px;">
-					<div style="float: left; width: 30%; padding: 1px;" id="meuHierarchyArea"></div>
-					<div style="float: left; width: 40%; padding: 1px;" id="menuInfoArea"></div>
-					<div style="float: left; width: 25%; padding: 1px;" id="menuDependenceArea"></div>
+				<div class="col-lg-5">
+					<h4><b>메뉴 정보</b></h4>
+					<div id="menuInfoArea"></div>
 				</div>
 				
-				<div class="ibas_table_wrap" style="margin-top: -20px;" id="buttonArea">
-					<div class="ibas_btns">
-						<span class="btn6">
-							<button type="button" style="display:none;" id="save">저장</button>
-						</span>
-						<span class="btn6" style="margin-left: 20px;">
-							<button type="button" style="display:none;" id="add">등록</button>
-						</span>
-						<span class="btn6" style="margin-left: 20px;">
-							<button type="button" style="display:none;" id="edit">수정</button>
-						</span>
-					</div>
+				<div class="col-lg-4">
+					<h4><b>접근 허가 URI</b></h4>
+					<div id="menuDependenceArea"></div>
 				</div>
 			</div>
 			
+			<div class="btn-section text-center" id="buttonArea">
+				<button type="button" class="btn btn-default" style="display:none;" id="add">등록</button>
+				<button type="button" class="btn btn-default" style="display:none;" id="edit">수정</button>
+				<button type="button" class="btn btn-default" style="display:none;" id="save">저장</button>
+			</div>
 		</div>
-	</article>
+	</div>
 	
 	<script type="text/javascript">
 	var menu = (function(){
 		var initialize =function() {
-			loadMenuHierarchy({});
+			loadMenuHierarchy();
 			
 			$('#buttonArea').on('click', '#add', function(){
 				var $targetArea = $('#menuInfoArea');
 				var dataObject = $targetArea.find('#menuInfoTable').data('menuInfo');
 				
-				var data = {};
-				// 최상위 메뉴의 경우 값이 없음
-				if (dataObject !== null &&
-						dataObject !== undefined &&
-						dataObject !== '') {
-					
-					data.parentMenuId = dataObject.menuId;
-				}
-				
-				loadMenuInput(data);
+				var parentMenuId = dataObject.menuId ? dataObject.menuId : '';
+				loadMenuInfo({parentMenuId: parentMenuId}, true);
 			});
 			
 			$('#buttonArea').on('click', '#edit', function(){
@@ -99,7 +87,7 @@
 		var drawMenuHierarchyObject = function(data){
 			var dummyTop = [data];
 			
-			var $div = $('<div>').css({width: '100%', 'padding-top': '20px'});
+			var $div = $('<div>');
 			
 			var $childMenuObject = drawChildMenuObject(dummyTop);
 			if ($childMenuObject !== null) {
@@ -108,7 +96,8 @@
 			
 			// click event
 			$div.on('click', 'a[id^=menu-]', function() {
-				loadMenuInfo($(this).data('menuInfo'));
+				var dataObject = $(this).data('menuInfo');
+				loadMenuInfo(dataObject);
 			});
 			
 			return $div;
@@ -142,23 +131,65 @@
 			parameters = parameters || {};
 			writeFlag = writeFlag === true ? true : false;
 			
-			// 최상위 메뉴는 더미값
-			// 최상위 메뉴는 등록버튼만 노출
-			if (parameters.menuId === null ||
+			// 추가인 경우(파마티터가 없으면 빈 테이블만 그린다) // TOP이 아니면서
+			if (parameters.menuName !== 'TOP' &&
+					parameters.menuId === null ||
 					parameters.menuId === undefined ||
-					parameters.menuId === '' ||
-					parameters.menuId === -1) {
+					parameters.menuId === '') {
 				
-				$('#menuInfoArea').empty();
-				$('#menuDependenceArea').empty();
+				(function(){
+					// 부모메뉴 ID는 있으므로 테이블을 그리기 위해 데이터는 그대로 넘겨준다.
+					var data = parameters;
+					var $targetArea = $('#menuInfoArea').empty();
+					var $menuInfoObject = drawMenuInfoObject(data, true);
+					// action type decision(add or edit)
+					$('<input>').attr({type: 'hidden', id: 'actionType', value: 'add'})
+					            .appendTo($menuInfoObject);
+					$menuInfoObject.appendTo($targetArea);
+				}());
 				
-				$('#buttonArea').find('#add').show();
-				$('#buttonArea').find('#save, #edit').hide();
+				(function(){
+					var $targetArea = $('#menuDependenceArea').empty();
+					var $menuDependenceListbject = drawMenuDependenceListObject([], true);
+					$menuDependenceListbject.appendTo($targetArea);
+				}());
+				
+				// button control
+				$('#buttonArea').find('#save').show();
+				$('#buttonArea').find('#add, #edit').hide();
+				
 				// 영역을 비우고 종료
 				return false;
 			}
 			
-			IbaUtil.jsonAjax('${contextPath}/menu/info.do', parameters, function(reponse){
+			// 최상위 메뉴인 경우
+			if (parameters.menuName === 'TOP') {
+				(function(){
+					var $targetArea = $('#menuInfoArea').empty();
+					var $menuInfoObject = drawMenuInfoObject({menuName: 'TOP', description: '최상위 메뉴', useState:{description: '사용'}});
+					$menuInfoObject.appendTo($targetArea);
+					
+					// action type decision(add or edit)
+					$('<input>').attr({type: 'hidden', id: 'actionType', value: 'edit'})
+					            .appendTo($menuInfoObject);
+				}());
+				
+				(function(){
+					var $targetArea = $('#menuDependenceArea').empty();
+					var $menuDependenceListbject = drawMenuDependenceListObject([]);
+					$menuDependenceListbject.appendTo($targetArea);
+				}());
+				
+				// button control
+				// 최상위 메뉴는 추가버튼만 노출
+				$('#buttonArea').find('#add').show();
+				$('#buttonArea').find('#save, #edit').hide();
+				
+				return false;
+			}
+			
+			// 상세 정보 확인(데이터가 있는 경우)
+			IbaUtil.jsonAjax('${contextPath}/menu/info.do', {menuId: parameters.menuId}, function(reponse){
 				(function(){
 					var $targetArea = $('#menuInfoArea').empty();
 					var $menuInfoObject = drawMenuInfoObject(reponse, writeFlag);
@@ -185,48 +216,23 @@
 			});
 		};
 		
-		var loadMenuInput = function(data) {
-			data = data || {};
-			
-			(function(){
-				var $targetArea = $('#menuInfoArea').empty();
-				var $menuInfoObject = drawMenuInfoObject(data, true);
-				$menuInfoObject.appendTo($targetArea);
-				
-				// action type decision(add or edit)
-				$('<input>').attr({type: 'hidden', id: 'actionType', value: 'add'})
-				            .appendTo($menuInfoObject);
-			}());
-			
-			(function(){
-				var $targetArea = $('#menuDependenceArea').empty();
-				var $menuDependenceListbject = drawMenuDependenceListObject([], true);
-				$menuDependenceListbject.appendTo($targetArea);
-			}());
-			
-			// button controll
-			$('#buttonArea').find('#save').show();
-			$('#buttonArea').find('#add, #edit').hide();
-		}
-		
 		var drawMenuInfoObject = function(data, writeFlag) {
 			var $textObject = null;
 			if (writeFlag) {
-				$textObject = $('<input>').attr({type: 'text'});
+				$textObject = $('<input>').attr({type: 'text'}).addClass('form-control');
 			} else {
 				$textObject = $('<span>');
 			}
 			
 			var $table = $('<table>').attr({id: 'menuInfoTable'})
-			                         .addClass('tbl_write1')
+			                         .addClass('table table-bordered')
 			                         .data('menu-info', data);
 			
 			var $colgroup = $('<colgroup>').appendTo($table);
-			$colgroup.append($('<col>').attr({width: '27%'}))
-			         .append($('<col>').attr({width: '73%'}));
+			$colgroup.append($('<col>').attr({width: '30%'}))
+			         .append($('<col>').attr({width: '70%'}));
 			
 			var $thead = $('<thead>').appendTo($table);
-			
 			var $tbody = $('<tbody>').appendTo($table);
 			
 			if (writeFlag) {
@@ -271,15 +277,18 @@
 				}());
 				
 				(function(){
-					var $select = $('<select>').attr({id: 'useState'});
+					var $select = $('<select>').attr({id: 'useState'}).addClass('form-control');
 					$('<option>').attr({value: 'USE'}).html('사용').appendTo($select);
 					$('<option>').attr({value: 'UNUSE'}).html('미사용').appendTo($select);
 					
 					// apply data in edit mode
-					$select.val(data.useState);
+					// 메뉴 추가 시 해당 값이 없다.
+					if (data.useState && data.useState.displayValue) {
+						$select.val(data.useState.displayValue);
+					}
 					
 					var $tr = $('<tr>').appendTo($tbody);
-					$('<th>').html('사용 여부')
+					$('<th>').html('사용 상태')
 					         .appendTo($tr);
 					$('<th>').append($select)
 					         .appendTo($tr);
@@ -329,9 +338,9 @@
 				
 				(function(){
 					var $tr = $('<tr>').appendTo($tbody);
-					$('<th>').html('사용 여부')
+					$('<th>').html('사용 상태')
 					         .appendTo($tr);
-					$('<th>').append($textObject.clone().html(data.useState))
+					$('<th>').append($textObject.clone().html(data.useState.description))
 					         .appendTo($tr);
 				}());
 			}
@@ -340,21 +349,32 @@
 		}
 		
 		var drawMenuDependenceListObject = function(data, writeFlag) {
-			var $div = $('<div>').css({width: '100%', 'padding-top': '20px'});
+			var $div = $('<div>');
 			
-			$inputArea = $('<div>').appendTo($div);
+			var $inputForm = $('<form>').addClass('form-inline')
+			                        .appendTo($div);
+			
+			var $formGroup = $('<div>').addClass('form-group')
+			                           .appendTo($inputForm);
+			
+			$('<label>').attr({'for': 'dependenceUri'})
+			            .html('URI : ')
+			            .appendTo($formGroup);
+			
 			$('<input>').attr({type: 'text', id: 'dependenceUri'})
-			            .appendTo($inputArea);
-			$('<button>').attr({type: 'text', id: 'addDependenceUri'})
-			             .css({'background-color': 'gray'}) //css떄문에 안보여서 임시로 추가함.
+			            .addClass('form-control')
+			            .appendTo($formGroup);
+			
+			$('<button>').attr({type: 'button', id: 'addDependenceUri'})
+			             .addClass('btn btn-default')
 			             .html('추가')
-			             .appendTo($inputArea);
+			             .appendTo($inputForm);
 			
 			var $ul = $('<ul>').css({'list-style': 'disc', 'padding-left': '15px'})
 			                   .appendTo($div);
 			
 			// click event
-			$div.on('click', 'button[id=addDependenceUri]', function() {
+			$div.on('click', '#addDependenceUri', function() {
 				var data = {
 						dependenceUri: $div.find('#dependenceUri').val()
 				};
@@ -363,19 +383,20 @@
 				                   .data('menu-dependence-info', data)
 				                   .appendTo($ul);
 				
-				$('<span>').css({width: '200px'})
+				$('<span>').css({width: '280px', display: 'inline-block'})
 				           .html(data.dependenceUri)
 				           .appendTo($li);
 				
 				if (writeFlag) {
 					$('<span>').append($('<button>').attr({type: 'button'})
-					                                .css({'background-color': 'gray'}) //css떄문에 안보여서 임시로 추가함.
+					                                .addClass('btn btn-default')
 					                                .html('삭제')
 					                                .on('click', function(){$(this).parents('li').remove();})
 					                  )
 					           .appendTo($li);
 				}
 				
+				// 값 비우기
 				$div.find('#dependenceUri').val('');
 			});
 			
@@ -387,7 +408,7 @@
 			}
 			
 			if (!writeFlag) {
-				$inputArea.remove();
+				$inputForm.remove();
 			}
 			
 			return $div;

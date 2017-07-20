@@ -16,7 +16,7 @@
 			</div>
 			
 			<div class="btn-section text-center" id="buttonArea">
-				<button type="button" class="btn btn-default" style="display:none;" id="add">등록</button>
+				<button type="button" class="btn btn-default" style="display:none;" id="add">추가</button>
 				<button type="button" class="btn btn-default" style="display:none;" id="edit">수정</button>
 				<button type="button" class="btn btn-default" style="display:none;" id="save">저장</button>
 			</div>
@@ -31,8 +31,8 @@
 			$('#buttonArea').on('click', '#add', function(){
 				var $targetArea = $('#codeInfoArea');
 				var dataObject = $targetArea.find('#codeInfoTable').data('codeInfo');
-				var parentCodeId = dataObject.codeId ? dataObject.codeId : '';
 				
+				var parentCodeId = dataObject.codeId ? dataObject.codeId : '';
 				loadCodeInfo({parentCodeId: parentCodeId}, true);
 			});
 			
@@ -82,7 +82,8 @@
 			
 			// click event
 			$div.on('click', 'a[id^=code-]', function() {
-				loadCodeInfo($(this).data('codeInfo'));
+				var dataObject = $(this).data('codeInfo');
+				loadCodeInfo(dataObject);
 			});
 			
 			return $div;
@@ -116,7 +117,7 @@
 			data = data || {};
 			writeFlag =  writeFlag === true ? true : false;
 			
-			// 데이터가 없으면 빈 테이블만 그린다. // TOP이 아니면서
+			// 추가인 경우(데이터가 없으면 빈 테이블만 그린다) // TOP이 아니면서
 			if (data.codeName !== 'TOP' &&
 					data.codeId === null ||
 					data.codeId === undefined ||
@@ -133,11 +134,29 @@
 				// button control
 				$('#buttonArea').find('#save').show();
 				$('#buttonArea').find('#add, #edit').hide();
+				// 영역을 비우고 종료
+				return false;
+			}
+			
+			// 최상위 코드인 경우
+			if (data.codeName === 'TOP') {
+				var $targetArea = $('#codeInfoArea').empty();
+				var $codeInfoObject = drawCodeInfoOject(data);
+				$codeInfoObject.appendTo($targetArea);
+				
+				// action type decision(add or edit)
+				$('<input>').attr({type: 'hidden', id: 'actionType', value: 'edit'})
+				            .appendTo($codeInfoObject);
+				
+				// button control
+				// 최상위 코드는 추가버튼만 노출
+				$('#buttonArea').find('#add').show();
+				$('#buttonArea').find('#save, #edit').hide();
 				
 				return false;
 			}
 			
-			// 데이터가 있는 경우
+			// 상세 정보 확인(데이터가 있는 경우)
 			var $targetArea = $('#codeInfoArea').empty();
 			var $codeInfoObject = drawCodeInfoOject(data, writeFlag);
 			$codeInfoObject.appendTo($targetArea);
@@ -153,16 +172,6 @@
 			} else {
 				$('#buttonArea').find('#add, #edit').show();
 				$('#buttonArea').find('#save').hide();
-			}
-			
-			// 최상위코드는 등록버튼만 노출
-			if (data.codeId === null ||
-					data.codeId === undefined ||
-					data.codeId === '' ||
-					data.codeId === -1 ||
-					data.codeId === '-1') {
-				
-				$('#buttonArea').find('#edit').hide();
 			}
 		};
 		

@@ -31,7 +31,7 @@ public class MenuService {
 	}
 	
 	@Transactional
-	public Boolean addMenu(Menu menu) {
+	public Boolean add(Menu menu) {
 		// 등록,수정자 id 설정
 		
 		// 메뉴 등록
@@ -51,16 +51,16 @@ public class MenuService {
 	}
 	
 	@Transactional
-	public Boolean addMenu(List<Menu> menuList) {
+	public Boolean add(List<Menu> menuList) {
 		Boolean flag = true;
 		for (Menu menu : menuList) {
-			flag = flag && this.addMenu(menu);
+			flag = flag && this.add(menu);
 		}
 		return flag;
 	}
 	
 	@Transactional
-	public Boolean editMenu(Menu menu) {
+	public Boolean edit(Menu menu) {
 		// 수정자 id 설정
 		
 		// 메뉴 수정
@@ -82,23 +82,23 @@ public class MenuService {
 	}
 	
 	@Transactional
-	public Boolean removeMenu(Menu menu) {
+	public Boolean remove(Menu menu) {
 		int deleteCount = menuMapper.delete(menu);
 		return deleteCount > 0 ? true : false;
 	}
 	
 	@Transactional
-	public Boolean removeMenuByMenuId(Integer menuId) {
+	public Boolean removeByMenuId(Integer menuId) {
 		Menu menu = new Menu();
 		menu.setMenuId(menuId);
-		return this.removeMenu(menu);
+		return this.remove(menu);
 	}
 	
 	@Transactional
-	public Boolean removeMenuByPrimaryKey(Integer menuId) {
+	public Boolean removeByPrimaryKey(Integer menuId) {
 		Menu menu = new Menu();
 		menu.setMenuId(menuId);
-		return this.removeMenu(menu);
+		return this.remove(menu);
 	}
 	
 	public Menu getMenuHierarchy() {
@@ -110,8 +110,11 @@ public class MenuService {
 	
 	public Menu createMenuHierarchy(List<Menu> menuList) {
 		Menu dummyTop = new Menu();
+		//dummyTop.setMenuId(-1);
+		//dummyTop.setParentMenuId(-1);
 		dummyTop.setMenuName("TOP");
-		dummyTop.setMenuId(-1);
+		dummyTop.setDescription("최상위 메뉴");
+		dummyTop.setUseState(UseState.USE);
 		for (int i = menuList.size() - 1; i > -1; i--) {
 			Menu temporary = menuList.get(i);
 			if (temporary.getParentMenuId() != null && !"".equals(temporary.getParentMenuId())) {

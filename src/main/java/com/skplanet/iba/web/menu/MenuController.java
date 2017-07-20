@@ -43,7 +43,7 @@ public class MenuController {
 	@PostMapping("/add.do")
 	@ResponseBody
 	public AjaxResponse addMenu(@RequestBody Menu menu) {
-		Boolean flag = menuService.addMenu(menu);
+		Boolean flag = menuService.add(menu);
 		
 		AjaxResponse response = new AjaxResponse();
 		response.setResponseCode(flag ? ResponseCode.SUCCESS : ResponseCode.FAIL);
@@ -53,7 +53,7 @@ public class MenuController {
 	@PostMapping("/edit.do")
 	@ResponseBody
 	public AjaxResponse editMenu(@RequestBody Menu menu) {
-		Boolean flag = menuService.editMenu(menu);
+		Boolean flag = menuService.edit(menu);
 		
 		AjaxResponse response = new AjaxResponse();
 		response.setResponseCode(flag ? ResponseCode.SUCCESS : ResponseCode.FAIL);
@@ -63,7 +63,7 @@ public class MenuController {
 	@PostMapping("/remove.do")
 	@ResponseBody
 	public AjaxResponse removeMenu(@RequestBody Menu menu) {
-		Boolean flag = menuService.removeMenu(menu);
+		Boolean flag = menuService.remove(menu);
 		
 		AjaxResponse response = new AjaxResponse();
 		response.setResponseCode(flag ? ResponseCode.SUCCESS : ResponseCode.FAIL);
