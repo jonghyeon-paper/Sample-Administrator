@@ -1,30 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/jsp/common/include/taglib.jsp" %>
 
-	<div class="container">
-		<div class="contents">
-			<div class="row">
-				<div class="col-lg-3">
-					<h4><b>메뉴 계층</b></h4>
-					<div id="meuHierarchyArea"></div>
-				</div>
-				
-				<div class="col-lg-5">
-					<h4><b>메뉴 정보</b></h4>
-					<div id="menuInfoArea"></div>
-				</div>
-				
-				<div class="col-lg-4">
-					<h4><b>접근 허가 URI</b></h4>
-					<div id="menuDependenceArea"></div>
+	<div class="body-contents">
+		<div class="row">
+			<div class="col-lg-3">
+				<div class="panel panel-default">
+					<div class="panel-heading"><b>메뉴 계층</b></div>
+					<div class="panel-body" id="meuHierarchyArea"></div>
 				</div>
 			</div>
 			
-			<div class="btn-section text-center" id="buttonArea">
-				<button type="button" class="btn btn-default" style="display:none;" id="add">등록</button>
-				<button type="button" class="btn btn-default" style="display:none;" id="edit">수정</button>
-				<button type="button" class="btn btn-default" style="display:none;" id="save">저장</button>
+			<div class="col-lg-5">
+				<div class="panel panel-default">
+					<div class="panel-heading"><b>메뉴 정보</b></div>
+					<div class="panel-body" id="menuInfoArea"></div>
+				</div>
 			</div>
+			
+			<div class="col-lg-4">
+				<div class="panel panel-default">
+					<div class="panel-heading"><b>접근 허가 URI</b></div>
+					<div class="panel-body" id="menuDependenceArea"></div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="btn-section text-center" id="buttonArea">
+			<button type="button" class="btn btn-default" style="display:none;" id="add">등록</button>
+			<button type="button" class="btn btn-default" style="display:none;" id="edit">수정</button>
+			<button type="button" class="btn btn-default" style="display:none;" id="save">저장</button>
 		</div>
 	</div>
 	
@@ -107,9 +111,9 @@
 			if (data && data.length > 0) {
 				var $anchor = $('<a>').attr({href: '#', onclick: 'return false;'});
 				
-				var $ul = $('<ul>').css({'list-style': 'disc', 'padding-left': '15px'});
+				var $ul = $('<ul>');
 				for (let item of data) {
-					var $li = $('<li>').css({'padding': '5px 0 5px 0'}).appendTo($ul);
+					var $li = $('<li>').appendTo($ul);
 					$('<span>').append($anchor.clone().attr({id: 'menu-' + item.menuId})
 					                                  .data('menu-info', item)
 					                                  .html(item.menuName)
@@ -240,7 +244,7 @@
 					var $tr = $('<tr>').appendTo($tbody);
 					$('<th>').html('메뉴 ID(자동 생성)')
 					         .appendTo($tr);
-					$('<th>').append($textObject.clone().attr({id: 'menuId', value: data.menuId}).prop('readonly', true))
+					$('<td>').append($textObject.clone().attr({id: 'menuId', value: data.menuId}).prop('readonly', true))
 					         .appendTo($tr);
 				}());
 				
@@ -248,7 +252,7 @@
 					var $tr = $('<tr>').appendTo($tbody);
 					$('<th>').html('부모 메뉴 ID(자동 입력)')
 					         .appendTo($tr);
-					$('<th>').append($textObject.clone().attr({id: 'parentMenuId', value: data.parentMenuId}).prop('readonly', true))
+					$('<td>').append($textObject.clone().attr({id: 'parentMenuId', value: data.parentMenuId}).prop('readonly', true))
 					         .appendTo($tr);
 				}());
 				
@@ -256,7 +260,7 @@
 					var $tr = $('<tr>').appendTo($tbody);
 					$('<th>').html('메뉴 이름')
 					         .appendTo($tr);
-					$('<th>').append($textObject.clone().attr({id: 'menuName', value: data.menuName}))
+					$('<td>').append($textObject.clone().attr({id: 'menuName', value: data.menuName}))
 					         .appendTo($tr);
 				}());
 				
@@ -264,7 +268,7 @@
 					var $tr = $('<tr>').appendTo($tbody);
 					$('<th>').html('URI')
 					         .appendTo($tr);
-					$('<th>').append($textObject.clone().attr({id: 'uri', value: data.uri}))
+					$('<td>').append($textObject.clone().attr({id: 'uri', value: data.uri}))
 					         .appendTo($tr);
 				}());
 				
@@ -272,7 +276,7 @@
 					var $tr = $('<tr>').appendTo($tbody);
 					$('<th>').html('설명')
 					         .appendTo($tr);
-					$('<th>').append($textObject.clone().attr({id: 'description', value: data.description}))
+					$('<td>').append($textObject.clone().attr({id: 'description', value: data.description}))
 					         .appendTo($tr);
 				}());
 				
@@ -290,7 +294,7 @@
 					var $tr = $('<tr>').appendTo($tbody);
 					$('<th>').html('사용 상태')
 					         .appendTo($tr);
-					$('<th>').append($select)
+					$('<td>').append($select)
 					         .appendTo($tr);
 				}());
 				
@@ -299,7 +303,7 @@
 					var $tr = $('<tr>').appendTo($tbody);
 					$('<th>').html('메뉴 ID')
 					         .appendTo($tr);
-					$('<th>').append($textObject.clone().html(data.menuId))
+					$('<td>').append($textObject.clone().html(data.menuId))
 					         .appendTo($tr);
 				}());
 				
@@ -307,7 +311,7 @@
 					var $tr = $('<tr>').appendTo($tbody);
 					$('<th>').html('부모 메뉴 ID')
 					         .appendTo($tr);
-					$('<th>').append($textObject.clone().html(data.parentMenuId))
+					$('<td>').append($textObject.clone().html(data.parentMenuId))
 					         .appendTo($tr);
 				}());
 				
@@ -315,7 +319,7 @@
 					var $tr = $('<tr>').appendTo($tbody);
 					$('<th>').html('메뉴 이름')
 					         .appendTo($tr);
-					$('<th>').append($textObject.clone().html(data.menuName))
+					$('<td>').append($textObject.clone().html(data.menuName))
 					         .appendTo($tr);
 				}());
 				
@@ -323,7 +327,7 @@
 					var $tr = $('<tr>').appendTo($tbody);
 					$('<th>').html('URI')
 					         .appendTo($tr);
-					$('<th>').append($textObject.clone().html(data.uri))
+					$('<td>').append($textObject.clone().html(data.uri))
 					         .appendTo($tr);
 				}());
 				
@@ -332,7 +336,7 @@
 					var $tr = $('<tr>').appendTo($tbody);
 					$('<th>').html('설명')
 					         .appendTo($tr);
-					$('<th>').append($textObject.clone().html(data.description))
+					$('<td>').append($textObject.clone().html(data.description))
 					         .appendTo($tr);
 				}());
 				
@@ -340,7 +344,7 @@
 					var $tr = $('<tr>').appendTo($tbody);
 					$('<th>').html('사용 상태')
 					         .appendTo($tr);
-					$('<th>').append($textObject.clone().html(data.useState.description))
+					$('<td>').append($textObject.clone().html(data.useState.description))
 					         .appendTo($tr);
 				}());
 			}
@@ -370,8 +374,7 @@
 			             .html('추가')
 			             .appendTo($inputForm);
 			
-			var $ul = $('<ul>').css({'list-style': 'disc', 'padding-left': '15px'})
-			                   .appendTo($div);
+			var $ul = $('<ul>').appendTo($div);
 			
 			// click event
 			$div.on('click', '#addDependenceUri', function() {
@@ -379,8 +382,7 @@
 						dependenceUri: $div.find('#dependenceUri').val()
 				};
 				
-				var $li = $('<li>').css({'padding': '5px 0 5px 0'})
-				                   .data('menu-dependence-info', data)
+				var $li = $('<li>').data('menu-dependence-info', data)
 				                   .appendTo($ul);
 				
 				$('<span>').css({width: '280px', display: 'inline-block'})

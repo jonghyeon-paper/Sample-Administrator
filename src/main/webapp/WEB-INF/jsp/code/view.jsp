@@ -1,25 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/jsp/common/include/taglib.jsp" %>
 
-	<div class="container">
-		<div class="contents">
-			<div class="row">
-				<div class="col-lg-3">
-					<h4><b>코드 계층</b></h4>
-					<div id="hierarchyCodeArea"></div>
-				</div>
-				
-				<div class="col-lg-9">
-					<h4><b>코드 정보</b></h4>
-					<div id="codeInfoArea"></div>
+	<div class="body-contents">
+		<div class="row">
+			<div class="col-lg-3">
+				<div class="panel panel-default">
+					<div class="panel-heading"><b>코드 계층</b></div>
+					<div class="panel-body" id="hierarchyCodeArea"></div>
 				</div>
 			</div>
 			
-			<div class="btn-section text-center" id="buttonArea">
-				<button type="button" class="btn btn-default" style="display:none;" id="add">추가</button>
-				<button type="button" class="btn btn-default" style="display:none;" id="edit">수정</button>
-				<button type="button" class="btn btn-default" style="display:none;" id="save">저장</button>
+			<div class="col-lg-9">
+				<div class="panel panel-default">
+					<div class="panel-heading"><b>코드 정보</b></div>
+					<div class="panel-body" id="codeInfoArea"></div>
+				</div>
 			</div>
+		</div>
+		
+		<div class="btn-section text-center" id="buttonArea">
+			<button type="button" class="btn btn-default" style="display:none;" id="add">추가</button>
+			<button type="button" class="btn btn-default" style="display:none;" id="edit">수정</button>
+			<button type="button" class="btn btn-default" style="display:none;" id="save">저장</button>
 		</div>
 	</div>
 
@@ -93,9 +95,9 @@
 			if (data && data.length > 0) {
 				var $anchor = $('<a>').attr({href: '#', onclick: 'return false;'});
 				
-				var $ul = $('<ul>').css({'list-style': 'disc', 'padding-left': '15px'});
+				var $ul = $('<ul>');
 				for (let item of data) {
-					var $li = $('<li>').css({'padding': '5px 0 5px 0'}).appendTo($ul);
+					var $li = $('<li>').appendTo($ul);
 					$('<span>').append($anchor.clone().attr({id: 'code-' + item.codeId})
 					                                  .data('code-info', item)
 					                                  .html(item.codeName)
@@ -250,7 +252,7 @@
 					var $tr = $('<tr>').appendTo($tbody);
 					$('<th>').html('사용 상태')
 					         .appendTo($tr);
-					$('<th>').append($select)
+					$('<td>').append($select)
 					         .appendTo($tr);
 				}());
 				
@@ -259,7 +261,7 @@
 					var $tr = $('<tr>').appendTo($tbody);
 					$('<th>').html('코드')
 					         .appendTo($tr);
-					$('<th>').append($textObject.clone().html(data.codeId))
+					$('<td>').append($textObject.clone().html(data.codeId))
 					         .appendTo($tr);
 				}());
 				
@@ -267,7 +269,7 @@
 					var $tr = $('<tr>').appendTo($tbody);
 					$('<th>').html('부모 코드')
 					         .appendTo($tr);
-					$('<th>').append($textObject.clone().html(data.parentCodeId))
+					$('<td>').append($textObject.clone().html(data.parentCodeId))
 					         .appendTo($tr);
 				}());
 				
@@ -275,7 +277,7 @@
 					var $tr = $('<tr>').appendTo($tbody);
 					$('<th>').html('코드 이름')
 					         .appendTo($tr);
-					$('<th>').append($textObject.clone().html(data.codeName))
+					$('<td>').append($textObject.clone().html(data.codeName))
 					         .appendTo($tr);
 				}());
 				
@@ -283,7 +285,7 @@
 					var $tr = $('<tr>').appendTo($tbody);
 					$('<th>').html('설명')
 					         .appendTo($tr);
-					$('<th>').append($textObject.clone().html(data.description))
+					$('<td>').append($textObject.clone().html(data.description))
 					         .appendTo($tr);
 				}());
 				
@@ -291,7 +293,7 @@
 					var $tr = $('<tr>').appendTo($tbody);
 					$('<th>').html('사용 상태')
 					         .appendTo($tr);
-					$('<th>').append($textObject.clone().html(data.useState.description))
+					$('<td>').append($textObject.clone().html(data.useState.description))
 					         .appendTo($tr);
 				}());
 			}

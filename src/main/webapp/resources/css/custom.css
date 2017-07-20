@@ -1,6 +1,7 @@
 @CHARSET "UTF-8";
 
-.container .contents {height: 700px;}
-.container .contents .btn-section {margin: 10px 15px 10px 15px;}
+.body-contents .btn-section {margin: 10px 15px 10px 15px;}
+.body-contents .panel {height: 600px;}
 
-.table thead th {text-align: center;"}
+.table thead th {text-align: center;}
+.table tbody th {background-color: #f1f1f1;}

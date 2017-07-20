@@ -1,30 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/jsp/common/include/taglib.jsp" %>
 
-	<div class="container">
-		<div class="contents">
-			<div class="row">
-				<div class="col-lg-9">
-					<h4><b>사용자 정보</b></h4>
-					
+	<div class="body-contents">
+		<div class="row">
+			<div class="col-lg-9">
+				<div class="panel panel-default">
+					<div class="panel-heading"><b>사용자 정보</b></div>
 					<div class="btn-section text-right">
 						<button type="button" class="btn btn-default" style="display:none;" id="ilmUserSearch">사용자 검색</button>
 					</div>
-					
-					<div id="userInfoArea"></div>
+					<div class="panel-body" id="userInfoArea"></div>
 				</div>
+			</div>
 				
-				<div class="col-lg-3">
-					<h4><b>권한 정보</b></h4>
-					<div id="authorityListArea"></div>
+			<div class="col-lg-3">
+				<div class="panel panel-default">
+					<div class="panel-heading"><b>권한 정보</b></div>
+					<div class="panel-body" id="authorityListArea"></div>
 				</div>
 			</div>
-			
-			<div class="btn-section text-center" id="buttonArea">
-				<button type="button" class="btn btn-default" id="save">저장</button>
-				<button type="button" class="btn btn-default" id="edit">수정</button>
-				<button type="button" class="btn btn-default" id="cancel">취소</button>
-			</div>
+		</div>
+		
+		<div class="btn-section text-center" id="buttonArea">
+			<button type="button" class="btn btn-default" id="save">저장</button>
+			<button type="button" class="btn btn-default" id="edit">수정</button>
+			<button type="button" class="btn btn-default" id="cancel">취소</button>
 		</div>
 	</div>
 	
@@ -37,7 +37,7 @@
 			<button type="button" class="btn btn-default" id="search">검색</button>
 		</form>
 		
-		<div style="width: 565px; height:282px; overflow:auto;" id="ilmUserListArea"></div>
+		<div style="width: 560px; height:272px; overflow:auto;" id="ilmUserListArea"></div>
 		
 		<div class="text-center" id="ilmUserButtonArea">
 			<button type="button" class="btn btn-default" id="confirm">확인</button>

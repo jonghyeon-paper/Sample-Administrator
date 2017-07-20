@@ -1,17 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-	<div class="container">
-		<div class="contents">
-			<h2>사용자 관리</h2>
-		
-			<div class="btn-section text-right" id="buttonArea">
-				<button type="button" class="btn btn-default" id="add">추가</button>
-				<button type="button" class="btn btn-default" id="remove">삭제</button>
-			</div>
-			
-			<div class="text-center" id="userListArea"></div>
-			<div class="text-center" id="paginationArea"></div>
+	<div class="body-contents">
+		<h2>사용자 관리</h2>
+	
+		<div class="btn-section text-right" id="buttonArea">
+			<button type="button" class="btn btn-default" id="add">추가</button>
+			<button type="button" class="btn btn-default" id="remove">삭제</button>
 		</div>
+		
+		<div class="text-center" id="userListArea"></div>
+		<div class="text-center" id="paginationArea"></div>
 	</div>
 	
 	<script type="text/javascript">

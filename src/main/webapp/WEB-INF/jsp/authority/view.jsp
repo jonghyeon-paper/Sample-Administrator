@@ -1,34 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/jsp/common/include/taglib.jsp" %>
 
-	<div class="container">
-		<div class="contents">
-			<div class="row">
-				<div class="col-lg-3">
-					<h4><b>권한 목록</b></h4>
-					<div id="authorityListArea"></div>
-				</div>
-				
-				<div class="col-lg-5">
-					<div>
-						<h4><b>권한 정보</b></h4>
-						<div id="authorityInfoArea"></div>
-						<h4><b>허가 정보</b></h4>
-						<div id="authorityAccessListArea"></div>
-					</div>
-				</div>
-				
-				<div class="col-lg-4">
-					<h4><b>접근 허가 메뉴</b></h4>
-					<div id="menuHierarchyArea"></div>
+	<div class="body-contents">
+		<div class="row">
+			<div class="col-lg-3">
+				<div class="panel panel-default">
+					<div class="panel-heading"><b>권한 목록</b></div>
+					<div class="panel-body" id="authorityListArea"></div>
 				</div>
 			</div>
 			
-			<div class="btn-section text-center" id="buttonArea">
-				<button type="button" class="btn btn-default" style="display:none;" id="add">등록</button>
-				<button type="button" class="btn btn-default" style="display:none;" id="edit">수정</button>
-				<button type="button" class="btn btn-default" style="display:none;" id="save">저장</button>
+			<div class="col-lg-5">
+				<div class="panel panel-default" style="height: 290px;">
+					<div class="panel-heading"><b>권한 정보</b></div>
+					<div class="panel-body" id="authorityInfoArea"></div>
+				</div>
+				<div class="panel panel-default" style="height: 290px;">
+					<div class="panel-heading"><b>허가 정보</b></div>
+					<div class="panel-body" id="authorityAccessListArea"></div>
+				</div>
 			</div>
+			
+			<div class="col-lg-4">
+				<div class="panel panel-default">
+					<div class="panel-heading"><b>접근 허가 메뉴</b></div>
+					<div class="panel-body" id="menuHierarchyArea"></div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="btn-section text-center" id="buttonArea">
+			<button type="button" class="btn btn-default" style="display:none;" id="add">등록</button>
+			<button type="button" class="btn btn-default" style="display:none;" id="edit">수정</button>
+			<button type="button" class="btn btn-default" style="display:none;" id="save">저장</button>
 		</div>
 	</div>
 	
@@ -95,18 +99,13 @@
 		}
 		
 		var drawAuthorityListObject = function(data){
-			
-			var $div = $('<div>').css({width: '100%', 'padding-top': '20px'});
-			
-			var $ul = $('<ul>').css({'list-style': 'disc', 'padding-left': '15px'})
-			                   .appendTo($div);
-			
+			var $div = $('<div>');
+			var $ul = $('<ul>').appendTo($div);
 			var $anchor = $('<a>').attr({href: '#', onclick: 'return false;'});
 			
 			var list = data;
 			for (let item of list) {
-				var $li = $('<li>').css({'padding': '5px 0 5px 0'})
-				                   .appendTo($ul);
+				var $li = $('<li>').appendTo($ul);
 				$('<span>').append($anchor.clone().attr({id: 'authrity-' + item.authorityId})
 				                                  .data('authrity-info', item)
 				                                  .html(item.authorityName)
@@ -115,7 +114,7 @@
 			}
 			
 			// click event
-			$div.on('click', 'a[id^=authrity-]', function() {
+			$ul.on('click', 'a[id^=authrity-]', function() {
 				var dataObject = $(this).data('authrityInfo');
 				loadAuthorityInfo(dataObject);
 			});
@@ -256,7 +255,7 @@
 						$authorityIdInputObject.prop('readonly', true);
 					}
 					
-					$('<th>').append($authorityIdInputObject)
+					$('<td>').append($authorityIdInputObject)
 					         .appendTo($tr);
 				}());
 				
@@ -264,7 +263,7 @@
 					var $tr = $('<tr>').appendTo($tbody);
 					$('<th>').html('권한 이름')
 					         .appendTo($tr);
-					$('<th>').append($textObject.clone().attr({id: 'authorityName', value: data.authorityName}))
+					$('<td>').append($textObject.clone().attr({id: 'authorityName', value: data.authorityName}))
 					         .appendTo($tr);
 				}());
 				
@@ -272,7 +271,7 @@
 					var $tr = $('<tr>').appendTo($tbody);
 					$('<th>').html('설명')
 					         .appendTo($tr);
-					$('<th>').append($textObject.clone().attr({id: 'description', value: data.description}))
+					$('<td>').append($textObject.clone().attr({id: 'description', value: data.description}))
 					         .appendTo($tr);
 				}());
 				
@@ -289,7 +288,7 @@
 					var $tr = $('<tr>').appendTo($tbody);
 					$('<th>').html('사용 상태')
 					         .appendTo($tr);
-					$('<th>').append($select)
+					$('<td>').append($select)
 					         .appendTo($tr);
 				}());
 				
@@ -298,7 +297,7 @@
 					var $tr = $('<tr>').appendTo($tbody);
 					$('<th>').html('권한 ID')
 					         .appendTo($tr);
-					$('<th>').append($textObject.clone().html(data.authorityId))
+					$('<td>').append($textObject.clone().html(data.authorityId))
 					         .appendTo($tr);
 				}());
 				
@@ -306,7 +305,7 @@
 					var $tr = $('<tr>').appendTo($tbody);
 					$('<th>').html('권한 이름')
 					         .appendTo($tr);
-					$('<th>').append($textObject.clone().html(data.authorityName))
+					$('<td>').append($textObject.clone().html(data.authorityName))
 					         .appendTo($tr);
 				}());
 				
@@ -314,7 +313,7 @@
 					var $tr = $('<tr>').appendTo($tbody);
 					$('<th>').html('설명')
 					         .appendTo($tr);
-					$('<th>').append($textObject.clone().html(data.description))
+					$('<td>').append($textObject.clone().html(data.description))
 					         .appendTo($tr);
 				}());
 				
@@ -322,7 +321,7 @@
 					var $tr = $('<tr>').appendTo($tbody);
 					$('<th>').html('사용 상태')
 					         .appendTo($tr);
-					$('<th>').append($textObject.clone().html(data.useState.description))
+					$('<td>').append($textObject.clone().html(data.useState.description))
 					         .appendTo($tr);
 				}());
 			}
@@ -460,9 +459,9 @@
 					$checkbox.prop('disabled', true);
 				}
 				
-				var $ul = $('<ul>').css({'list-style': 'disc', 'padding-left': '15px'});
+				var $ul = $('<ul>');
 				for (let item of data) {
-					var $li = $('<li>').css({'padding': '5px 0 5px 0'}).appendTo($ul);
+					var $li = $('<li>').appendTo($ul);
 					
 					// 최상위 메뉴는 checkbox를 만들지 않는다.
 					if (item.menuName === 'TOP') {
