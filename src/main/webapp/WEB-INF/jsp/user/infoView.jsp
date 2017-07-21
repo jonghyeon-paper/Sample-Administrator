@@ -2,6 +2,8 @@
 <%@ include file="/WEB-INF/jsp/common/include/taglib.jsp" %>
 
 	<div class="body-contents">
+		<p><h2>사용자 관리</h2></p>
+		
 		<div class="row">
 			<div class="col-lg-9">
 				<div class="panel panel-default">

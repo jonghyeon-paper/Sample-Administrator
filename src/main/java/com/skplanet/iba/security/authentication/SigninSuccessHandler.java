@@ -37,9 +37,16 @@ public class SigninSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 		
 		handle(request, response, authentication);
 		clearAuthenticationAttributes(request);
-		System.out.println("oh~~@@");
+		
+		CustomUserDetail UserDetails = (CustomUserDetail) authentication.getPrincipal();
+		User user = (User) UserDetails.getCustomUserData();
+		
 		
 		Collection<SimpleGrantedAuthority> authorities = (Collection<SimpleGrantedAuthority>) authentication.getAuthorities();
+		if (authorities == null || authorities.isEmpty()) {
+			user.setAccessibleMenu(new Menu());
+			return;
+		}
 		
 		HashSet<String> temporaryAuthority = new HashSet<>();
 		if (authorities != null) {
@@ -49,6 +56,10 @@ public class SigninSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 		}
 		String[] dummyStringArray = new String[temporaryAuthority.size()];
 		List<AuthorityMenu> targetAuthorityMenuList = authorityMenuService.retrieveListByAuthorityIds(temporaryAuthority.toArray(dummyStringArray));
+		if (targetAuthorityMenuList == null || targetAuthorityMenuList.isEmpty()) {
+			user.setAccessibleMenu(new Menu());
+			return;
+		}
 		
 		HashSet<Integer> temporaryMenu = new HashSet<>();
 		if (targetAuthorityMenuList != null) {
@@ -59,10 +70,7 @@ public class SigninSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 		Integer[] dummyIntegerArray = new Integer[temporaryMenu.size()];
 		List<Menu> accessableMenuList = menuService.retrieveListByMenuIds(temporaryMenu.toArray(dummyIntegerArray));
 		Menu hierarchyMenu = menuService.createMenuHierarchy(accessableMenuList);
-		
-		CustomUserDetail UserDetails = (CustomUserDetail) authentication.getPrincipal();
-		User user = (User) UserDetails.getCustomUserData();
-		user.setAccessableMenu(hierarchyMenu);
+		user.setAccessibleMenu(hierarchyMenu);
 		
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 	}

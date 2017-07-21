@@ -9,10 +9,10 @@
 	<title>SK Planet IBAS</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	
-	<link type="text/css" rel="stylesheet" href="${contextPath}/resources/css/custom.css">
 	<link type="text/css" rel="stylesheet" href="${contextPath}/resources/js/jquery/jquery-ui-1.12.1.custom/jquery-ui.min.css">
 	<link type="text/css" rel="stylesheet" href="${contextPath}/resources/css/bootstrap/bootstrap.min.css">
 	<link type="text/css" rel="stylesheet" href="${contextPath}/resources/css/bootstrap/bootstrap-theme.css">	
+	<link type="text/css" rel="stylesheet" href="${contextPath}/resources/css/custom.css">
 	
 	<script type="text/javascript" src="${contextPath}/resources/js/jquery/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="${contextPath}/resources/js/jquery/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
@@ -27,10 +27,8 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-lg-2 container-fluid">
-			<nav class="navbar navbar-default navbar-fixed-side">
-				<!-- normal collapsible navbar markup -->
-				<tiles:insertAttribute name="leftmenu"/>
-			</nav>
+			<!-- normal collapsible navbar markup -->
+			<tiles:insertAttribute name="leftmenu"/>
 		</div>
 		<div class="col-lg-10 container-fluid">
 			<!-- your page content -->

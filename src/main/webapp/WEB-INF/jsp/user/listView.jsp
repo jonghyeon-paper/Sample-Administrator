@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 	<div class="body-contents">
-		<h2>사용자 관리</h2>
-	
+		<p><h2>사용자 관리</h2></p>
+		
 		<div class="btn-section text-right" id="buttonArea">
 			<button type="button" class="btn btn-default" id="add">추가</button>
 			<button type="button" class="btn btn-default" id="remove">삭제</button>

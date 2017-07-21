@@ -17,7 +17,7 @@
 	<p>principal.customUserData.useState : <sec:authentication property="principal.customUserData.useState"/></p>
 	<p>principal.customUserData.userAuthorityList : <sec:authentication property="principal.customUserData.userAuthorityList"/></p>
 	
-	<p>principal.customUserData.accessableMenu.childMenu[0].menuName : <sec:authentication property="principal.customUserData.accessableMenu.childMenu[0].menuName"/></p>
+<%-- 	<p>principal.customUserData.accessibleMenu.childMenu[0].menuName : <sec:authentication property="principal.customUserData.accessibleMenu.childMenu[0].menuName"/></p> --%>
 	<p>principal.authorities : <sec:authentication property="principal.authorities"/></p>
 	
 	<p><button type="button" onclick="document.location.href='${pageContext.request.contextPath}/logout.do';return false;">logout</button></p>

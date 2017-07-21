@@ -20,7 +20,7 @@ public class User extends BaseEntity implements Serializable {
 	private List<UserAuthority> userAuthorityList;
 	
 	@JsonIgnore
-	private Menu accessableMenu;
+	private Menu accessibleMenu;
 	
 	public String getUserId() {
 		return userId;
@@ -52,10 +52,10 @@ public class User extends BaseEntity implements Serializable {
 	public void setUserAuthorityList(List<UserAuthority> userAuthorityList) {
 		this.userAuthorityList = userAuthorityList;
 	}
-	public Menu getAccessableMenu() {
-		return accessableMenu;
+	public Menu getAccessibleMenu() {
+		return accessibleMenu;
 	}
-	public void setAccessableMenu(Menu accessableMenu) {
-		this.accessableMenu = accessableMenu;
+	public void setAccessibleMenu(Menu accessibleMenu) {
+		this.accessibleMenu = accessibleMenu;
 	}
 }
