@@ -67,14 +67,14 @@ public class AuthorityService {
 		// 추가 정보 수정
 		if (updateCount > 0) {
 			// 접근 권한 삭제, 등록
+			authorityAccessService.removeByAuthorityId(authority.getAuthorityId());
 			if (authority.getAuthorityAccessList() != null && !authority.getAuthorityAccessList().isEmpty()) {
-				authorityAccessService.removeByAuthorityId(authority.getAuthorityId());
 				authorityAccessService.add(authority.getAuthorityAccessList());
 			}
 			
 			// 권한 메뉴 삭제, 등록
+			authorityMenuService.removeByAuthorityId(authority.getAuthorityId());
 			if (authority.getAuthorityMenuList() != null && !authority.getAuthorityMenuList().isEmpty()) {
-				authorityMenuService.removeByAuthorityId(authority.getAuthorityId());
 				authorityMenuService.add(authority.getAuthorityMenuList());
 			}
 		}

@@ -13,12 +13,12 @@
 			<%-- 2단계 메뉴까지만 그린다. ul에 사용되는 클래스가 달라서 재귀호출을 사용할 수 없다. --%>
 			<c:forEach var="item" items="${accessibleMenu.childMenu}" varStatus="status">
 				<li>
-					<a href="${contextPath}/${item.uri}">${item.menuName}</a>
+					<a href="${contextPath}${item.uri}">${item.menuName}</a>
 					<c:if test="${item.childMenu ne null and item.childMenu ne ''}">
 						<ul class="nav">
 							<c:forEach var="item2" items="${item.childMenu}" varStatus="status2">
 								<li>
-									<a href="${contextPath}/${item2.uri}">${item2.menuName}</a>
+									<a href="${contextPath}${item2.uri}">${item2.menuName}</a>
 								</li>
 							</c:forEach>
 						</ul>

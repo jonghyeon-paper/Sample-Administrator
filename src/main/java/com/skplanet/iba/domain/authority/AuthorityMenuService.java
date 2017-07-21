@@ -24,6 +24,10 @@ public class AuthorityMenuService {
 		return authorityMenuMapper.selectListByAuthorityIds(authorityIds);
 	}
 	
+	public List<AuthorityMenu> retrieveListByMenuIds(Integer... menuIds) {
+		return authorityMenuMapper.selectListByMenuIds(menuIds);
+	}
+	
 	@Transactional
 	public Boolean add(AuthorityMenu authorityMenu) {
 		// 등록,수정자 id 설정

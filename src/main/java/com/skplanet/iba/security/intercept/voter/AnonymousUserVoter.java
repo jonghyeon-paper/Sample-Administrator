@@ -27,13 +27,21 @@ public class AnonymousUserVoter implements AccessDecisionVoter<FilterInvocation>
 			return ACCESS_DENIED;
 		}
 		
+		if (authentication.getPrincipal() == null) {
+			return ACCESS_DENIED;
+		}
+		
+		if (authentication.getAuthorities() == null) {
+			return ACCESS_DENIED;
+		}
+		
 		for (GrantedAuthority grantedAuthority : authentication.getAuthorities()) {
 			if ("ROLE_ANONYMOUS".equals(grantedAuthority.getAuthority())) {
 				return ACCESS_ABSTAIN;
 			}
 		}
 		
-		return ACCESS_GRANTED;
+		return ACCESS_ABSTAIN;
 	}
 
 }

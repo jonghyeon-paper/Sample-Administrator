@@ -13,7 +13,10 @@
 	       SEQUENCE = #{sequence}
 	  </if>
 	  <if test="menuId != null and !''.equals(menuId)">
-	       MENU_ID = #{menuId}
+	   AND MENU_ID = #{menuId}
+	  </if>
+	  <if test="dependenceUri != null and !''.equals(dependenceUri)">
+	   AND DEPENDENCE_URI = #{dependenceUri}
 	  </if>
 	</where>
 	</select>
@@ -28,7 +31,10 @@
 	       SEQUENCE = #{sequence}
 	  </if>
 	  <if test="menuId != null and !''.equals(menuId)">
-	       MENU_ID = #{menuId}
+	   AND MENU_ID = #{menuId}
+	  </if>
+	  <if test="dependenceUri != null and !''.equals(dependenceUri)">
+	   AND DEPENDENCE_URI = #{dependenceUri}
 	  </if>
 	</where>
 	</select>
@@ -51,7 +57,7 @@
 	DELETE FROM MENU_DEPENDENCE
 	 WHERE MENU_ID = #{menuId}
 	  <if test="sequence != null and !''.equals(sequence)">
-	       SEQUENCE = #{sequence}
+	   AND SEQUENCE = #{sequence}
 	  </if>
 	</delete>	
 </mapper>

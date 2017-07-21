@@ -30,7 +30,7 @@ public class CustomUserDetailService implements UserDetailsService {
 		// temporary data
 		/*
 		List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-		grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_NOTHING"));
+		grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_EMPTY"));
 		return new org.springframework.security.core.userdetails.User(username, "", grantedAuthorities);
 		 */
 		
@@ -50,7 +50,7 @@ public class CustomUserDetailService implements UserDetailsService {
 				grantedAuthorities.add(new SimpleGrantedAuthority(item.getAuthorityId()));
 			}
 		} else {
-			grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_NOTHING"));
+			grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_EMPTY"));
 		}
 		
 		return new CustomUserDetail(user.getUserId(), "", grantedAuthorities, user);

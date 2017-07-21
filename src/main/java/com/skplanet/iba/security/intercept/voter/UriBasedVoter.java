@@ -28,7 +28,7 @@ public class UriBasedVoter implements AccessDecisionVoter<FilterInvocation> {
 	public int vote(Authentication authentication, FilterInvocation object, Collection<ConfigAttribute> attributes) {
 		FilterInvocation filterInvocation = (FilterInvocation) object;
 		String uri = filterInvocation.getRequestUrl();
-		System.out.println("uri >> " + uri);
+		
 		if (URI_MAIN.equalsIgnoreCase(uri)) {
 			for (GrantedAuthority grantedAuthority : authentication.getAuthorities()) {
 				if ("ROLE_ANONYMOUS".equals(grantedAuthority.getAuthority())) {
@@ -55,7 +55,7 @@ public class UriBasedVoter implements AccessDecisionVoter<FilterInvocation> {
 				}
 			}
 		}
-		return ACCESS_DENIED;
+		return ACCESS_ABSTAIN;
 	}
 
 }
