@@ -16,6 +16,7 @@ public class Menu extends BaseEntity implements Serializable {
 	private String menuName;
 	private String uri;
 	private String description;
+	private Integer displayOrder;
 	private UseState useState;
 	
 	private List<MenuDependence> menuDependenceList;
@@ -51,6 +52,12 @@ public class Menu extends BaseEntity implements Serializable {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	public Integer getDisplayOrder() {
+		return displayOrder;
+	}
+	public void setDisplayOrder(Integer displayOrder) {
+		this.displayOrder = displayOrder;
 	}
 	public UseState getUseState() {
 		return useState;
