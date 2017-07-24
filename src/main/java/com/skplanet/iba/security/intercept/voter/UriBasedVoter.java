@@ -14,6 +14,8 @@ public class UriBasedVoter implements AccessDecisionVoter<FilterInvocation> {
 	final static String URI_LOGIN = "/login.do";
 	final static String URI_LOGOUT = "/logout.do";
 	
+	final static String ROLE_EMPTY = "ROLE_EMPTY";
+	
 	@Override
 	public boolean supports(ConfigAttribute attribute) {
 		return true;
@@ -48,8 +50,16 @@ public class UriBasedVoter implements AccessDecisionVoter<FilterInvocation> {
 		
 		for (GrantedAuthority userAuthority : authentication.getAuthorities()) {
 			String userHasRole = userAuthority.getAuthority().toString();
+			// ROLE_EMPTY는 검사하지 않는다.
+			if (ROLE_EMPTY.equals(userHasRole)) {
+				continue;
+			}
 			for (ConfigAttribute urIAuthority : attributes) {
 				String uriHasRole = urIAuthority.getAttribute().toString();
+				// ROLE_EMPTY는 검사하지 않는다.
+				if (ROLE_EMPTY.equals(uriHasRole)) {
+					continue;
+				}
 				if (userHasRole.equals(uriHasRole)) {
 					return ACCESS_GRANTED;
 				}

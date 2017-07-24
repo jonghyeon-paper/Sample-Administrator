@@ -21,6 +21,11 @@ public class AuthorityAccessService {
 	public List<AuthorityAccess> retrieveList(AuthorityAccess authorityAccess) {
 		return authorityAccessMapper.selectList(authorityAccess);
 	}
+	
+	public List<AuthorityAccess> retrieveListByAuthorityIds(String... authorityIds) {
+		return authorityAccessMapper.selectListByAuthorityIds(authorityIds);
+	}
+	
 	@Transactional
 	public Boolean add(AuthorityAccess authorityAccess) {
 		// 등록,수정자 id 설정

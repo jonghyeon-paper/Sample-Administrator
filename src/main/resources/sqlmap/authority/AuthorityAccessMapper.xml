@@ -17,6 +17,13 @@
 	</where>
 	</select>
 
+	<select id="selectListByAuthorityIds" resultType="com.skplanet.iba.domain.authority.AuthorityAccess">
+	SELECT AUTHORITY_ID,
+	       ACCESS_MODE
+	  FROM AUTHORITY_ACCESS
+	 WHERE AUTHORITY_ID IN (<foreach collection="array" item="item" separator=",">#{item}</foreach>)
+	</select>
+
 	<select id="selectOne" resultType="com.skplanet.iba.domain.authority.AuthorityAccess">
 	SELECT AUTHORITY_ID,
 	       ACCESS_MODE

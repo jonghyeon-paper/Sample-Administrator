@@ -1,6 +1,4 @@
-package com.skplanet.iba.domain.auth;
-
-import com.skplanet.iba.domain.user.User;
+package com.skplanet.iba.domain.user;
 
 public class LoginInfo {
 	private User user;

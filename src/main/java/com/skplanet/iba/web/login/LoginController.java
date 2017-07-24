@@ -1,16 +1,16 @@
 package com.skplanet.iba.web.login;
 
+import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
 
-import javax.servlet.Filter;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.web.FilterChainProxy;
-import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 @Controller
 public class LoginController {
@@ -28,9 +28,27 @@ public class LoginController {
 		return "/main.page";
 	}
 	
-	@RequestMapping("/denied.do")
-	public String denied() {
-		return "/denied";
+	@RequestMapping("/denied/{path}.do")
+	public ModelAndView deniedForward(HttpServletRequest request, HttpServletResponse response,
+			@PathVariable("path") String path) throws IOException {
+		
+		switch (path) {
+			case "403":
+				response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+				break;
+			default :
+				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+				break;
+		}
+		
+		ModelAndView mav = new ModelAndView();
+		if (request != null && request.getHeader("Accept") != null && request.getHeader("Accept").contains("json")) {
+			mav.setView(new MappingJackson2JsonView());
+			mav.addObject(new HashMap());
+		} else {
+			mav.setViewName("/denied");
+		}
+		return mav;
 	}
 
 //	@RequestMapping("/filterchain.do")

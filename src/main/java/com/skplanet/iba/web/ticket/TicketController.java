@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.skplanet.iba.domain.auth.LoginInfo;
 import com.skplanet.iba.domain.ticket.Ticket;
 import com.skplanet.iba.domain.ticket.TicketService;
+import com.skplanet.iba.domain.user.LoginInfo;
 import com.skplanet.iba.framework.data.PagingContents;
 import com.skplanet.iba.framework.data.PagingRequest;
 

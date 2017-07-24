@@ -68,8 +68,8 @@ public class MenuService {
 		
 		if (updateCount > 0) {
 			// 의존 URI 삭제, 등록
+			menuDependenceService.removeByMenuId(menu.getMenuId());
 			if (menu.getMenuDependenceList() != null && !menu.getMenuDependenceList().isEmpty()) {
-				menuDependenceService.removeByMenuId(menu.getMenuId());
 				// 메뉴 ID 설정
 				for (MenuDependence menuDependence : menu.getMenuDependenceList()) {
 					menuDependence.setMenuId(menu.getMenuId());

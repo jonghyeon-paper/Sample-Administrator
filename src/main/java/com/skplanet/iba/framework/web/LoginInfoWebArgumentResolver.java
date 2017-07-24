@@ -9,7 +9,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
-import com.skplanet.iba.domain.auth.LoginInfo;
+import com.skplanet.iba.domain.user.LoginInfo;
 import com.skplanet.iba.domain.user.User;
 
 public class LoginInfoWebArgumentResolver implements HandlerMethodArgumentResolver{
