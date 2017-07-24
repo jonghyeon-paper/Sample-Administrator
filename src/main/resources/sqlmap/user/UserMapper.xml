@@ -7,7 +7,8 @@
 	SELECT USER_ID,
 	       USER_NAME,
 	       DEPARTMENT,
-	       USE_STATE
+	       USE_STATE,
+	       REG_DATE
 	  FROM USER
 	<where>
 	  <if test="userId != null and !''.equals(userId)">
@@ -29,7 +30,8 @@
 	SELECT USER_ID,
 	       USER_NAME,
 	       DEPARTMENT,
-	       USE_STATE
+	       USE_STATE,
+	       REG_DATE
 	  FROM USER
 	<where>
 	  <if test="userId != null and !''.equals(userId)">
@@ -86,7 +88,8 @@
 	SELECT USER_ID,
 	       USER_NAME,
 	       DEPARTMENT,
-	       USE_STATE
+	       USE_STATE,
+	       REG_DATE
 	  FROM USER
 	<where>
 	  <if test="userId != null and !''.equals(userId)">

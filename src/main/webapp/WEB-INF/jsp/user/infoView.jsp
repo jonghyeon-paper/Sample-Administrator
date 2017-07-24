@@ -39,7 +39,7 @@
 			<button type="button" class="btn btn-default" id="search">검색</button>
 		</form>
 		
-		<div style="width: 560px; height:272px; overflow:auto;" id="ilmUserListArea"></div>
+		<div class="text-center" style="width: 560px; height:272px; overflow:auto;" id="ilmUserListArea"></div>
 		
 		<div class="text-center" id="ilmUserButtonArea">
 			<button type="button" class="btn btn-default" id="confirm">확인</button>
@@ -456,7 +456,7 @@
 		};
 		
 		var drawIlmUserListObject= function(data){
-			var $table = $('<table>').addClass('table table-striped');
+			var $table = $('<table>').addClass('table table-striped table-bordered');
 			
 			var $colgroup = $('<colgroup>').appendTo($table);
 			$colgroup.append($('<col>').attr({width: '10%'}))
@@ -465,14 +465,13 @@
 			         .append($('<col>').attr({width: '50%'}))
 			
 			var $thead = $('<thead>').appendTo($table);
-			
-			var $tbody = $('<tbody>').appendTo($table);
-			
-			var $titleTr = $('<tr>').appendTo($tbody);
+			var $titleTr = $('<tr>').appendTo($thead);
 			$titleTr.append($('<th>').html('선택'))
 			        .append($('<th>').html('이름'))
 			        .append($('<th>').html('사번'))
 			        .append($('<th>').html('부서'))
+			
+			var $tbody = $('<tbody>').appendTo($table);
 			
 			var userList = data;
 			for (let item of userList) {

@@ -95,7 +95,7 @@
 				         .appendTo($tr);
 				$('<td>').html(item.department)
 				         .appendTo($tr);
-				$('<td>').html('?')
+				$('<td>').html(item.regDate)
 				         .appendTo($tr);
 			}
 			

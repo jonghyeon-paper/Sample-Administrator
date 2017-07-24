@@ -25,6 +25,13 @@ public class UserTest extends AbstractJUnit {
 	@Autowired
 	private UserAuthorityService userAuthorityService;
 	
+	@Test
+	public void get() {
+		User userSearchCondition = new User();
+		List<User> result = userService.retrieveList(userSearchCondition);
+		print(result);
+	}
+	
 	//@Test
 	@Transactional
 	public void add() {
