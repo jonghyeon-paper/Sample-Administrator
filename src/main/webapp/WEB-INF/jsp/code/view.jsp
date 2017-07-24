@@ -55,6 +55,7 @@
 						parentCodeId: $targetArea.find('#parentCodeId').val(),
 						codeName: $targetArea.find('#codeName').val(),
 						description: $targetArea.find('#description').val(),
+						displayOrder: $targetArea.find('#displayOrder').val(),
 						useState: $targetArea.find('#useState').val()	
 				};
 				
@@ -241,6 +242,14 @@
 				}());
 				
 				(function(){
+					var $tr = $('<tr>').appendTo($tbody);
+					$('<th>').html('표시 순서')
+					         .appendTo($tr);
+					$('<td>').append($textObject.clone().attr({id: 'displayOrder', value: data.displayOrder}))
+					         .appendTo($tr);
+				}());
+				
+				(function(){
 					var $select = $('<select>').attr({id: 'useState'}).addClass('form-control');
 					$('<option>').attr({value: 'USE'}).html('사용').appendTo($select);
 					$('<option>').attr({value: 'UNUSE'}).html('미사용').appendTo($select);
@@ -288,6 +297,14 @@
 					$('<th>').html('설명')
 					         .appendTo($tr);
 					$('<td>').append($textObject.clone().html(data.description))
+					         .appendTo($tr);
+				}());
+				
+				(function(){
+					var $tr = $('<tr>').appendTo($tbody);
+					$('<th>').html('표시 순서')
+					         .appendTo($tr);
+					$('<td>').append($textObject.clone().html(data.displayOrder))
 					         .appendTo($tr);
 				}());
 				

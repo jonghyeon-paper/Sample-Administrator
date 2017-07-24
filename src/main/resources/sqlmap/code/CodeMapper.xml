@@ -8,6 +8,7 @@
 	       PARENT_CODE_ID,
 	       CODE_NAME,
 	       DESCRIPTION,
+	       DISPLAY_ORDER,
 	       USE_STATE
 	  FROM CODE
 	<where>
@@ -21,7 +22,7 @@
 	   AND USE_STATE = #{useState}
 	  </if>
 	</where>
-	 ORDER BY PARENT_CODE_ID ASC, CODE_ID ASC
+	 ORDER BY PARENT_CODE_ID ASC, DISPLAY_ORDER ASC, CODE_ID ASC
 	</select>
 
 	<select id="selectOne" resultType="com.skplanet.iba.domain.code.Code">
@@ -29,6 +30,7 @@
 	       PARENT_CODE_ID,
 	       CODE_NAME,
 	       DESCRIPTION,
+	       DISPLAY_ORDER,
 	       USE_STATE
 	  FROM CODE
 	<where>
@@ -50,6 +52,7 @@
 		PARENT_CODE_ID,
 		CODE_NAME,
 		DESCRIPTION,
+		DISPLAY_ORDER,
 		USE_STATE,
 		REG_USER_ID,
 		REG_DATE,
@@ -60,6 +63,7 @@
 		#{parentCodeId},
 		#{codeName},
 		#{description},
+		#{displayOrder},
 		#{useState},
 		#{regUserId},
 		NOW(),
@@ -76,6 +80,9 @@
 	    </if>
 	    <if test="description != null and !''.equals(description)">
 	       DESCRIPTION = #{description},
+	    </if>
+	    <if test="displayOrder != null and !''.equals(displayOrder)">
+	       DISPLAY_ORDER = #{displayOrder},
 	    </if>
 	    <if test="useState != null and !''.equals(useState)">
 	       USE_STATE = #{useState},

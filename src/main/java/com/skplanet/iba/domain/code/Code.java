@@ -12,6 +12,7 @@ public class Code extends BaseEntity {
 	String parentCodeId;
 	String codeName;
 	String description;
+	private Integer displayOrder;
 	UseState useState;
 	
 	List<Code> childCode;
@@ -39,6 +40,12 @@ public class Code extends BaseEntity {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	public Integer getDisplayOrder() {
+		return displayOrder;
+	}
+	public void setDisplayOrder(Integer displayOrder) {
+		this.displayOrder = displayOrder;
 	}
 	public UseState getUseState() {
 		return useState;
