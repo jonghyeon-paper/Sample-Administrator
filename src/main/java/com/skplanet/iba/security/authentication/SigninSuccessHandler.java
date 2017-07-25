@@ -51,7 +51,10 @@ public class SigninSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 		HashSet<String> temporaryAuthority = new HashSet<>();
 		if (authorities != null) {
 			for (SimpleGrantedAuthority item : authorities) {
+				/* 미사용 2017.07.25.
 				temporaryAuthority.add(item.getAuthority().toString().replaceAll("(_READ)|(_WRITE)|(_EXCUTE)$", ""));
+				 */
+				temporaryAuthority.add(item.getAuthority().toString());
 			}
 		}
 		List<AuthorityMenu> targetAuthorityMenuList = authorityMenuService.retrieveListByAuthorityIds(temporaryAuthority.toArray(new String[temporaryAuthority.size()]));

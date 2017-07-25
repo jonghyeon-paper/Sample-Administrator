@@ -141,6 +141,7 @@ public class CustomFilterInvocationSecurityMetadataSource implements FilterInvoc
 	private String[] createRoleArray(List<AuthorityMenu> authorityMenuList) {
 		List<String> result = new ArrayList<>();
 		for (AuthorityMenu item : authorityMenuList) {
+			/* 미사용 2017.07.25.
 			List<AuthorityAccess> targetAuthorityAccessList = authorityAccessService.retrieveListByAuthorityIds(item.getAuthorityId());
 			if (targetAuthorityAccessList != null && !targetAuthorityAccessList.isEmpty()) {
 				// 접근 권한이 있으면 '권한_접근모드'로 권한명을 설정한다.
@@ -151,10 +152,13 @@ public class CustomFilterInvocationSecurityMetadataSource implements FilterInvoc
 				// 접근 권한이 없으면 권한을 권한명으로 설정한다.
 				result.add(item.getAuthorityId());
 			}
+			*/
+			result.add(item.getAuthorityId());
 		}
-		
-		//return result.toArray(array);
+		/* 미사용 2017.07.25.
 		return Arrays.stream(result.toArray(new String[result.size()])).distinct().toArray(String[]::new);
+		 */
+		return result.toArray(new String[result.size()]);
 	}
 
 }
