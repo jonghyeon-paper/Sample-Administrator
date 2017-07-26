@@ -1,5 +1,4 @@
 package com.skplanet.iba.support.excel;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -47,72 +46,81 @@ public class ExcelDataMigration {
 		this.titleRow = titleRow;
 	}
 	
-	public List<? extends Object> convertObjectList(Class<?> objectClass, List<ObjectProperties> objectPropertiesList)
-			throws IOException, EncryptedDocumentException, InvalidFormatException, InstantiationException, IllegalAccessException, NoSuchMethodException, IllegalArgumentException, InvocationTargetException, NoSuchFieldException {
-		
+	public List<? extends Object> convertObjectList(Class<?> objectClass, List<ObjectProperties> objectPropertiesList) {
 		List<Object> resultList = new ArrayList<>();
 		List<ObjectProperties> sortedObjectPropertiesList = new ArrayList<>();
 		
-		// Step1. sheet check
-		XSSFWorkbook workbook = new XSSFWorkbook(inputStream);
-		int sheets = workbook.getNumberOfSheets();
-		for (int i = 0; i < sheets; i++) {
-			XSSFSheet sheet = workbook.getSheetAt(i);
-			
-			// Step2. row check
-			int rows = sheet.getPhysicalNumberOfRows();
-			for (int j = 0; j < rows; j++) {
-				XSSFRow row = sheet.getRow(j);
+		try {
+			// Step1. sheet check
+			XSSFWorkbook workbook = new XSSFWorkbook(inputStream);
+			int sheets = workbook.getNumberOfSheets();
+			for (int i = 0; i < sheets; i++) {
+				XSSFSheet sheet = workbook.getSheetAt(i);
 				
-				// Step3. cell check
-				Object newInstance = objectClass.newInstance();
-				int cells = row.getPhysicalNumberOfCells();
-				for (int k = 0; k < cells; k++) {
-					XSSFCell cell = row.getCell(k);
+				// Step2. row check
+				int rows = sheet.getPhysicalNumberOfRows();
+				for (int j = 0; j < rows; j++) {
+					XSSFRow row = sheet.getRow(j);
 					
-					if (j == 0 && titleRow ) {
-						// 컬럼 설정
-						String excelColumnName = cell.getStringCellValue();
-						for (ObjectProperties item : objectPropertiesList) {
-							String propertyColumnName = item.getColumnName() == null ? item.getAttributeName() : item.getColumnName();
-							if (!excelColumnName.equals(propertyColumnName)) {
-								continue;
-							}
-							sortedObjectPropertiesList.add(item);
-							break;
-						}
-					} else {
-						// 데이터 설정
-						Object value = null;
-						switch (cell.getCellTypeEnum()) {
-						case ERROR :
-							value = "ERROR!";
-							break;
-						case BOOLEAN :
-							value = cell.getBooleanCellValue() ? "true" : "false";
-							break;
-						case BLANK :
-							value = "";
-							break;
-						case NUMERIC :
-							value = String.valueOf(cell.getNumericCellValue());
-							break;
-						case STRING :
-						default :
-							value = cell.getStringCellValue();
-							break;
-						}
+					// Step3. cell check
+					Object newInstance = objectClass.newInstance();
+					int cells = row.getPhysicalNumberOfCells();
+					for (int k = 0; k < cells; k++) {
+						XSSFCell cell = row.getCell(k);
 						
-						ObjectProperties columnProperty = titleRow ? sortedObjectPropertiesList.get(k) : objectPropertiesList.get(k);
-						setObjectValue(newInstance, columnProperty, value);
+						if (j == 0 && titleRow ) {
+							// 컬럼 설정
+							String excelColumnName = cell.getStringCellValue();
+							for (ObjectProperties item : objectPropertiesList) {
+								String propertyColumnName = item.getColumnName() == null ? item.getAttributeName() : item.getColumnName();
+								if (!excelColumnName.equals(propertyColumnName)) {
+									continue;
+								}
+								sortedObjectPropertiesList.add(item);
+								break;
+							}
+						} else {
+							// 데이터 설정
+							Object value = null;
+							switch (cell.getCellTypeEnum()) {
+							case ERROR :
+								value = "ERROR!";
+								break;
+							case BOOLEAN :
+								value = cell.getBooleanCellValue() ? "true" : "false";
+								break;
+							case BLANK :
+								value = "";
+								break;
+							case NUMERIC :
+								value = String.valueOf(cell.getNumericCellValue());
+								break;
+							case STRING :
+							default :
+								value = cell.getStringCellValue();
+								break;
+							}
+							
+							ObjectProperties columnProperty = titleRow ? sortedObjectPropertiesList.get(k) : objectPropertiesList.get(k);
+							setObjectValue(newInstance, columnProperty, value);
+						}
 					}
+					
+					if (j == 0 && titleRow) {
+						continue;
+					}
+					resultList.add(newInstance);
 				}
-				
-				if (j == 0 && titleRow) {
-					continue;
-				}
-				resultList.add(newInstance);
 			}
+		} catch (IOException e) {
+			//e.printStackTrace();
+			throw new ExcelDataMigrationException("stream exception");
+		} catch (InstantiationException | IllegalAccessException e) {
+			//e.printStackTrace();
+			throw new ExcelDataMigrationException("generate instance exception");
+		} catch (NoSuchFieldException | NoSuchMethodException | IllegalArgumentException | InvocationTargetException e) {
+			//e.printStackTrace();
+			throw new ExcelDataMigrationException("method reflection exception");
 		}
 		return resultList;
 	}
