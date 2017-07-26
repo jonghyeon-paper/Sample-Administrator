@@ -74,7 +74,7 @@ public class AuthorityController {
 	
 	@PostMapping("/access/list.do")
 	@ResponseBody
-	public List<Map<String, String>> getAuthorityList() {
+	public List<Map<String, String>> getAuthorityAccessList() {
 		List<Map<String, String>> list = new ArrayList<>();
 		for (AccessMode item : AccessMode.values()) {
 			list.add(item.getJson());

@@ -8,14 +8,14 @@ import com.skplanet.iba.support.enumdata.UseState;
 
 public class Code extends BaseEntity {
 
-	String codeId;
-	String parentCodeId;
-	String codeName;
-	String description;
+	private String codeId;
+	private String parentCodeId;
+	private String codeName;
+	private String description;
 	private Integer displayOrder;
-	UseState useState;
+	private UseState useState;
 	
-	List<Code> childCode;
+	private List<Code> childCode;
 	
 	public String getCodeId() {
 		return codeId;

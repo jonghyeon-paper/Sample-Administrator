@@ -74,7 +74,7 @@ public class CodeController {
 	
 	@PostMapping("/hierarchy.do")
 	@ResponseBody
-	public Code getHierarchyCode(@RequestBody Code code) {
+	public Code getCodeHierarchy(@RequestBody Code code) {
 		return codeService.getCodeHierarchy(code);
 	}
 }

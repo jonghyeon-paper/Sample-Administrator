@@ -99,6 +99,9 @@
 	    <if test="menuName != null and !''.equals(menuName)">
 	       MENU_NAME = #{menuName},
 	    </if>
+	    <if test="uri != null and !''.equals(uri)">
+	       URI = #{uri},
+	    </if>
 	    <if test="description != null and !''.equals(description)">
 	       DESCRIPTION = #{description},
 	    </if>

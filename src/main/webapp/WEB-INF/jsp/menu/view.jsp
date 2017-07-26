@@ -28,7 +28,7 @@
 		</div>
 		
 		<div class="btn-section text-center" id="buttonArea">
-			<button type="button" class="btn btn-default" style="display:none;" id="add">등록</button>
+			<button type="button" class="btn btn-default" style="display:none;" id="add">추가</button>
 			<button type="button" class="btn btn-default" style="display:none;" id="edit">수정</button>
 			<button type="button" class="btn btn-default" style="display:none;" id="save">저장</button>
 		</div>

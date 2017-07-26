@@ -70,7 +70,7 @@ public class MenuController {
 		return response;
 	}
 	
-	@PostMapping("/hierarchy")
+	@PostMapping("/hierarchy.do")
 	@ResponseBody
 	public Menu getMenuHierarchy(@RequestBody Menu menu) {
 		return menuService.getMenuHierarchy();
