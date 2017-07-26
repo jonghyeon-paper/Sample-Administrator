@@ -254,6 +254,14 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>3.5</version>
 		</dependency>
+		
+		<!-- excel -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.16</version>
+		</dependency>
+		
 	</dependencies>
 
 	<build>
