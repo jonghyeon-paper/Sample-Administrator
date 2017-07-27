@@ -11,8 +11,8 @@
 	
 	<link type="text/css" rel="stylesheet" href="${contextPath}/resources/css/custom.css">
 	<link type="text/css" rel="stylesheet" href="${contextPath}/resources/js/jquery/jquery-ui-1.12.1.custom/jquery-ui.min.css">
-	<link type="text/css" rel="stylesheet" href="${contextPath}/resources/css/bootstrap/bootstrap.min.css">
-	<link type="text/css" rel="stylesheet" href="${contextPath}/resources/css/bootstrap/bootstrap-theme.css">	
+	<link type="text/css" rel="stylesheet" href="${contextPath}/resources/css/bootstrap.min.css">
+	<link type="text/css" rel="stylesheet" href="${contextPath}/resources/css/bootstrap-theme.css">	
 	
 	<script type="text/javascript" src="${contextPath}/resources/js/jquery/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="${contextPath}/resources/js/jquery/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
