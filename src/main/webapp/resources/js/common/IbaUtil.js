@@ -42,7 +42,7 @@ IbaUtil.ajax = function(url, async, contentType, type, data, dataType, successCa
 			console.log(JSON.stringify(xhr) + '\n' + status + '\n' + error);
 			if (xhr.status === 403 || xhr.status === '403') {
 				alert('권한이 없습니다.\n메인페이지로 이동합니다.');
-				location.href = '/main.do';
+				location.href = globalContextPath + '/main.do';
 			}
 		},
 	});
