@@ -1,14 +1,15 @@
 package com.skplanet.iba.web.file;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.ws.Service.Mode;
 
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -55,7 +56,6 @@ public class FileSampleController {
 		
 		// 엑셀 데이터 추출
 		ExcelDataMigration excelDataMigration = new ExcelDataMigration(file.getInputStream());
-		excelDataMigration.setTitleRow(true);
 		
 		List<ObjectProperties> objectPropertiesList = new ArrayList<>();
 		objectPropertiesList.add(new ObjectProperties("column1", "컬럼1"));
@@ -66,6 +66,7 @@ public class FileSampleController {
 		objectPropertiesList.add(new ObjectProperties("column6", "컬럼6"));
 		objectPropertiesList.add(new ObjectProperties("column7", "컬럼7"));
 		
+		@SuppressWarnings("unchecked")
 		List<ExcelObject> resultList = (List<ExcelObject>) excelDataMigration.convertObjectList(ExcelObject.class, objectPropertiesList);
 		
 		// 결과 응답
@@ -86,9 +87,25 @@ public class FileSampleController {
 		return "/file/sample/downloadXls";
 	}
 	
-	//@RequestMapping(value = "downloadXlsx.do")
-	public String downloadFileXlsx(Model model) {
-		return "/file/sample/downloadXlsx";
+	@RequestMapping(value = "downloadXlsx.do")
+	public void downloadFileXlsx(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		List<ObjectProperties> objectPropertiesList = new ArrayList<>();
+		objectPropertiesList.add(new ObjectProperties("column1", "컬럼1"));
+		objectPropertiesList.add(new ObjectProperties("column2", "컬럼2"));
+		objectPropertiesList.add(new ObjectProperties("column3", "컬럼3"));
+		objectPropertiesList.add(new ObjectProperties("column4", "컬럼4"));
+		objectPropertiesList.add(new ObjectProperties("column5", "컬럼5"));
+		objectPropertiesList.add(new ObjectProperties("column6", "컬럼6"));
+		objectPropertiesList.add(new ObjectProperties("column7", "컬럼7"));
+		
+		ExcelDataMigration excelDataMigration = new ExcelDataMigration();
+		XSSFWorkbook resultWorkbook = excelDataMigration.createXlsxFromObjectList(dummyDataList(), objectPropertiesList);
+		
+		String filename =  "filefilefile";
+		response.setHeader("Content-Disposition", "attachment; filename=\"" + filename + ".xlsx\"");
+		OutputStream os = response.getOutputStream();
+		resultWorkbook.write(os);
 	}
 	
 	private List<ExcelObject> dummyDataList() {

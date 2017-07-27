@@ -10,6 +10,9 @@ public class ExcelObject {
 	private String column6;
 	private String column7;
 	
+	public ExcelObject() {
+	}
+	
 	public ExcelObject(Integer column1, String column2, String column3, String column4, String column5, String column6, String column7) {
 		this.column1 = column1;
 		this.column2 = column2;

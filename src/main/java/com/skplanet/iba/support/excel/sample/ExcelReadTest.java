@@ -12,7 +12,7 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import com.skplanet.iba.support.excel.ExcelDataMigration;
 import com.skplanet.iba.support.excel.ObjectProperties;
 
-public class ExcelTest {
+public class ExcelReadTest {
 	
 	private final static String filePath = "C:\\development\\project-temp\\maven-Sample-Administrator\\src\\main\\java\\com\\skplanet\\iba\\support\\excel\\sample\\Book1.xlsx";
 	
@@ -20,7 +20,6 @@ public class ExcelTest {
 		
 		// map test
 		ExcelDataMigration excelDataMigration1 = new ExcelDataMigration(filePath);
-		excelDataMigration1.setTitleRow(true);
 		List<ObjectProperties> propertiesList1 = new ArrayList<>();
 		propertiesList1.add(new ObjectProperties("column1", "컬럼1"));
 		propertiesList1.add(new ObjectProperties("column2", "컬럼2"));
@@ -40,7 +39,6 @@ public class ExcelTest {
 		
 		// object test
 		ExcelDataMigration excelDataMigration2 = new ExcelDataMigration(filePath);
-		excelDataMigration2.setTitleRow(true);
 		List<ObjectProperties> propertiesList2 = new ArrayList<>();
 		propertiesList2.add(new ObjectProperties("column1", "컬럼1"));
 		propertiesList2.add(new ObjectProperties("column2", "컬럼2"));

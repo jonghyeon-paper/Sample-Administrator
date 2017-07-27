@@ -32,7 +32,16 @@
 	<div>
 		<table>
 			<tr>
-				<td colspan="2"><button id="fileDownload">파일 다운로드</button></td>
+				<td>
+					xls 파일 : 
+					<button id="fileDownload" onclick="location.href='${pageContext.request.contextPath}/file/sample/downloadXls.do';return false;">파일 다운로드</button>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					xlss 파일 : 
+					<button id="fileDownload" onclick="location.href='${pageContext.request.contextPath}/file/sample/downloadXlsx.do';return false;">파일 다운로드</button>
+				</td>
 			</tr>
 		</table>
 	</div>
@@ -56,10 +65,6 @@
 					alert(jqXHR.responseText);
 				}
 			});
-		});
-		
-		$("#fileDownload").on("click", function(){
-			location.href = '${pageContext.request.contextPath}/file/sample/downloadXls.do';
 		});
 	});
 	</script>
