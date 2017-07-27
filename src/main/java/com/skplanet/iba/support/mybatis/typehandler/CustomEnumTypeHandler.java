@@ -1,4 +1,4 @@
-package com.skplanet.iba.supprot.mybatis.typehandler;
+package com.skplanet.iba.support.mybatis.typehandler;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

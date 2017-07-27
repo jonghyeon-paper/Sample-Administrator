@@ -44,7 +44,7 @@ public class LoginController {
 		ModelAndView mav = new ModelAndView();
 		if (request != null && request.getHeader("Accept") != null && request.getHeader("Accept").contains("json")) {
 			mav.setView(new MappingJackson2JsonView());
-			mav.addObject(new HashMap());
+			mav.addObject(new HashMap<>());
 		} else {
 			mav.setViewName("/denied");
 		}

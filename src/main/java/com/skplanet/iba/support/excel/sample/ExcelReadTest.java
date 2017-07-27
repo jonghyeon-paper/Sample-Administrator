@@ -29,6 +29,7 @@ public class ExcelReadTest {
 		propertiesList1.add(new ObjectProperties("column6", "컬럼6"));
 		propertiesList1.add(new ObjectProperties("column7", "컬럼7"));
 		
+		@SuppressWarnings("unchecked")
 		List<Map<String, Object>> resultList1 = (List<Map<String, Object>>) excelDataMigration1.convertMapList(propertiesList1);
 		for (Map<String, Object> item : resultList1) {
 			System.out.println(item.toString());
@@ -48,6 +49,7 @@ public class ExcelReadTest {
 		propertiesList2.add(new ObjectProperties("column6", "컬럼6"));
 		propertiesList2.add(new ObjectProperties("column7", "컬럼7"));
 		
+		@SuppressWarnings("unchecked")
 		List<ExcelObject> resultList2 = (List<ExcelObject>) excelDataMigration2.convertObjectList(ExcelObject.class, propertiesList2);
 		for (ExcelObject item : resultList2) {
 			System.out.println(item.toString());

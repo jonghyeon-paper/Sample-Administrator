@@ -42,6 +42,7 @@ public class SigninSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 		User user = (User) UserDetails.getCustomUserData();
 		
 		
+		@SuppressWarnings("unchecked")
 		Collection<SimpleGrantedAuthority> authorities = (Collection<SimpleGrantedAuthority>) authentication.getAuthorities();
 		if (authorities == null || authorities.isEmpty()) {
 			user.setAccessibleMenu(new Menu());
