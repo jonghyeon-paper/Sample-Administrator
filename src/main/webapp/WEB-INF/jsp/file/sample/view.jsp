@@ -5,8 +5,8 @@
 	
 	<p>upload sample file : /src/main/java/com/skplanet/iba/support/excel/sample/Book1.xlsx</p>
 
-	<form id="fileForm" enctype="multipart/form-data" method="POST">
 	<div>
+	<form id="fileForm" enctype="multipart/form-data" method="post">
 		<table>
 			<tr>
 				<td><label for="file1">파일 첫 번째</label></td>
@@ -24,8 +24,8 @@
 				<td colspan="2"><button id="fileUpload">파일 업로드</button></td>
 			</tr>
 		</table>
-	</div>
 	</form>
+	</div>
 	
 	<br><br><br><br><br>
 	
@@ -48,7 +48,8 @@
 
 	<script type="text/javascript">
 	$(function(){
-		$("#fileUpload").on("click", function(){
+		$("#fileUpload").on("click", function(event){
+			event.preventDefault();
 			var form = new FormData(document.getElementById('fileForm'));
 			$.ajax({
 				url: '${pageContext.request.contextPath}/file/sample/upload.do',
@@ -56,7 +57,7 @@
 				dataType: 'json',
 				processData: false,
 				contentType: false,
-				type: 'POST',
+				type: 'post',
 				success: function (response){
 					alert("success!\nconsole data check!");
 					console.log(response);
