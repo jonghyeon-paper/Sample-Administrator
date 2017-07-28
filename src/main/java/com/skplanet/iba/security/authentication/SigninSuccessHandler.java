@@ -41,7 +41,6 @@ public class SigninSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 		CustomUserDetail UserDetails = (CustomUserDetail) authentication.getPrincipal();
 		User user = (User) UserDetails.getCustomUserData();
 		
-		
 		@SuppressWarnings("unchecked")
 		Collection<SimpleGrantedAuthority> authorities = (Collection<SimpleGrantedAuthority>) authentication.getAuthorities();
 		if (authorities == null || authorities.isEmpty()) {

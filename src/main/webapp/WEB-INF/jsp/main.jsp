@@ -1,11 +1,6 @@
-<%@ page contentType="text/html; charset=utf-8" session="false" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
-<html>
-<head>
-	<title>Main Page</title>
-</head>
-<body>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/jsp/common/include/taglib.jsp" %>
+
 	<h3>Welcome!!</h3>
 	
 	<p>principal : <sec:authentication property="principal"/></p>
@@ -17,9 +12,5 @@
 	<p>principal.customUserData.userId : <sec:authentication property="principal.customUserData.userId"/></p>
 	<p>principal.customUserData.userName : <sec:authentication property="principal.customUserData.userName"/></p>
 	<p>principal.customUserData.useState : <sec:authentication property="principal.customUserData.useState"/></p>
-	<p>principal.customUserData.userAuthorityList : <sec:authentication property="principal.customUserData.userAuthorityList"/></p>
-<%-- 	<p>principal.customUserData.accessibleMenu.childMenu[0].menuName : <sec:authentication property="principal.customUserData.accessibleMenu.childMenu[0].menuName"/></p> --%>
 	
 	<p><button type="button" onclick="document.location.href='${pageContext.request.contextPath}/logout.do';return false;">logout</button></p>
-</body>
-</html>

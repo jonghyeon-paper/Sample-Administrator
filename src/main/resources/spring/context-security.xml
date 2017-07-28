@@ -58,6 +58,7 @@
 		<custom-filter ref="filterSecurityInterceptor" before="FILTER_SECURITY_INTERCEPTOR"/>
 	</http>
 	
+	<beans:bean id="customLdapAuthenticationProvider" class="com.skplanet.iba.security.authentication.CustomLdapAuthenticationProvider"/>
 	<beans:bean id="customAuthenticationProvider" class="com.skplanet.iba.security.authentication.CustomAuthenticationProvider"/>
 	<beans:bean id="customUserDetailService" class="com.skplanet.iba.security.authentication.CustomUserDetailService"/>
 	
@@ -69,7 +70,12 @@
 			</user-service>
  		</authentication-provider>
 		 -->
+		 
+		<!-- LDAP 인증 프로바이더 -->
+		<authentication-provider ref="customLdapAuthenticationProvider"/>
+		<!-- 임시 인증 프로바이더
 		<authentication-provider ref="customAuthenticationProvider"/>
+		 -->
 	</authentication-manager>
 
 </beans:beans>

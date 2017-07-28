@@ -23,20 +23,12 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		LOGGER.info("principal >> " + auth.getPrincipal().toString());
 		LOGGER.info("credential >> " + auth.getCredentials().toString());
 		
-		// setp1. ILM 인증
-		// ID, password 사용(ILM server)
-		if (ilmSystemUserExist(auth.getPrincipal().toString(), auth.getCredentials().toString())) {
-			
-			// step2. 사용자 정보 조회
-			// id 사용(Backoffice Database)
-			UserDetails userDetail = customUserDetailService.loadUserByUsername(auth.getPrincipal().toString());
-			
-			// principal에 사용자 이름이 아닌 사용자 정보를 모두 넣는다.
-			return new UsernamePasswordAuthenticationToken(userDetail, auth.getCredentials(), userDetail.getAuthorities());
-		} else {
-			LOGGER.warn("Bad Credentials");
-			throw new BadCredentialsException("Bad Credentials");
-		}
+		// step1. 사용자 정보 조회
+		// id 사용(Backoffice Database)
+		UserDetails userDetail = customUserDetailService.loadUserByUsername(auth.getPrincipal().toString());
+		
+		// principal에 사용자 이름이 아닌 사용자 정보를 모두 넣는다.
+		return new UsernamePasswordAuthenticationToken(userDetail, auth.getCredentials(), userDetail.getAuthorities());
 	}
 
 	@Override
