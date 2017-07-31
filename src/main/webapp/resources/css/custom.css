@@ -9,8 +9,9 @@
 
 .body-contents {margin: 132px 15px 0 15px;}
 .body-contents .btn-section {margin: 10px 15px 10px 15px;}
-.body-contents .panel {height: 600px;}
+.body-contents .panel-body {height: 600px;}
 
 .table thead th {text-align: center;}
 .table tbody th {background-color: #f1f1f1;}
 
+.scroll-auto {overflow: auto;}

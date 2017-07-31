@@ -8,7 +8,7 @@
 			<div class="col-lg-3">
 				<div class="panel panel-default">
 					<div class="panel-heading"><b>코드 계층</b></div>
-					<div class="panel-body" id="hierarchyCodeArea"></div>
+					<div class="panel-body scroll-auto" id="hierarchyCodeArea"></div>
 				</div>
 			</div>
 			

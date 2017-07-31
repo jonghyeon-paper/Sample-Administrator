@@ -73,9 +73,9 @@
 		 
 		<!-- LDAP 인증 프로바이더 -->
 		<authentication-provider ref="customLdapAuthenticationProvider"/>
-		<!-- 임시 인증 프로바이더
+		<!-- 로컬 DB 인증 프로바이더 -->
 		<authentication-provider ref="customAuthenticationProvider"/>
-		 -->
+		
 	</authentication-manager>
 
 </beans:beans>

@@ -10,6 +10,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 
+/**
+ * LDAP 인증 실패일 경우 실행됨
+ * - 'superuser'만 사용가능
+ * - 패스워드 인증 없음(DB에 패스워드 값이 없음)
+ * @author good
+ *
+ */
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(CustomAuthenticationProvider.class);
@@ -22,6 +29,10 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		LOGGER.info("name >> " + auth.getName());
 		LOGGER.info("principal >> " + auth.getPrincipal().toString());
 		LOGGER.info("credential >> " + auth.getCredentials().toString());
+		
+		if (!"superuser".equals(auth.getPrincipal().toString())) {
+			throw new BadCredentialsException("Bad Credentials");
+		}
 		
 		// step1. 사용자 정보 조회
 		// id 사용(Backoffice Database)
@@ -36,15 +47,4 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		return UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);
 	}
 	
-	/**
-	 * ILM 시스템 로그인 
-	 * @param id
-	 * @param password
-	 * @return
-	 */
-	private boolean ilmSystemUserExist(String id, String password) {
-		// 프로세스 작성
-		return true;
-	}
-
 }
