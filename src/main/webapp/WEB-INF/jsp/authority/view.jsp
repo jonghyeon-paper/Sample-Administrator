@@ -6,27 +6,27 @@
 	
 		<div class="row">
 			<div class="col-lg-3">
-				<div class="panel panel-default">
+				<div class="panel panel-default admin-panel">
 					<div class="panel-heading"><b>권한 목록</b></div>
-					<div class="panel-body" id="authorityListArea"></div>
+					<div class="panel-body admin-panel-body scroll-auto" id="authorityListArea"></div>
 				</div>
 			</div>
 			
 			<div class="col-lg-5">
-				<div class="panel panel-default" style="height: 290px;">
+				<div class="panel panel-default admin-panel-half">
 					<div class="panel-heading"><b>권한 정보</b></div>
 					<div class="panel-body" id="authorityInfoArea"></div>
 				</div>
-				<div class="panel panel-default" style="height: 290px;">
+				<div class="panel panel-default admin-panel-half">
 					<div class="panel-heading"><b>허가 정보</b></div>
 					<div class="panel-body" id="authorityAccessListArea"></div>
 				</div>
 			</div>
 			
 			<div class="col-lg-4">
-				<div class="panel panel-default">
+				<div class="panel panel-default admin-panel">
 					<div class="panel-heading"><b>접근 허가 메뉴</b></div>
-					<div class="panel-body" id="menuHierarchyArea"></div>
+					<div class="panel-body admin-panel-body scroll-auto" id="menuHierarchyArea"></div>
 				</div>
 			</div>
 		</div>

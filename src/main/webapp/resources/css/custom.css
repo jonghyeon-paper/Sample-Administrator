@@ -2,14 +2,16 @@
 
 .navbar-fixed-top {position: fixed;}
 
-.navbar-fixed-side {position: fixed; margin: 100px -15px; height: 100vh; width: inherit; overflow: auto;}
+.navbar-fixed-side {position: fixed; margin: 50px -15px; height: 100vh; width: inherit; overflow: auto;}
 /* .navbar-fixed-side .nav > li >  a {padding-top: 10px; padding-bottom: 10px; border-bottom: 1px solid #e7e7e7;} */
 .navbar-fixed-side ul ul {margin-left: 15px;}
 .navbar-fixed-side ul ul ul {margin-left: 15px;}
 
-.body-contents {margin: 132px 15px 0 15px;}
+.body-contents {margin: 82px 15px 0 15px;}
 .body-contents .btn-section {margin: 10px 15px 10px 15px;}
-.body-contents .panel-body {height: 600px;}
+.body-contents .admin-panel {height: 600px;}
+.body-contents .admin-panel-half {height: 290px;}
+.body-contents .admin-panel-body {height: 557px;}
 
 .table thead th {text-align: center;}
 .table tbody th {background-color: #f1f1f1;}

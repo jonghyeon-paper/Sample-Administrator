@@ -6,7 +6,7 @@
 		
 		<div class="row">
 			<div class="col-lg-9">
-				<div class="panel panel-default">
+				<div class="panel panel-default admin-panel">
 					<div class="panel-heading"><b>사용자 정보</b></div>
 					<div class="btn-section text-right">
 						<button type="button" class="btn btn-default" style="display:none;" id="ilmUserSearch">사용자 검색</button>
@@ -16,7 +16,7 @@
 			</div>
 				
 			<div class="col-lg-3">
-				<div class="panel panel-default">
+				<div class="panel panel-default admin-panel">
 					<div class="panel-heading"><b>권한 정보</b></div>
 					<div class="panel-body" id="authorityListArea"></div>
 				</div>

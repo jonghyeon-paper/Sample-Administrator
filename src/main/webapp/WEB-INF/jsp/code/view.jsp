@@ -6,16 +6,16 @@
 		
 		<div class="row">
 			<div class="col-lg-3">
-				<div class="panel panel-default">
+				<div class="panel panel-default admin-panel">
 					<div class="panel-heading"><b>코드 계층</b></div>
-					<div class="panel-body scroll-auto" id="hierarchyCodeArea"></div>
+					<div class="panel-body admin-panel-body scroll-auto" id="hierarchyCodeArea"></div>
 				</div>
 			</div>
 			
 			<div class="col-lg-9">
-				<div class="panel panel-default">
+				<div class="panel panel-default admin-panel">
 					<div class="panel-heading"><b>코드 정보</b></div>
-					<div class="panel-body" id="codeInfoArea"></div>
+					<div class="panel-body admin-panel-body" id="codeInfoArea"></div>
 				</div>
 			</div>
 		</div>

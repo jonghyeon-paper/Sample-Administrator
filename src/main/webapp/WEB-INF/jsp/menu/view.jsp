@@ -2,25 +2,25 @@
 <%@ include file="/WEB-INF/jsp/common/include/taglib.jsp" %>
 
 	<div class="body-contents">
-		<p><h2>코드 관리</h2></p>
+		<p><h2>메뉴 관리</h2></p>
 		
 		<div class="row">
 			<div class="col-lg-3">
-				<div class="panel panel-default">
+				<div class="panel panel-default admin-panel">
 					<div class="panel-heading"><b>메뉴 계층</b></div>
-					<div class="panel-body" id="meuHierarchyArea"></div>
+					<div class="panel-body admin-panel-body scroll-auto" id="meuHierarchyArea"></div>
 				</div>
 			</div>
 			
 			<div class="col-lg-5">
-				<div class="panel panel-default">
+				<div class="panel panel-default admin-panel">
 					<div class="panel-heading"><b>메뉴 정보</b></div>
 					<div class="panel-body" id="menuInfoArea"></div>
 				</div>
 			</div>
 			
 			<div class="col-lg-4">
-				<div class="panel panel-default">
+				<div class="panel panel-default admin-panel">
 					<div class="panel-heading"><b>접근 허가 URI</b></div>
 					<div class="panel-body" id="menuDependenceArea"></div>
 				</div>
