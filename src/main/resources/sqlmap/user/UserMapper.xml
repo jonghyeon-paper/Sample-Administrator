@@ -7,6 +7,7 @@
 	SELECT USER_ID,
 	       USER_NAME,
 	       DEPARTMENT,
+	       OMS_ID,
 	       USE_STATE,
 	       REG_DATE
 	  FROM USER
@@ -30,6 +31,7 @@
 	SELECT USER_ID,
 	       USER_NAME,
 	       DEPARTMENT,
+	       OMS_ID,
 	       USE_STATE,
 	       REG_DATE
 	  FROM USER
@@ -48,6 +50,7 @@
 		USER_ID,
 		USER_NAME,
 		DEPARTMENT,
+		OMS_ID,
 		USE_STATE,
 		REG_USER_ID,
 		REG_DATE,
@@ -57,6 +60,7 @@
 		#{userId},
 		#{userName},
 		#{department},
+		#{omsId},
 		#{useState},
 		#{regUserId},
 		NOW(),
@@ -68,6 +72,9 @@
 	<update id="update">
 	UPDATE USER
 	   <set>
+	    <if test="omsId != null and !''.equals(omsId)">
+	       OMS_ID = #{omsId},
+	    </if>
 	    <if test="useState != null and !''.equals(useState)">
 	       USE_STATE = #{useState},
 	    </if>
@@ -88,6 +95,7 @@
 	SELECT USER_ID,
 	       USER_NAME,
 	       DEPARTMENT,
+	       OMS_ID,
 	       USE_STATE,
 	       REG_DATE
 	  FROM USER

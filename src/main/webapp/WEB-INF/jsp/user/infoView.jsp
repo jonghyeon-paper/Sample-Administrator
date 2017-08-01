@@ -84,6 +84,7 @@
 						userId: $targetArea.find('#userId').val(),
 						userName: $targetArea.find('#userName').val(),
 						department: $targetArea.find('#department').val(),
+						omsId: $targetArea.find('#omsId').val(),
 						useState: $targetArea.find('#useState').val(),
 						userAuthorityList: userAuthorityList
 				};
@@ -184,7 +185,7 @@
 		var drawUserInfoOject = function(data, writeFlag) {
 			var $textObject = null;
 			if (writeFlag) {
-				$textObject = $('<input>').attr({type: 'text'}).addClass('form-control').prop('readonly', true);
+				$textObject = $('<input>').attr({type: 'text'}).addClass('form-control');
 			} else {
 				$textObject = $('<span>');
 			}
@@ -205,7 +206,7 @@
 					var $tr = $('<tr>').appendTo($tbody);
 					$('<th>').html('사번')
 					         .appendTo($tr);
-					$('<td>').append($textObject.clone().attr({id: 'userId', value: data.userId}))
+					$('<td>').append($textObject.clone().attr({id: 'userId', value: data.userId}).prop('readonly', true))
 					         .appendTo($tr);
 				}());
 				
@@ -213,7 +214,7 @@
 					var $tr = $('<tr>').appendTo($tbody);
 					$('<th>').html('이름')
 					         .appendTo($tr);
-					$('<td>').append($textObject.clone().attr({id: 'userName', value: data.userName}))
+					$('<td>').append($textObject.clone().attr({id: 'userName', value: data.userName}).prop('readonly', true))
 					         .appendTo($tr);
 				}());
 				
@@ -221,7 +222,15 @@
 					var $tr = $('<tr>').appendTo($tbody);
 					$('<th>').html('부서')
 					         .appendTo($tr);
-					$('<td>').append($textObject.clone().attr({id: 'department', value: data.department}))
+					$('<td>').append($textObject.clone().attr({id: 'department', value: data.department}).prop('readonly', true))
+					         .appendTo($tr);
+				}());
+				
+				(function(){
+					var $tr = $('<tr>').appendTo($tbody);
+					$('<th>').html('OMS ID')
+					         .appendTo($tr);
+					$('<td>').append($textObject.clone().attr({id: 'omsId', value: data.omsId}))
 					         .appendTo($tr);
 				}());
 				
@@ -229,6 +238,7 @@
 					var $select = $('<select>').attr({id: 'useState'}).addClass('form-control');
 					$('<option>').attr({value: 'USE'}).html('사용').appendTo($select);
 					$('<option>').attr({value: 'UNUSE'}).html('미사용').appendTo($select);
+					
 					// apply data in edit mode
 					// 사용자 추가 시 해당 값이 없다.
 					if (data.useState && data.useState.displayValue) {
@@ -263,6 +273,14 @@
 					$('<th>').html('부서')
 					         .appendTo($tr);
 					$('<td>').append($textObject.clone().html(data.department))
+					         .appendTo($tr);
+				}());
+				
+				(function(){
+					var $tr = $('<tr>').appendTo($tbody);
+					$('<th>').html('OMS ID')
+					         .appendTo($tr);
+					$('<td>').append($textObject.clone().html(data.omsId))
 					         .appendTo($tr);
 				}());
 				
