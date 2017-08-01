@@ -63,15 +63,17 @@
 			});
 		};
 		
-		var loadCodeHierarchy = function(parameters) {
-			parameters = parameters || {};
-			
-			IbaUtil.jsonAjax('${contextPath}/code/hierarchy.do', parameters, function(reponse){
+		var loadCodeHierarchy = function(focusParameters) {
+			IbaUtil.jsonAjax('${contextPath}/code/hierarchy.do', {}, function(reponse){
 				var $targetArea = $('#hierarchyCodeArea').empty();
 				
 				var $codeHierarchyObject = drawCodeHierarchyObject(reponse);
 				$codeHierarchyObject.appendTo($targetArea);
 				
+				// focus target code
+				if (focusParameters && focusParameters.codeId) {
+					$codeHierarchyObject.find('a[id^=code-' + focusParameters.codeId + ']').click();
+				}
 			});
 		}
 		
@@ -85,11 +87,35 @@
 				$childCodeObject.appendTo($div);
 			}
 			
-			// click event
+			// anchor click event
 			$div.on('click', 'a[id^=code-]', function() {
 				var dataObject = $(this).data('codeInfo');
 				loadCodeInfo(dataObject);
+				openTree($(this));
 			});
+			
+			// apply tree ui
+			$div.find('li').each(function(){
+				if ($(this).has('ul').length > 0) {
+					$('<span>').addClass('glyphicon glyphicon-plus cursor-pointer')
+					           .on('click', function(){
+					               if ($(this).hasClass('glyphicon-plus')) {
+					                   $(this).removeClass('glyphicon-plus')
+					                          .addClass('glyphicon-minus')
+					                          .parent().find('> ul').show();
+					               } else {
+					                   $(this).removeClass('glyphicon-minus')
+					                          .addClass('glyphicon-plus')
+					                          .parent().find('> ul').hide();
+					               }
+					            })
+					           .prependTo($(this));
+				}
+			});
+			
+			// open only first depth
+			$div.find('> ul').find('ul').hide();
+			$div.find('> ul > li > span:first').click();
 			
 			return $div;
 		};
@@ -98,7 +124,7 @@
 			if (data && data.length > 0) {
 				var $anchor = $('<a>').attr({href: '#', onclick: 'return false;'});
 				
-				var $ul = $('<ul>');
+				var $ul = $('<ul>').css({'list-style-type': 'none'});
 				for (let item of data) {
 					var $li = $('<li>').appendTo($ul);
 					$('<span>').append($anchor.clone().attr({id: 'code-' + item.codeId})
@@ -344,11 +370,23 @@
 			IbaUtil.jsonAjax(url, parameters, function(reponse){
 				if (reponse.responseCode === 'SUCCESS') {
 					alert(reponse.responseMessage);
-					location.reload();
+					//location.reload();
+					$('#codeInfoArea').empty();
+					loadCodeHierarchy(parameters);
 				} else {
 					alert(reponse.responseMessage);
 				}
 			});
+		};
+		
+		var openTree = function($target) {
+			console.log($target);
+			var $parent = $target.parentsUntil('ul').parent('ul');
+			if ($parent.css('display') === 'none') {
+				$parent.parent('li').find('span:first').click();
+				var $anchor = $parent.parent('li').find('> span > a[id^=code-]');
+				openTree($anchor); 
+			}
 		};
 		
 		return {
