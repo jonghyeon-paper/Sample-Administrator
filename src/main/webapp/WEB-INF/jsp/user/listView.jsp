@@ -47,7 +47,7 @@
 			parameters.page = parameters.page || 1;  // 페이지값이 없으면 기본 1
 			parameters.countPerPage = parameters.countPerPage || 15;  // 없으면 기본 15개
 			
-			IbaUtil.formAjax('${contextPath}/user/list.do', 'post', parameters, function(reponse){
+			IbaUtil.formAjax('${contextPath}/user/page.do', 'post', parameters, function(reponse){
 				(function(){
 					var $targetArea = $('#userListArea').empty();
 					var $userListObject = drawUserListObject(reponse.contents);

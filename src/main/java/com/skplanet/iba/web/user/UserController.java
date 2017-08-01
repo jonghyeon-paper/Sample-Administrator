@@ -3,14 +3,12 @@ package com.skplanet.iba.web.user;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.skplanet.iba.domain.user.User;
@@ -32,7 +30,7 @@ public class UserController {
 		return "/user/listView.page";
 	}
 	
-	@RequestMapping(value = "/list.do", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
+	@PostMapping("/list.do")
 	@ResponseBody
 	public List<User> getUserList(@RequestBody User user) {
 		return userService.retrieveList(user);
@@ -85,7 +83,7 @@ public class UserController {
 	 * @param pagingRequest
 	 * @return
 	 */
-	@RequestMapping(value = "/list.do", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+	@PostMapping("/page.do")
 	@ResponseBody
 	public PagingContents<User> getUserList(User user, PagingRequest pagingRequest) {
 		return userService.retrievePage(pagingRequest, user);
