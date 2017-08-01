@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.skplanet.iba.domain.user.UserAuthorityService;
+import com.skplanet.iba.support.utility.SecurityUtility;
+
 @Service
 public class AuthorityService {
 
@@ -18,6 +21,9 @@ public class AuthorityService {
 	@Autowired
 	private AuthorityMenuService authorityMenuService;
 	
+	@Autowired
+	private UserAuthorityService userAuthorityService;
+	
 	public Authority retrieve(Authority authority) {
 		return authorityMapper.selectOne(authority);
 	}
@@ -29,6 +35,8 @@ public class AuthorityService {
 	@Transactional
 	public Boolean add(Authority authority) {
 		// 등록,수정자 id 설정
+		authority.setRegUserId(SecurityUtility.getLoginUserId());
+		authority.setModUserId(SecurityUtility.getLoginUserId());
 		
 		// 권한 정보 등록
 		int insertCount = authorityMapper.insert(authority);
@@ -60,6 +68,7 @@ public class AuthorityService {
 	@Transactional
 	public Boolean edit(Authority authority) {
 		// 수정자 id 설정
+		authority.setModUserId(SecurityUtility.getLoginUserId());
 		
 		// 권한 정보 수정
 		int updateCount = authorityMapper.update(authority);
@@ -83,6 +92,16 @@ public class AuthorityService {
 	
 	@Transactional
 	public Boolean remove(Authority authority) {
+		// 접근 권한 삭제
+		authorityAccessService.removeByAuthorityId(authority.getAuthorityId());
+		
+		// 권한 메뉴 삭제
+		authorityMenuService.removeByAuthorityId(authority.getAuthorityId());
+		
+		// 사용자 권한 삭제
+		userAuthorityService.removeByAuthorityId(authority.getAuthorityId());
+		
+		// 권한 삭제
 		int deleteCount = authorityMapper.delete(authority);
 		return deleteCount > 0 ? true : false;
 	}

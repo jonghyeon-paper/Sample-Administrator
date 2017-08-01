@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.skplanet.iba.domain.authority.AuthorityMenuService;
 import com.skplanet.iba.support.enumdata.UseState;
+import com.skplanet.iba.support.utility.SecurityUtility;
 
 @Service
 public class MenuService {
@@ -17,6 +19,9 @@ public class MenuService {
 	
 	@Autowired
 	private MenuDependenceService menuDependenceService;
+	
+	@Autowired
+	private AuthorityMenuService authorityMenuService;
 	
 	public Menu retrieveMenu(Menu menu) {
 		return menuMapper.selectOne(menu);
@@ -33,6 +38,8 @@ public class MenuService {
 	@Transactional
 	public Boolean add(Menu menu) {
 		// 등록,수정자 id 설정
+		menu.setRegUserId(SecurityUtility.getLoginUserId());
+		menu.setModUserId(SecurityUtility.getLoginUserId());
 		
 		// 메뉴 등록
 		int insertCount = menuMapper.insert(menu);
@@ -62,6 +69,7 @@ public class MenuService {
 	@Transactional
 	public Boolean edit(Menu menu) {
 		// 수정자 id 설정
+		menu.setModUserId(SecurityUtility.getLoginUserId());
 		
 		// 메뉴 수정
 		int updateCount = menuMapper.update(menu);
@@ -83,6 +91,13 @@ public class MenuService {
 	
 	@Transactional
 	public Boolean remove(Menu menu) {
+		// 의존 URI 삭제
+		menuDependenceService.removeByMenuId(menu.getMenuId());
+		
+		// 권한 메뉴 삭제
+		authorityMenuService.removeByMenuId(menu.getMenuId());
+		
+		// 메뉴 삭제
 		int deleteCount = menuMapper.delete(menu);
 		return deleteCount > 0 ? true : false;
 	}

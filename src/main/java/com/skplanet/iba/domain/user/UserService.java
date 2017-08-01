@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.skplanet.iba.domain.common.BaseEntityService;
-import com.skplanet.iba.support.utility.SecurityUtil;
+import com.skplanet.iba.support.utility.SecurityUtility;
 
 @Service
 public class UserService extends BaseEntityService<User, UserMapper> {
@@ -35,8 +35,8 @@ public class UserService extends BaseEntityService<User, UserMapper> {
 	@Transactional
 	public Boolean add(User user) {
 		// 등록, 수정자 id 설정
-		user.setRegUserId(SecurityUtil.getLoginUserId());
-		user.setModUserId(SecurityUtil.getLoginUserId());
+		user.setRegUserId(SecurityUtility.getLoginUserId());
+		user.setModUserId(SecurityUtility.getLoginUserId());
 		
 		// 사용자 등록
 		int insertCount = userMapper.insert(user);
@@ -63,7 +63,7 @@ public class UserService extends BaseEntityService<User, UserMapper> {
 	@Transactional
 	public Boolean edit(User user) {
 		// 수정자 id 설정
-		user.setModUserId(SecurityUtil.getLoginUserId());
+		user.setModUserId(SecurityUtility.getLoginUserId());
 		
 		// 사용자 정보 수정
 		int updateCount = userMapper.update(user);

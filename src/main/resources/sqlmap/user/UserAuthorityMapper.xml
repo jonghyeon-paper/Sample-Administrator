@@ -47,9 +47,13 @@
 	
 	<delete id="delete">
 	DELETE FROM USER_AUTHORITY
-	 WHERE USER_ID = #{userId}
+	<where>
+	  <if test="userId != null and !''.equals(userId)">
+	       USER_ID = #{userId}
+	  </if>
 	  <if test="authorityId != null and !''.equals(authorityId)">
 	   AND AUTHORITY_ID = #{authorityId}
 	  </if>
-	</delete>	
+	</where>
+	</delete>
 </mapper>

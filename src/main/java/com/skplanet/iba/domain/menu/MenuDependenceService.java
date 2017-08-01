@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.skplanet.iba.support.utility.SecurityUtility;
+
 @Service
 public class MenuDependenceService {
 
@@ -22,7 +24,9 @@ public class MenuDependenceService {
 	
 	@Transactional
 	public Boolean add(MenuDependence menuDependence) {
-		// 등록,수정자 id 설정
+		// 등록자 id 설정
+		menuDependence.setRegUserId(SecurityUtility.getLoginUserId());
+		
 		int insertCount = menuDependenceMapper.insert(menuDependence);
 		return insertCount > 0 ? true : false;
 	}

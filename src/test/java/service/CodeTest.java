@@ -83,7 +83,7 @@ public class CodeTest extends AbstractJUnit {
 		codeuService.removeByCodeId(T0000);
 	}
 	
-	@Test
+	//@Test
 	public void hierarchy() {
 		Code result = codeuService.getCodeHierarchy(new Code());
 		print(result);

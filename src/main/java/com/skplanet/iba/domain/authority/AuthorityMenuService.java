@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.skplanet.iba.support.utility.SecurityUtility;
+
 @Service
 public class AuthorityMenuService {
 
@@ -30,7 +32,9 @@ public class AuthorityMenuService {
 	
 	@Transactional
 	public Boolean add(AuthorityMenu authorityMenu) {
-		// 등록,수정자 id 설정
+		// 등록자 id 설정
+		authorityMenu.setRegUserId(SecurityUtility.getLoginUserId());
+		
 		int insertCount = authorityMenuMapper.insert(authorityMenu);
 		return insertCount > 0 ? true : false;
 	}
@@ -46,6 +50,11 @@ public class AuthorityMenuService {
 	
 	@Transactional
 	public Boolean remove(AuthorityMenu authorityMenu) {
+		// 권한 ID와 메뉴 ID 둘다 null이면 false(쿼리에서 조건절이 없게되어 테이블의 모든 데이터가 삭제된다.)
+		if (authorityMenu.getAuthorityId() == null && authorityMenu.getMenuId() == null) {
+			return false;
+		}
+		
 		int deleteCount = authorityMenuMapper.delete(authorityMenu);
 		return deleteCount > 0 ? true : false;
 	}
@@ -54,6 +63,13 @@ public class AuthorityMenuService {
 	public Boolean removeByAuthorityId(String authorityId) {
 		AuthorityMenu authorityMenu = new AuthorityMenu();
 		authorityMenu.setAuthorityId(authorityId);
+		return this.remove(authorityMenu);
+	}
+	
+	@Transactional
+	public Boolean removeByMenuId(Integer menuId) {
+		AuthorityMenu authorityMenu = new AuthorityMenu();
+		authorityMenu.setMenuId(menuId);
 		return this.remove(authorityMenu);
 	}
 	

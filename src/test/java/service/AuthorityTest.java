@@ -94,6 +94,7 @@ public class AuthorityTest extends AbstractJUnit {
 		
 		// remove test data - reverse process
 		//remove();
+		authorityService.removeByAuthorityId(AUTHORITY_ID);
 	}
 	
 	//@Test

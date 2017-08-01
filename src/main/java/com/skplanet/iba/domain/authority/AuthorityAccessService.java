@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.skplanet.iba.domain.authority.enumdata.AccessMode;
+import com.skplanet.iba.support.utility.SecurityUtility;
 
 @Service
 public class AuthorityAccessService {
@@ -28,7 +29,9 @@ public class AuthorityAccessService {
 	
 	@Transactional
 	public Boolean add(AuthorityAccess authorityAccess) {
-		// 등록,수정자 id 설정
+		// 등록자 id 설정
+		authorityAccess.setRegUserId(SecurityUtility.getLoginUserId());
+		
 		int insertCount = authorityAccessMapper.insert(authorityAccess);
 		return insertCount > 0 ? true : false;
 	}

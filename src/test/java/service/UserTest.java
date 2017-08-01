@@ -25,19 +25,20 @@ public class UserTest extends AbstractJUnit {
 	@Autowired
 	private UserAuthorityService userAuthorityService;
 	
-	@Test
+	//@Test
 	public void get() {
 		User userSearchCondition = new User();
 		List<User> result = userService.retrieveList(userSearchCondition);
 		print(result);
 	}
 	
-	//@Test
+	@Test
 	@Transactional
 	public void add() {
 		User user = new User();
 		user.setUserId(USER_ID);
 		user.setUserName("gildong");
+		user.setDepartment("ABS");
 		user.setUseState(UseState.USE);
 		userService.add(user);
 		
@@ -57,6 +58,7 @@ public class UserTest extends AbstractJUnit {
 		
 		//remove
 		//remove();
+		userService.removeByUserId(USER_ID);
 	}
 	
 	//@Test

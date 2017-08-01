@@ -61,9 +61,13 @@
 	
 	<delete id="delete">
 	DELETE FROM AUTHORITY_MENU
-	 WHERE AUTHORITY_ID = #{authorityId}
+	<where>
+	  <if test="authorityId != null and !''.equals(authorityId)">
+	       AUTHORITY_ID = #{authorityId}
+	  </if>
 	  <if test="menuId != null and !''.equals(menuId)">
 	   AND MENU_ID = #{menuId}
 	  </if>
+	</where>
 	</delete>
 </mapper>
