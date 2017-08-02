@@ -39,6 +39,8 @@ public class UserTest extends AbstractJUnit {
 		user.setUserId(USER_ID);
 		user.setUserName("gildong");
 		user.setDepartment("ABS");
+		user.setPosition("123");
+		user.setContact("1111111111111");
 		user.setUseState(UseState.USE);
 		userService.add(user);
 		
