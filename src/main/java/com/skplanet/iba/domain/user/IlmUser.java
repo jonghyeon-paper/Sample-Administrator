@@ -5,6 +5,8 @@ public class IlmUser {
 	private String empno;
 	private String hname;
 	private String deptnm;
+	private String position;
+	private String movetelno;
 	
 	public String getEmpno() {
 		return empno;
@@ -23,6 +25,18 @@ public class IlmUser {
 	}
 	public void setDeptnm(String deptnm) {
 		this.deptnm = deptnm;
+	}
+	public String getPosition() {
+		return position;
+	}
+	public void setPosition(String position) {
+		this.position = position;
+	}
+	public String getMovetelno() {
+		return movetelno;
+	}
+	public void setMovetelno(String movetelno) {
+		this.movetelno = movetelno;
 	}
 	
 }

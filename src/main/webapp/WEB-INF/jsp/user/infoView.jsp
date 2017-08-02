@@ -84,6 +84,8 @@
 						userId: $targetArea.find('#userId').val(),
 						userName: $targetArea.find('#userName').val(),
 						department: $targetArea.find('#department').val(),
+						position: $targetArea.find('#position').val(),
+						contact: $targetArea.find('#contact').val(),
 						omsId: $targetArea.find('#omsId').val(),
 						useState: $targetArea.find('#useState').val(),
 						userAuthorityList: userAuthorityList
@@ -228,6 +230,22 @@
 				
 				(function(){
 					var $tr = $('<tr>').appendTo($tbody);
+					$('<th>').html('직책')
+					         .appendTo($tr);
+					$('<td>').append($textObject.clone().attr({id: 'position', value: data.position}).prop('readonly', true))
+					         .appendTo($tr);
+				}());
+				
+				(function(){
+					var $tr = $('<tr>').appendTo($tbody);
+					$('<th>').html('연락처')
+					         .appendTo($tr);
+					$('<td>').append($textObject.clone().attr({id: 'contact', value: data.contact}).prop('readonly', true))
+					         .appendTo($tr);
+				}());
+				
+				(function(){
+					var $tr = $('<tr>').appendTo($tbody);
 					$('<th>').html('OMS ID')
 					         .appendTo($tr);
 					$('<td>').append($textObject.clone().attr({id: 'omsId', value: data.omsId}))
@@ -278,6 +296,22 @@
 				
 				(function(){
 					var $tr = $('<tr>').appendTo($tbody);
+					$('<th>').html('직책')
+					         .appendTo($tr);
+					$('<td>').append($textObject.clone().html(data.position))
+					         .appendTo($tr);
+				}());
+				
+				(function(){
+					var $tr = $('<tr>').appendTo($tbody);
+					$('<th>').html('연락처')
+					         .appendTo($tr);
+					$('<td>').append($textObject.clone().html(data.contact))
+					         .appendTo($tr);
+				}());
+				
+				(function(){
+					var $tr = $('<tr>').appendTo($tbody);
 					$('<th>').html('OMS ID')
 					         .appendTo($tr);
 					$('<td>').append($textObject.clone().html(data.omsId))
@@ -301,6 +335,9 @@
 			$targetArea.find('#userId').val(data.userId);
 			$targetArea.find('#userName').val(data.userName);
 			$targetArea.find('#department').val(data.department);
+			$targetArea.find('#position').val(data.position);
+			$targetArea.find('#contact').val(data.contact);
+			//$targetArea.find('#omsId').val(''); // 입력받는값임
 			$targetArea.find('#useState').val(data.useState);
 		};
 		
@@ -434,10 +471,13 @@
 					return false;
 				}
 				
+				// 사용하는 파라미터명이 달라서 다시 만들어준다.
 				var parameters = {
 						userId: ilmUserDataObject.empno,
 						userName: ilmUserDataObject.hname,
 						department: ilmUserDataObject.deptnm,
+						position: ilmUserDataObject.position,
+						contact: ilmUserDataObject.movetelno,
 						useState: 'USE'
 				};
 				

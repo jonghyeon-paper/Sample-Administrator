@@ -6,7 +6,9 @@
 	<select id="selectList" resultType="com.skplanet.iba.domain.user.IlmUser">
 	SELECT EMPNO,
 	       HNAME,
-	       DEPTNM
+	       DEPTNM,
+	       IFNULL(JBCHARGENM, JBGRPNM) AS POSITION,
+	       MOVETELNO
 	  FROM INF_PERSON_INFO_RCV
 	<where>
 	  <if test="hname != null and !''.equals(hname)">
