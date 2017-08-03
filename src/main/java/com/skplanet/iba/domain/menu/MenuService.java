@@ -116,10 +116,8 @@ public class MenuService {
 		return this.remove(menu);
 	}
 	
-	public Menu getMenuHierarchy() {
-		Menu conditon = new Menu();
-		//conditon.setUseState(UseState.USE);
-		List<Menu> menuList = this.retrieveList(conditon);
+	public Menu getMenuHierarchy(Menu menu) {
+		List<Menu> menuList = this.retrieveList(menu);
 		return createMenuHierarchy(menuList);
 	}
 	

@@ -21,6 +21,7 @@ import com.skplanet.iba.domain.menu.Menu;
 import com.skplanet.iba.domain.menu.MenuService;
 import com.skplanet.iba.domain.user.User;
 import com.skplanet.iba.security.authentication.customization.CustomUserDetail;
+import com.skplanet.iba.support.enumdata.UseState;
 
 public class SigninSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 	
@@ -70,6 +71,12 @@ public class SigninSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 			}
 		}
 		List<Menu> accessableMenuList = menuService.retrieveListByMenuIds(temporaryMenu.toArray(new Integer[temporaryMenu.size()]));
+		// 미사용 메뉴는 삭제 // 위 검색 조건에 사용여부 조건을 줄 수 없어서 어플리케이션에서 확인하여 제거.
+		for (int i = accessableMenuList.size() - 1; i > -1; i--) {
+			if (UseState.UNUSE.equals(accessableMenuList.get(i).getUseState())) {
+				accessableMenuList.remove(i);
+			}
+		}
 		Menu hierarchyMenu = menuService.createMenuHierarchy(accessableMenuList);
 		user.setAccessibleMenu(hierarchyMenu);
 		

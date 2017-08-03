@@ -73,6 +73,6 @@ public class MenuController {
 	@PostMapping("/hierarchy.do")
 	@ResponseBody
 	public Menu getMenuHierarchy(@RequestBody Menu menu) {
-		return menuService.getMenuHierarchy();
+		return menuService.getMenuHierarchy(menu);
 	}
 }

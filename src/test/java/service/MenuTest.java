@@ -71,7 +71,7 @@ public class MenuTest extends AbstractJUnit {
 	
 	//@Test
 	public void hierarchy() {
-		Menu menu = menuService.getMenuHierarchy();
+		Menu menu = menuService.getMenuHierarchy(new Menu());
 		print(menu);
 	}
 }
