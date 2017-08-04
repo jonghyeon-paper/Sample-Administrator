@@ -29,6 +29,11 @@
 		<beans:property name="alwaysUseDefaultTargetUrl" value="true"/>
 	</beans:bean>
 	
+	<beans:bean id="signinFailureHandler" class="com.skplanet.iba.security.authentication.SigninFailureHandler">
+		<!-- 로그인 실패 후 redirect할 URI -->
+		<beans:property name="defaultFailureUrl" value="/login.do"/>
+	</beans:bean>
+	
 	<http pattern="/favicon.ico" security="none"/>
 	<http pattern="/resources/**" security="none"/>
 	<http pattern="/index.html" security="none"/>
@@ -44,6 +49,7 @@
 			password-parameter="password"
 			login-processing-url="/login/process.do"
 			authentication-success-handler-ref="signinSuccessHandler"
+			authentication-failure-handler-ref="signinFailureHandler"
 			authentication-failure-url="/login.do?error=true"/>
 			
 		<logout logout-url="/logout.do" 

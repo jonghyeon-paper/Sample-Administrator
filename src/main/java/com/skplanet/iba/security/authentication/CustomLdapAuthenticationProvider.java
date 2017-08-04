@@ -11,11 +11,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.skplanet.iba.security.authentication.customization.CustomBadCredentialsException;
 
 public class CustomLdapAuthenticationProvider implements AuthenticationProvider {
 	
@@ -37,8 +38,8 @@ public class CustomLdapAuthenticationProvider implements AuthenticationProvider 
 		
 		// step0. id, password 확인
 		if ("".equals(auth.getPrincipal().toString()) || "".equals(auth.getCredentials().toString())) {
-			LOGGER.warn("Empty Credentials");
-			throw new BadCredentialsException("Empty Credentials");
+			LOGGER.warn("LDAP - Empty Credentials");
+			throw new CustomBadCredentialsException("LDAP - Empty Credentials", auth.getPrincipal().toString());
 		}
 		
 		// setp1. ILM 인증
@@ -52,8 +53,8 @@ public class CustomLdapAuthenticationProvider implements AuthenticationProvider 
 			// principal에 사용자 이름이 아닌 사용자 정보를 모두 넣는다.
 			return new UsernamePasswordAuthenticationToken(userDetail, auth.getCredentials(), userDetail.getAuthorities());
 		} else {
-			LOGGER.warn("Bad Credentials");
-			throw new BadCredentialsException("Bad Credentials");
+			LOGGER.warn("LDAP - Bad Credentials");
+			throw new CustomBadCredentialsException("LDAP - Bad Credentials", auth.getPrincipal().toString());
 		}
 	}
 

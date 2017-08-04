@@ -4,11 +4,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.skplanet.iba.security.authentication.customization.CustomBadCredentialsException;
 
 /**
  * LDAP 인증 실패일 경우 실행됨
@@ -31,7 +32,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		LOGGER.info("credential >> " + auth.getCredentials().toString());
 		
 		if (!"superuser".equals(auth.getPrincipal().toString())) {
-			throw new BadCredentialsException("Bad Credentials");
+			LOGGER.warn("LOCAL - Bad Credentials");
+			throw new CustomBadCredentialsException("LOCAL - Bad Credentials", auth.getPrincipal().toString());
 		}
 		
 		// step1. 사용자 정보 조회

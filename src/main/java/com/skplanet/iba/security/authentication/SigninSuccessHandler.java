@@ -17,6 +17,8 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 
 import com.skplanet.iba.domain.authority.AuthorityMenu;
 import com.skplanet.iba.domain.authority.AuthorityMenuService;
+import com.skplanet.iba.domain.login.LoginHistory;
+import com.skplanet.iba.domain.login.LoginHistoryService;
 import com.skplanet.iba.domain.menu.Menu;
 import com.skplanet.iba.domain.menu.MenuService;
 import com.skplanet.iba.domain.user.User;
@@ -30,6 +32,9 @@ public class SigninSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 	
 	@Autowired
 	private MenuService menuService;
+	
+	@Autowired
+	private LoginHistoryService loginHistoryService; 
 	
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request,
@@ -81,6 +86,9 @@ public class SigninSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 		user.setAccessibleMenu(hierarchyMenu);
 		
 		SecurityContextHolder.getContext().setAuthentication(authentication);
+		
+		// history
+		loginHistoryService.add(new LoginHistory(user.getUserId(), true, null));
 	}
 
 }
