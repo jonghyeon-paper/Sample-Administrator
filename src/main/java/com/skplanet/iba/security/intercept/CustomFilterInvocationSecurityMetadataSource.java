@@ -46,7 +46,12 @@ public class CustomFilterInvocationSecurityMetadataSource implements FilterInvoc
 	{
 		FilterInvocation filterInvocation = (FilterInvocation) object;
 		String uri = filterInvocation.getRequestUrl();
-		//String method = filterInvocation.getRequest().getMethod();
+		String method = filterInvocation.getRequest().getMethod();
+		
+		// get 요청일 경우 파라미터 정보는 제외
+		if (method.equalsIgnoreCase("get") && uri.indexOf("?") > -1) {
+			uri = uri.substring(0, uri.indexOf("?"));
+		}
 		
 		// temporary data
 		/*
