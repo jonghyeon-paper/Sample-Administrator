@@ -34,6 +34,8 @@
 		<beans:property name="defaultFailureUrl" value="/login.do"/>
 	</beans:bean>
 	
+	<beans:bean id="uriAccessPermissionFilter" class="com.skplanet.iba.security.authentication.filter.UriAccessPermissionFilter"/>
+	
 	<http pattern="/favicon.ico" security="none"/>
 	<http pattern="/resources/**" security="none"/>
 	<http pattern="/index.html" security="none"/>
@@ -62,6 +64,7 @@
 		<csrf disabled="true"/>
 		
 		<custom-filter ref="filterSecurityInterceptor" before="FILTER_SECURITY_INTERCEPTOR"/>
+		<custom-filter ref="uriAccessPermissionFilter" after="LAST"/>
 	</http>
 	
 	<beans:bean id="customLdapAuthenticationProvider" class="com.skplanet.iba.security.authentication.CustomLdapAuthenticationProvider"/>

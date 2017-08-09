@@ -113,14 +113,9 @@ public class SampleDataInsert extends AbstractJUnit {
 		writedMode.setAuthorityId(AUTHORITY_ID);
 		writedMode.setAccessMode(AccessMode.WRITE);
 		
-		AuthorityAccess excuteMode = new AuthorityAccess();
-		excuteMode.setAuthorityId(AUTHORITY_ID);
-		excuteMode.setAccessMode(AccessMode.EXCUTE);
-		
 		List<AuthorityAccess> authorityAccessList = new ArrayList<>();
 		authorityAccessList.add(readMode);
 		authorityAccessList.add(writedMode);
-		authorityAccessList.add(excuteMode);
 		
 		// Add authority
 		Authority superuser = new Authority();

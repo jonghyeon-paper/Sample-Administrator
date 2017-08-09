@@ -9,7 +9,7 @@ public class CustomUserDetail extends User {
 
 	private static final long serialVersionUID = -8769437733457618615L;
 	
-	// DB에 저장하고 있는 사용자 정보를 답을 객체
+	// DB에 저장하고 있는 사용자 정보를 넣을 객체
 	private Object customUserData;
 
 	public CustomUserDetail(String username, String password, Collection<? extends GrantedAuthority> authorities, Object customUserData) {

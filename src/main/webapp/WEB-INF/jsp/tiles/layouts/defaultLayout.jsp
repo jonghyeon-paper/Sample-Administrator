@@ -40,6 +40,10 @@
 		</div>
 	</div>
 	<%-- <tiles:insertAttribute name="footer" /> --%>
+	<%-- 
+	<p style="margin-left:270px;">uriAccessRole : <c:out value="${uriAccessRole}"/></p>
+	<p style="margin-left:270px;">uriAccessMode : <c:out value="${uriAccessMode}"/></p>
+	 --%>
 </div>
 
 </body>

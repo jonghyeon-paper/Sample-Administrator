@@ -77,14 +77,9 @@ public class AuthorityTest extends AbstractJUnit {
 		writedMode.setAuthorityId(AUTHORITY_ID);
 		writedMode.setAccessMode(AccessMode.WRITE);
 		
-		AuthorityAccess excuteMode = new AuthorityAccess();
-		excuteMode.setAuthorityId(AUTHORITY_ID);
-		excuteMode.setAccessMode(AccessMode.EXCUTE);
-		
 		List<AuthorityAccess> authorityAccessModeList = new ArrayList<>();
 		authorityAccessModeList.add(readMode);
 		authorityAccessModeList.add(writedMode);
-		authorityAccessModeList.add(excuteMode);
 		authorityAccessModeService.add(authorityAccessModeList);
 		
 		Authority authoritySearchCondition = new Authority();

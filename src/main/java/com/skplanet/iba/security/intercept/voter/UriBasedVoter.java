@@ -1,6 +1,10 @@
 package com.skplanet.iba.security.intercept.voter;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.security.access.AccessDecisionVoter;
 import org.springframework.security.access.ConfigAttribute;
@@ -61,11 +65,25 @@ public class UriBasedVoter implements AccessDecisionVoter<FilterInvocation> {
 					continue;
 				}
 				if (userHasRole.equals(uriHasRole)) {
+					// access role insert to request
+					addUriAccessRole(filterInvocation, userHasRole);
+					
 					return ACCESS_GRANTED;
 				}
 			}
 		}
 		return ACCESS_ABSTAIN;
+	}
+	
+	private void addUriAccessRole(FilterInvocation filterInvocation, String role) {
+		HttpServletRequest request = filterInvocation.getRequest();
+		@SuppressWarnings("unchecked")
+		List<String> uriAccessRoles = (List<String>) request.getAttribute("uriAccessRole");
+		if (uriAccessRoles == null) {
+			uriAccessRoles = new ArrayList<>();
+		}
+		uriAccessRoles.add(role);
+		request.setAttribute("uriAccessRole", uriAccessRoles);
 	}
 
 }
