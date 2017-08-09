@@ -3,10 +3,10 @@ package service;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.skplanet.iba.domain.user.User;
-import com.skplanet.iba.domain.user.UserService;
-import com.skplanet.iba.framework.data.PagingContents;
-import com.skplanet.iba.framework.data.PagingRequest;
+import com.sample.administrator.core.archetype.entity.PagingContents;
+import com.sample.administrator.core.archetype.entity.PageRequest;
+import com.sample.administrator.model.user.UserService;
+import com.sample.administrator.model.user.entity.User;
 
 public class UserPageTest extends AbstractJUnit {
 
@@ -18,7 +18,7 @@ public class UserPageTest extends AbstractJUnit {
 //		PagingContents<User> result = userService.retrievePageList(new User(), new PagingRequest(1, 15));
 		User params = new User();
 		params.setUserId("TestSuperUser@partner.sk.com");
-		PagingContents<User> result = userService.retrievePage(new PagingRequest(1, 15), params);
+		PagingContents<User> result = userService.retrievePage(params, new PageRequest(1, 15));
 		print(result);
 	}
 	

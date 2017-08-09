@@ -9,7 +9,7 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<annotation-driven />
 
-	<context:component-scan base-package="com.skplanet.iba">
+	<context:component-scan base-package="com.sample.administrator.model">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
 	

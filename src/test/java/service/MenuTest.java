@@ -7,9 +7,9 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.skplanet.iba.domain.menu.Menu;
-import com.skplanet.iba.domain.menu.MenuService;
-import com.skplanet.iba.support.enumdata.UseState;
+import com.sample.administrator.model.menu.MenuService;
+import com.sample.administrator.model.menu.entity.Menu;
+import com.sample.administrator.web.element.UseState;
 
 public class MenuTest extends AbstractJUnit {
 

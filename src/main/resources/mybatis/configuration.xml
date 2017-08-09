@@ -7,6 +7,6 @@
 	</settings>
 	
 	<typeHandlers>
-		<typeHandler handler="com.skplanet.iba.support.mybatis.typehandler.CustomEnumTypeHandler" javaType="com.skplanet.iba.support.enumdata.UseState"/>
+		<typeHandler handler="com.sample.administrator.core.mybatis.typehandler.CustomEnumTypeHandler" javaType="com.sample.administrator.web.element.UseState"/>
 	</typeHandlers>
 </configuration>

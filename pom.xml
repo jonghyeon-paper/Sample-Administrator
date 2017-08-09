@@ -1,46 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.skplanet.iba</groupId>
-	<artifactId>skplanet-admin</artifactId>
+	<groupId>com.sample.administrator</groupId>
+	<artifactId>admin</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>skplanet-admin</name>
-	<description>Skplanet Administrator Application</description>
-
-	<!-- dependency에 정의된 라이브러리를 다운로드할 저장소 -->
-	<repositories>
-		<repository>
-			<id>skp-public</id>
-			<name>skplanet public repository</name>
-			<url>http://mvn.skplanet.com/content/groups/public/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
-	
-	<!-- maven이 사용하는 plugin을 다운로드할 저장소 -->
-	<pluginRepositories>
-		<pluginRepository>
-			<id>skp-public</id>
-			<name>skp public repository</name>
-			<url>http://mvn.skplanet.com/content/groups/public/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</pluginRepository>
-	</pluginRepositories>
+	<name>web-admin</name>
+	<description>Administrator Application</description>
 
 	<properties>
 		<java-version>1.8</java-version>
+		<jdk-version>1.8</jdk-version>
 		<org.springframework-version>4.3.4.RELEASE</org.springframework-version>
 		<org.springframework.security-version>4.2.3.RELEASE</org.springframework.security-version>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
@@ -48,7 +20,6 @@
 		<apachetiles.version>3.0.5</apachetiles.version>
 		<encoding>UTF-8</encoding>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<jdk-version>1.7</jdk-version>
 		<application.name>${project.name}</application.name>
 	</properties>
 

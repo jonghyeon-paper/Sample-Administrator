@@ -8,20 +8,20 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.skplanet.iba.domain.authority.Authority;
-import com.skplanet.iba.domain.authority.AuthorityAccess;
-import com.skplanet.iba.domain.authority.AuthorityAccessService;
-import com.skplanet.iba.domain.authority.AuthorityMenu;
-import com.skplanet.iba.domain.authority.AuthorityMenuService;
-import com.skplanet.iba.domain.authority.AuthorityService;
-import com.skplanet.iba.domain.authority.enumdata.AccessMode;
-import com.skplanet.iba.domain.menu.Menu;
-import com.skplanet.iba.domain.menu.MenuService;
-import com.skplanet.iba.domain.user.User;
-import com.skplanet.iba.domain.user.UserAuthority;
-import com.skplanet.iba.domain.user.UserAuthorityService;
-import com.skplanet.iba.domain.user.UserService;
-import com.skplanet.iba.support.enumdata.UseState;
+import com.sample.administrator.model.authority.AuthorityAccessService;
+import com.sample.administrator.model.authority.AuthorityMenuService;
+import com.sample.administrator.model.authority.AuthorityService;
+import com.sample.administrator.model.authority.entity.Authority;
+import com.sample.administrator.model.authority.entity.AuthorityAccess;
+import com.sample.administrator.model.authority.entity.AuthorityMenu;
+import com.sample.administrator.model.authority.entity.element.AccessMode;
+import com.sample.administrator.model.menu.MenuService;
+import com.sample.administrator.model.menu.entity.Menu;
+import com.sample.administrator.model.user.UserAuthorityService;
+import com.sample.administrator.model.user.UserService;
+import com.sample.administrator.model.user.entity.User;
+import com.sample.administrator.model.user.entity.UserAuthority;
+import com.sample.administrator.web.element.UseState;
 
 public class SampleDataInsert extends AbstractJUnit {
 	

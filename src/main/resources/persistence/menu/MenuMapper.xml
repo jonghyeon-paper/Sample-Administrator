@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sample.administrator.model.menu.persistence.MenuMapper">
+
+	<select id="selectList" resultType="com.sample.administrator.model.menu.entity.Menu">
+	SELECT MENU_ID,
+	       PARENT_MENU_ID,
+	       MENU_NAME,
+	       URI,
+	       DESCRIPTION,
+	       DISPLAY_ORDER,
+	       USE_STATE
+	  FROM MENU
+	<where>
+	  <if test="menuId != null and !''.equals(menuId)">
+	       MENU_ID = #{menuId}
+	  </if>
+	  <if test="parentMenuId != null and !''.equals(parentMenuId)">
+	   AND PARENT_MENU_ID = #{parentMenuId}
+	  </if>
+	  <if test="useState != null and !''.equals(useState)">
+	   AND USE_STATE = #{useState}
+	  </if>
+	</where>
+	 ORDER BY PARENT_MENU_ID ASC, DISPLAY_ORDER ASC, MENU_ID ASC
+	</select>
+	
+	<select id="selectListByMenuIds" resultType="com.sample.administrator.model.menu.entity.Menu">
+	SELECT MENU_ID,
+	       PARENT_MENU_ID,
+	       MENU_NAME,
+	       URI,
+	       DESCRIPTION,
+	       DISPLAY_ORDER,
+	       USE_STATE
+	  FROM MENU
+	 WHERE MENU_ID IN (<foreach collection="array" item="item" separator=",">#{item}</foreach>)
+	 ORDER BY PARENT_MENU_ID ASC, DISPLAY_ORDER ASC, MENU_ID ASC
+	</select>
+	
+	<resultMap id="menuWithDependence" type="com.sample.administrator.model.menu.entity.Menu">
+		<result property="menuId" column="MENU_ID"/>
+		<collection property="menuDependenceList" column="{menuId=MENU_ID}"
+			select="com.sample.administrator.model.menu.persistence.MenuDependenceMapper.selectList"/>
+	</resultMap>
+
+	<select id="selectOne" resultMap="menuWithDependence">
+	SELECT MENU_ID,
+	       PARENT_MENU_ID,
+	       MENU_NAME,
+	       URI,
+	       DESCRIPTION,
+	       DISPLAY_ORDER,
+	       USE_STATE
+	  FROM MENU
+	<where>
+	  <if test="menuId != null and !''.equals(menuId)">
+	       MENU_ID = #{menuId}
+	  </if>
+	  <if test="parentMenuId != null and !''.equals(parentMenuId)">
+	   AND PARENT_MENU_ID = #{parentMenuId}
+	  </if>
+	  <if test="useState != null and !''.equals(useState)">
+	   AND USE_STATE = #{useState}
+	  </if>
+	</where>
+	</select>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="menuId">
+	INSERT INTO MENU(
+		PARENT_MENU_ID,
+		MENU_NAME,
+		URI,
+		DESCRIPTION,
+		DISPLAY_ORDER,
+		USE_STATE,
+		REG_USER_ID,
+		REG_DATE,
+		MOD_USER_ID,
+		MOD_DATE
+	)VALUES(
+		#{parentMenuId},
+		#{menuName},
+		#{uri},
+		#{description},
+		#{displayOrder},
+		#{useState},
+		#{regUserId},
+		NOW(),
+		#{modUserId},
+		NOW()
+	)
+	</insert>
+	
+	<update id="update">
+	UPDATE MENU
+	   <set>
+	    <if test="menuName != null and !''.equals(menuName)">
+	       MENU_NAME = #{menuName},
+	    </if>
+	    <if test="uri != null and !''.equals(uri)">
+	       URI = #{uri},
+	    </if>
+	    <if test="description != null and !''.equals(description)">
+	       DESCRIPTION = #{description},
+	    </if>
+	    <if test="displayOrder != null and !''.equals(displayOrder)">
+	       DISPLAY_ORDER = #{displayOrder},
+	    </if>
+	    <if test="useState != null and !''.equals(useState)">
+	       USE_STATE = #{useState},
+	    </if>
+	    <if test="modUserId != null and !''.equals(modUserId)">
+	       MOD_USER_ID = #{modUserId},
+	       MOD_DATE = NOW()
+	    </if>
+	   </set>
+	 WHERE MENU_ID = #{menuId}
+	</update>
+
+	<delete id="delete">
+	DELETE FROM MENU
+	 WHERE MENU_ID = #{menuId}
+	</delete>	
+</mapper>

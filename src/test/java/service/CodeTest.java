@@ -7,9 +7,9 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.skplanet.iba.domain.code.Code;
-import com.skplanet.iba.domain.code.CodeService;
-import com.skplanet.iba.support.enumdata.UseState;
+import com.sample.administrator.model.code.CodeService;
+import com.sample.administrator.model.code.entity.Code;
+import com.sample.administrator.web.element.UseState;
 
 public class CodeTest extends AbstractJUnit {
 	
