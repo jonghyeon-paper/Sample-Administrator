@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/jsp/common/include/taglib.jsp" %>
-<%@ taglib prefix="tiles"	uri="http://tiles.apache.org/tags-tiles" %>
+<%@ include file="/WEB-INF/jsp/common/taglib.jsp" %>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 
 <!DOCTYPE HTML>
 <html>
@@ -18,7 +18,6 @@
 	var globalContextPath = '${contextPath}';
 	</script>
 	<script type="text/javascript" src="${contextPath}/resources/js/jquery/jquery-3.2.1.min.js?v=${version}"></script>
-	<script type="text/javascript" src="${contextPath}/resources/js/jquery/jquery-ui.min.js?v=${version}"></script>
 	<script type="text/javascript" src="${contextPath}/resources/js/jquery/jquery.form.js?v=${version}"></script>
 	<script type="text/javascript" src="${contextPath}/resources/js/bootstrap/bootstrap.min.js?v=${version}"></script>
 	<script type="text/javascript" src="${contextPath}/resources/js/common/IbaUtil.js?v=${version}"></script>

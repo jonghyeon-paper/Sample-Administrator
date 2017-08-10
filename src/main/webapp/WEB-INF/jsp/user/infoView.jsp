@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/jsp/common/include/taglib.jsp" %>
+<%@ include file="/WEB-INF/jsp/common/taglib.jsp" %>
 
 	<div class="body-contents">
 		<p><h2>사용자 관리</h2></p>
