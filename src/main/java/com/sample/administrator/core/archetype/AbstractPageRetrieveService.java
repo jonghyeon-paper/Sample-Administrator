@@ -16,16 +16,9 @@ import com.sample.administrator.core.archetype.entity.PagingContents;
 import com.sample.administrator.core.archetype.entity.PageRequest;
 import com.sample.administrator.core.archetype.persistence.PageRetrieveMapper;
 
-public abstract class AbstractPageRetrieveService<ENTITY, MAPPER extends PageRetrieveMapper<ENTITY>> implements BaseService<ENTITY> {
+public abstract class AbstractPageRetrieveService<ENTITY, MAPPER extends PageRetrieveMapper<ENTITY>> extends AbstractBaseService<ENTITY> {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractPageRetrieveService.class);
-	
-	public abstract ENTITY retrieve(ENTITY entity);
-	public abstract List<ENTITY> retrieveList(ENTITY entity);
-	public abstract Boolean add(ENTITY entity);
-	public abstract Boolean add(List<ENTITY> entityList);
-	public abstract Boolean edit(ENTITY entity);
-	public abstract Boolean remove(ENTITY entity);
 	
 	@Autowired
 	private MAPPER entityMapper;

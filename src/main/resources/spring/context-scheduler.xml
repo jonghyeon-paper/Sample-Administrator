@@ -21,7 +21,7 @@
 	
 	로컬에서 스케줄러를 동작시키려면 톰캣실행 시 arguments에 '-Dspring.profiles.active=operating'를 추가하면 됩니다.
 	
-	스케줄러 작성예는 com.skplanet.iba.scheduler 패키지를 참고하시기 바랍니다.
+	스케줄러 작성예는 com.sample.administrator.support.scheduler 패키지를 참고하시기 바랍니다.
 	어노테이션으로 스케줄러 메소드를 표기하시면 됩니다.
 	예시는 딜레이값을 설정하여 반복 동작하도록 설정했습니다.
 	cron표기도 설정이 가능합니다.

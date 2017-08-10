@@ -23,9 +23,9 @@ public class CustomLdapAuthenticationProvider implements AuthenticationProvider 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CustomLdapAuthenticationProvider.class);
 	
 	/* ldap 설치된 서버 ip주소 */
-	private static final String LDAP_SERVER = "ldap://10.40.29.172:389"; 
+	private static final String LDAP_SERVER = "ldap://xxx.xxx.xxx.xxx:xxxx"; 
 	/* (userId)+계정정보 */
-	private static final String LDAP_USER_ID_SUFFIX = "@skp.ad"; 
+	private static final String LDAP_USER_ID_SUFFIX = "@????"; 
 	
 	@Autowired
 	private CustomUserDetailService customUserDetailService;

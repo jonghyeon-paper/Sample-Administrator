@@ -3,7 +3,7 @@
 
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container-fluid">
-			<div class="navbar-header navbar-brand">IBAS - Intranet Backoffice & API System</div>
+			<div class="navbar-header navbar-brand">Administrator</div>
 		</div>
 		<div class="container-fluid">
 			<%-- 

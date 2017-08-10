@@ -6,15 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.sample.administrator.core.archetype.entity.PageRequest;
-import com.sample.administrator.core.archetype.entity.PagingContents;
+import com.sample.administrator.core.archetype.AbstractPageRetrieveService;
 import com.sample.administrator.model.user.entity.User;
 import com.sample.administrator.model.user.persistence.UserMapper;
 import com.sample.administrator.security.utility.SecurityUtility;
 
 @Service
-//public class UserService extends AbstractPageRetrieveService<User, UserMapper> {
-public class UserService {
+public class UserService extends AbstractPageRetrieveService<User, UserMapper> {
 
 	@Autowired
 	private UserMapper userMapper;
@@ -106,20 +104,5 @@ public class UserService {
 		User user = new User();
 		user.setUserId(userId);
 		return this.remove(user);
-	}
-	
-	/**
-	 * 페이지 처리된 user목록 객체를 조회
-	 * @param user
-	 * @param pagingRequest
-	 * @return
-	 */
-	public PagingContents<User> retrievePage(User user, PageRequest pagingRequest) {
-//		user.setStart(pagingRequest.getStartIndex());
-//		user.setOffset(pagingRequest.getCountPerPage());
-//		List<User> userList = userMapper.selectPage(user);
-//		Integer userCount = userMapper.selectCount(user);
-//		return new PagingContents<User>(pagingRequest.getPage(), pagingRequest.getCountPerPage(), userList, userCount);
-		return null;
 	}
 }

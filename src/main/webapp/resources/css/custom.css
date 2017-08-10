@@ -1,4 +1,4 @@
-@CHARSET "UTF-8";
+	@CHARSET "UTF-8";
 
 .navbar-fixed-top {position: fixed;}
 
@@ -7,7 +7,7 @@
 .navbar-fixed-side ul ul {margin-left: 15px;}
 .navbar-fixed-side ul ul ul {margin-left: 15px;}
 
-.body-contents {margin: 82px 15px 0 15px;}
+.body-contents {margin: 132px 15px 0 15px;}
 .body-contents .btn-section {margin: 10px 15px 10px 15px;}
 .body-contents .admin-panel {height: 600px;}
 .body-contents .admin-panel-half {height: 290px;}
