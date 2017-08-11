@@ -1,7 +1,11 @@
 package com.sample.administrator.model.code;
 
-import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Queue;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -79,6 +83,11 @@ public class CodeService {
 		return createCodeHierarchy(codeList);
 	}
 	
+	/**
+	 * 계층구조 오브젝트 생성
+	 * @param codeList
+	 * @return
+	 */
 	public Code createCodeHierarchy(List<Code> codeList) {
 		Code dummyTop = new Code();
 		//dummyTop.setCodeId("-1");
@@ -86,34 +95,133 @@ public class CodeService {
 		dummyTop.setCodeName("TOP");
 		dummyTop.setDescription("최상위 코드");
 		dummyTop.setUseState(UseState.USE);
-		for (int i = codeList.size() - 1; i > -1; i--) {
-			Code temporary = codeList.get(i);
-			if (temporary.getParentCodeId() != null && !"".equals(temporary.getParentCodeId())) {
-				for (int j = codeList.size() - 2; j > -1; j--) {
-					Code target = codeList.get(j);
-					if (target.getCodeId().equals(temporary.getParentCodeId())) {
-						target.getChildCode().add(temporary);
-						break;
-					}
-				}
-			} else {
-				dummyTop.getChildCode().add(temporary);
+		
+		// 계층 구조를 찾아가기 위한 맵
+		//- 위에서 아래로 찾아가는 top > down구조로 정의됨.
+		//- queue데이터로 top > down으로 데이터를 넣고, top > down으로 데이터를 꺼낸다.
+		Map<String, Queue<String>> hierarchyMap = new HashMap<>();
+		
+		// 최상위 메뉴 등록
+		//- 더미 객체에 최상위 레벨의 메뉴를 자식으로 추가한다.
+		for (int i = 0; i < codeList.size() ; i++) {
+			Code item = codeList.get(i);
+			if ("".equals(item.getParentCodeId())) {
+				// 하위에 등록한다.
+				dummyTop.addChildCode(item);
+				
+				// 계층 구조를 맵에 추가한다.
+				//- 1레벨
+				Queue<String> temp = new LinkedList<>();
+				temp.add(item.getCodeId());
+				hierarchyMap.put(item.getCodeId(), temp);
+				
+				// 사용 된 데이터는 list에서 제거한다.
+				codeList.remove(i);
+				i--;
 			}
-			codeList.remove(i);
 		}
+		
+		// 하위 메뉴 등록
+		//- list의 값이 존재하면 반복해서 실행된다.
+		//- 마지막 루프 사이즈값이 목록의 사이즈보다 크면 반복 실행한다.(부모가 없는 경우 무한루프)
+		int lastLoopSize = codeList.size() + 1;
+		while (codeList.size() > 0 && codeList.size() < lastLoopSize) {
+			lastLoopSize = codeList.size();
+			
+			for (int i = 0; i < codeList.size() ; i++) {
+				Code item = codeList.get(i);
+				
+				// 계층 구조맵에 부모값이 있으면 찾아간다.
+				//- 자기 자신의 계층을 계층 구조맵에 등록.
+				//- 부모를 찾아가서 하위에 등록.
+				//- list에서 자신을 제거.
+				if (hierarchyMap.containsKey(item.getParentCodeId())) {
+					String parentId = item.getParentCodeId();
+					
+					// 계층 구조를 맵에 추가한다.
+					//- n레벨
+					Queue<String> newHierarchyMap = new LinkedList<>(hierarchyMap.get(parentId)); // 새 인스턴스
+					newHierarchyMap.add(item.getCodeId());
+					hierarchyMap.put(item.getCodeId(), newHierarchyMap);
+					
+					// 하위에 등록한다.
+					//- n레벨의 부모를 찾아가기 위해 재귀호출한다.
+					Queue<String> parentHierarchyMap = new LinkedList<>(hierarchyMap.get(parentId)); // 새 인스턴스
+					findObjectAndAdd(item, parentHierarchyMap, dummyTop.getChildCode());
+					
+					//사용 된 데이터는 list에서 제거한다.
+					codeList.remove(i);
+					i--;
+				}
+			}
+		}
+		
+		
 		sortCodeHierarchy(dummyTop);
 		return dummyTop;
 	}
 	
-	private void sortCodeHierarchy(Code code) {
+	/**
+	 * 계층 구조를 찾는다
+	 * @param targetItem - 대상 오브젝트
+	 * @param hierarchyMap - 계층 구조맵
+	 * @param list - 대상 목록
+	 */
+	private void findObjectAndAdd(Code targetItem, Queue<String> hierarchyMap, List<Code> list) {
+		// 계층 구조맵에서 맨 위의 값을 꺼낸다.
+		String findCodeId = hierarchyMap.poll();
+		Code parentCode = null;
+		
+		// 대상 목록에서 일치하는 대상을 찾는다.
+		for (Code code : list) {
+			if (code.getCodeId().equals(findCodeId)) {
+				parentCode = code;
+			}
+		}
+		
+		if (parentCode != null) {
+			if (hierarchyMap.size() == 0) {
+				// 계층 구조맵이 없다면 대상 오브젝트를 하위에 추가한다.
+				parentCode.addChildCode(targetItem);
+			} else {
+				// 계층 구조맵이 있다면 재귀호출.
+				findObjectAndAdd(targetItem, hierarchyMap, parentCode.getChildCode());
+			}
+		}
+	}
+	
+	/**
+	 * 순서값을 사용한 정렬
+	 * - 선택 정렬 알고리즘.
+	 * - 순서값이 없는 데이터는 아무동작 안함.
+	 * @param code
+	 */
+	private void sortCodeHierarchy(Code code) {	
 		if (code.hasChildCode()) {
 			List<Code> codeList = code.getChildCode();
-			List<Code> sortedCodeList = new ArrayList<>();
-			for (int i = codeList.size() - 1; i > -1; i--) {
+			for (int i = 0; i < codeList.size(); i++) {
+				if (codeList.get(i).getDisplayOrder() == null) {
+					continue;
+				}
+				int lowestValueIndex = i;
+				for (int j = i + 1; j < codeList.size(); j++) {
+					if (codeList.get(j).getDisplayOrder() == null) {
+						continue;
+					}
+					if (codeList.get(j).getDisplayOrder() < codeList.get(lowestValueIndex).getDisplayOrder()) {
+						lowestValueIndex = j;
+					}
+				}
+				// swap
+				if (i != lowestValueIndex) {
+					Collections.swap(codeList, i, lowestValueIndex);
+				}
+				
+				// recursive
+				//- 현제 위치(i)에서 정렬이 된 이후에(가장 낮은 값이 위치) 자기 자신(i)을 재귀 호출한다.
+				//- 재귀호출이 먼저 이루어지고 정렬이 되면 위치가 바뀌면서 정렬이 안 되는 경우가 발생한다.
 				sortCodeHierarchy(codeList.get(i));
-				sortedCodeList.add(codeList.get(i));
 			}
-			code.setChildCode(sortedCodeList);
 		}
 	}
 }
