@@ -142,7 +142,6 @@ public class SampleDataInsert extends AbstractJUnit {
 		User user = new User();
 		user.setUserId(USER_ID);
 		user.setUserName("슈퍼사용자");
-		user.setDepartment("없음");
 		user.setUseState(UseState.USE);
 		user.setUserAuthorityList(userAuthorityList);
 		userService.add(user);
