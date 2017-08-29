@@ -14,12 +14,12 @@
 			<%-- 메뉴 객체는 계층 구조라 재귀호출이 가능하다. 가능하다면 el또는 스크립트를 사용해서 재귀함수 만들어 사용할 것을 권장한다. --%>
 			<c:forEach var="item" items="${accessibleMenu.childMenu}" varStatus="status">
 				<li>
-					<a href="${contextPath}${item.uri}" onclick="return false;">${item.menuName}</a>
+					<a href="${pageContext.request.contextPath}${item.uri}" onclick="return false;">${item.menuName}</a>
 					<c:if test="${item.childMenu ne null and item.childMenu ne ''}">
 						<ul class="nav">
 							<c:forEach var="item2" items="${item.childMenu}" varStatus="status2">
 								<li>
-									<a href="${contextPath}${item2.uri}" onclick="return false;">${item2.menuName}</a>
+									<a href="${pageContext.request.contextPath}${item2.uri}" onclick="return false;">${item2.menuName}</a>
 								</li>
 							</c:forEach>
 						</ul>
@@ -29,41 +29,41 @@
 			
 			<%-- 
 			<li>
-				<a href="${contextPath}/user/listview.do">사용자 관리</a>
+				<a href="${pageContext.request.contextPath}/user/listview.do">사용자 관리</a>
 				<ul class="nav">
 					<li>
-						<a href="${contextPath}/authority/view.do">권한 관리</a>
+						<a href="${pageContext.request.contextPath}/authority/view.do">권한 관리</a>
 					</li>
 					<li>
-						<a href="${contextPath}/menu/view.do">메뉴 관리</a>
+						<a href="${pageContext.request.contextPath}/menu/view.do">메뉴 관리</a>
 					</li>
 					<li>
-						<a href="${contextPath}/ticket/listView.do">IT요청현황</a>
+						<a href="${pageContext.request.contextPath}/ticket/listView.do">IT요청현황</a>
 						<ul class="nav">
 							<li>
-								<a href="${contextPath}/authority/view.do">권한 관리</a>
+								<a href="${pageContext.request.contextPath}/authority/view.do">권한 관리</a>
 							</li>
 							<li>
-								<a href="${contextPath}/menu/view.do">메뉴 관리</a>
+								<a href="${pageContext.request.contextPath}/menu/view.do">메뉴 관리</a>
 							</li>
 							<li>
-								<a href="${contextPath}/ticket/listView.do">IT요청현황</a>
+								<a href="${pageContext.request.contextPath}/ticket/listView.do">IT요청현황</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 			</li>
 			<li>
-				<a href="${contextPath}/code/view.do">코드 관리</a>
+				<a href="${pageContext.request.contextPath}/code/view.do">코드 관리</a>
 			</li>
 			<li>
-				<a href="${contextPath}/authority/view.do">권한 관리</a>
+				<a href="${pageContext.request.contextPath}/authority/view.do">권한 관리</a>
 			</li>
 			<li>
-				<a href="${contextPath}/menu/view.do">메뉴 관리</a>
+				<a href="${pageContext.request.contextPath}/menu/view.do">메뉴 관리</a>
 			</li>
 			<li>
-				<a href="${contextPath}/ticket/listView.do">IT요청현황</a>
+				<a href="${pageContext.request.contextPath}/ticket/listView.do">IT요청현황</a>
 			</li>
 			<li>
 				<a href="#">단말기관리</a>

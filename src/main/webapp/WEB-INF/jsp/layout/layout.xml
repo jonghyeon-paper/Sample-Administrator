@@ -6,11 +6,11 @@
 	
 	<!-- whole page definition -->
 	<!-- page template -->
-	<definition name="page-layout" template="/WEB-INF/jsp/tiles/layouts/defaultLayout.jsp">
-		<put-attribute name="top"      value="/WEB-INF/jsp/tiles/layouts/defaultTop.jsp"/>
-		<put-attribute name="leftmenu" value="/WEB-INF/jsp/tiles/layouts/defaultLeftMenu.jsp"/>
+	<definition name="page-layout" template="/WEB-INF/jsp/layout/pageLayout.jsp">
+		<put-attribute name="top"      value="/WEB-INF/jsp/layout/header.jsp"/>
+		<put-attribute name="leftmenu" value="/WEB-INF/jsp/layout/leftSide.jsp"/>
 		<put-attribute name="body"     value="" />
-		<put-attribute name="footer"   value="/WEB-INF/jsp/tiles/layouts/defaultFooter.jsp"/>
+		<put-attribute name="footer"   value="/WEB-INF/jsp/layout/footer.jsp"/>
 	</definition>
 	
 	<!-- page view pattern -->
@@ -26,12 +26,12 @@
 	
 	<!-- parts page definition -->
 	<!-- empty template -->
-	<definition name="empty-layout" template="/WEB-INF/jsp/tiles/layouts/emptyLayout.jsp">
+	<definition name="empty-layout" template="/WEB-INF/jsp/layout/emptyLayout.jsp">
 		<put-attribute name="body" value=""/>
 	</definition>
 	
 	<!-- part view pattern -->
-	<definition name="/*.part" extends="empty-layout">
+	<definition name="/*.empty" extends="empty-layout">
 		<put-attribute name="body" value="/WEB-INF/jsp/{1}.jsp"/>
 	</definition>
 	<definition name="/*/*.part" extends="empty-layout">

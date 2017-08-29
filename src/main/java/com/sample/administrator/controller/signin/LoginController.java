@@ -20,7 +20,7 @@ public class LoginController {
 	
 	@RequestMapping("/login.do")
 	public String login() {
-		return "/login.part";
+		return "/login.empty";
 	}
 	
 	@RequestMapping("/main.do")

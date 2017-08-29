@@ -64,7 +64,7 @@
 		};
 		
 		var loadCodeHierarchy = function(focusParameters) {
-			IbaUtil.jsonAjax('${contextPath}/code/hierarchy.do', {}, function(reponse){
+			IbaUtil.jsonAjax(globalContextPath + '/code/hierarchy.do', {}, function(reponse){
 				var $targetArea = $('#hierarchyCodeArea').empty();
 				
 				var $codeHierarchyObject = drawCodeHierarchyObject(reponse);
@@ -356,10 +356,10 @@
 			var url = null;
 			if (parameters.actionType === 'add') {
 				// add
-				url = '${contextPath}/code/add.do'
+				url = globalContextPath + '/code/add.do'
 			} else if (parameters.actionType === 'edit') {
 				// edit
-				url = '${contextPath}/code/edit.do'
+				url = globalContextPath + '/code/edit.do'
 			}
 			
 			if (url === null) {

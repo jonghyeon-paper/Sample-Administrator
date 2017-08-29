@@ -47,7 +47,7 @@
 			parameters.page = parameters.page || 1;  // 페이지값이 없으면 기본 1
 			parameters.countPerPage = parameters.countPerPage || 15;  // 없으면 기본 15개
 			
-			IbaUtil.formAjax('${contextPath}/user/page.do', 'post', parameters, function(reponse){
+			IbaUtil.formAjax(globalContextPath + '/user/page.do', 'post', parameters, function(reponse){
 				(function(){
 					var $targetArea = $('#userListArea').empty();
 					var $userListObject = drawUserListObject(reponse.contents);
@@ -104,7 +104,7 @@
 				if ($(this).has('input:radio').length === 0) {
 					var userInfo = $(this).parents('tr').data('userInfo');
 					
-					$('<form>').attr({action: '${contextPath}/user/infoview.do', method: 'get'})
+					$('<form>').attr({action: globalContextPath + '/user/infoview.do', method: 'get'})
 					           .append($('<input>').attr({name: 'userId', value: userInfo.userId}))
 					           .appendTo('body')
 					           .submit();
@@ -115,7 +115,7 @@
 		};
 		
 		var add = function() {
-			$('<form>').attr({action: '${contextPath}/user/infoview.do', method: 'get'})
+			$('<form>').attr({action: globalContextPath + '/user/infoview.do', method: 'get'})
 			           .append($('<input>').attr({name: 'userId', value: ''}))
 			           .appendTo('body')
 			           .submit();
@@ -124,7 +124,7 @@
 		var remove = function(parameters) {
 			parameters = parameters || {};
 			
-			IbaUtil.jsonAjax('${contextPath}/user/remove.do', parameters, function(reponse){
+			IbaUtil.jsonAjax(globalContextPath + '/user/remove.do', parameters, function(reponse){
 				if (reponse.responseCode === 'SUCCESS') {
 					alert(reponse.responseMessage);
 					location.reload();

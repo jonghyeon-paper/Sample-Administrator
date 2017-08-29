@@ -62,7 +62,7 @@
 			});
 			
 			$('#buttonArea').on('click', '#cancel', function(){
-				$('<form>').attr({action: '${contextPath}/user/listview.do', method: 'get'})
+				$('<form>').attr({action: globalContextPath + '/user/listview.do', method: 'get'})
 				           .appendTo('body')
 				           .submit();
 			});
@@ -139,7 +139,7 @@
 			}
 			
 			// 파라미터가 있는 경우
-			IbaUtil.jsonAjax('${contextPath}/user/info.do', parameters, function(reponse){
+			IbaUtil.jsonAjax(globalContextPath + '/user/info.do', parameters, function(reponse){
 				(function(){
 					var $targetArea = $('#userInfoArea').empty();
 					var $userInfoObject = drawUserInfoOject(reponse, writeFlag);
@@ -351,10 +351,10 @@
 			var url = null;
 			if (parameters.actionType === 'add') {
 				// add
-				url = '${contextPath}/user/add.do'
+				url = globalContextPath + '/user/add.do'
 			} else if (parameters.actionType === 'edit') {
 				// edit
-				url = '${contextPath}/user/edit.do';
+				url = globalContextPath + '/user/edit.do';
 			}
 			
 			
@@ -391,7 +391,7 @@
 				var parameters = {
 						useState: 'USE'
 				};
-				IbaUtil.ajax('${contextPath}/authority/list.do', false, 'application/json', 'post', JSON.stringify(parameters), 'json', function(reponse){
+				IbaUtil.ajax(globalContextPath + '/authority/list.do', false, 'application/json', 'post', JSON.stringify(parameters), 'json', function(reponse){
 					authorityList = reponse;
 				});
 			}
@@ -505,7 +505,7 @@
 				return false;
 			}
 			
-			IbaUtil.jsonAjax('${contextPath}/ilmuser/list.do', parameters, function(reponse){
+			IbaUtil.jsonAjax(globalContextPath + '/ilmuser/list.do', parameters, function(reponse){
 				var $targetArea = $('#ilmUserListArea').empty();
 				
 				var $ilmUserListObject = drawIlmUserListObject(reponse);

@@ -91,7 +91,7 @@
 		var loadAuthorityList = function(parameters) {
 			parameters = parameters || {};
 			
-			IbaUtil.jsonAjax('${contextPath}/authority/list.do', parameters, function(reponse){
+			IbaUtil.jsonAjax(globalContextPath + '/authority/list.do', parameters, function(reponse){
 				var $targetArea = $('#authorityListArea').empty();
 				
 				var $authorityListObject = drawAuthorityListObject(reponse);
@@ -165,7 +165,7 @@
 			}
 			
 			// 상세 정보 확인(파라미터가 있는 경우)
-			IbaUtil.jsonAjax('${contextPath}/authority/info.do', {authorityId: parameters.authorityId}, function(reponse){
+			IbaUtil.jsonAjax(globalContextPath + '/authority/info.do', {authorityId: parameters.authorityId}, function(reponse){
 				(function(){
 					var $targetArea = $('#authorityInfoArea').empty();
 					var $authorityInfoObject = drawAuthorityInfoOject(reponse, writeFlag);
@@ -341,10 +341,10 @@
 			var url = null;
 			if (parameters.actionType === 'add') {
 				// add
-				url = '${contextPath}/authority/add.do'
+				url = globalContextPath + '/authority/add.do'
 			} else if (parameters.actionType === 'edit') {
 				// edit
-				url = '${contextPath}/authority/edit.do'
+				url = globalContextPath + '/authority/edit.do'
 			}
 			
 			if (url === null) {
@@ -378,7 +378,7 @@
 			if (authorityAccessList === null) {
 				var parameters = {
 				};
-				IbaUtil.ajax('${contextPath}/authority/access/list.do', false, 'application/json', 'post', JSON.stringify(parameters), 'json', function(reponse){
+				IbaUtil.ajax(globalContextPath + '/authority/access/list.do', false, 'application/json', 'post', JSON.stringify(parameters), 'json', function(reponse){
 					authorityAccessList = reponse;
 				});
 			}
@@ -428,7 +428,7 @@
 				parameters = {
 						useState: 'USE'
 				};
-				IbaUtil.ajax('${contextPath}/menu/hierarchy.do', false, 'application/json', 'post', JSON.stringify(parameters), 'json', function(reponse){
+				IbaUtil.ajax(globalContextPath + '/menu/hierarchy.do', false, 'application/json', 'post', JSON.stringify(parameters), 'json', function(reponse){
 					menuHierarchy = reponse;
 				});
 			}
