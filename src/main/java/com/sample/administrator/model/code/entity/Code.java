@@ -3,10 +3,9 @@ package com.sample.administrator.model.code.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sample.administrator.core.archetype.entity.BaseEntity;
 import com.sample.administrator.web.element.UseState;
 
-public class Code extends BaseEntity {
+public class Code {
 
 	private String codeId;
 	private String parentCodeId;

@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sample.administrator.model.authority.entity.Authority;
 import com.sample.administrator.model.authority.persistence.AuthorityMapper;
 import com.sample.administrator.model.user.UserAuthorityService;
-import com.sample.administrator.security.utility.SecurityUtility;
 
 @Service
 public class AuthorityService {
@@ -36,10 +35,6 @@ public class AuthorityService {
 	
 	@Transactional
 	public Boolean add(Authority authority) {
-		// 등록,수정자 id 설정
-		authority.setRegUserId(SecurityUtility.getLoginUserId());
-		authority.setModUserId(SecurityUtility.getLoginUserId());
-		
 		// 권한 정보 등록
 		int insertCount = authorityMapper.insert(authority);
 		
@@ -69,9 +64,6 @@ public class AuthorityService {
 	
 	@Transactional
 	public Boolean edit(Authority authority) {
-		// 수정자 id 설정
-		authority.setModUserId(SecurityUtility.getLoginUserId());
-		
 		// 권한 정보 수정
 		int updateCount = authorityMapper.update(authority);
 		

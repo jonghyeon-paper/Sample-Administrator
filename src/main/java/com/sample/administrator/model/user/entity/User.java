@@ -4,11 +4,10 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sample.administrator.core.archetype.entity.BaseEntity;
 import com.sample.administrator.model.menu.entity.Menu;
 import com.sample.administrator.web.element.UseState;
 
-public class User extends BaseEntity implements Serializable {
+public class User implements Serializable {
 
 	private static final long serialVersionUID = 6131414886995573263L;
 	

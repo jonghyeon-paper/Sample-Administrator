@@ -1,9 +1,8 @@
 package com.sample.administrator.model.authority.entity;
 
-import com.sample.administrator.core.archetype.entity.BaseEntity;
 import com.sample.administrator.model.authority.entity.element.AccessMode;
 
-public class AuthorityAccess extends BaseEntity {
+public class AuthorityAccess {
 
 	private String authorityId;
 	private AccessMode accessMode;

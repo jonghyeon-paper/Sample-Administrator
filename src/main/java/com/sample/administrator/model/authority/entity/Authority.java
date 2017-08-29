@@ -2,10 +2,9 @@ package com.sample.administrator.model.authority.entity;
 
 import java.util.List;
 
-import com.sample.administrator.core.archetype.entity.BaseEntity;
 import com.sample.administrator.web.element.UseState;
 
-public class Authority extends BaseEntity {
+public class Authority {
 
 	private String authorityId;
 	private String authorityName;

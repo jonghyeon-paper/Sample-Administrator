@@ -4,10 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sample.administrator.core.archetype.entity.BaseEntity;
 import com.sample.administrator.web.element.UseState;
 
-public class Menu extends BaseEntity implements Serializable {
+public class Menu implements Serializable {
 
 	private static final long serialVersionUID = -5063771347758618898L;
 	

@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sample.administrator.model.menu.entity.MenuDependence;
 import com.sample.administrator.model.menu.persistence.MenuDependenceMapper;
-import com.sample.administrator.security.utility.SecurityUtility;
 
 @Service
 public class MenuDependenceService {
@@ -26,9 +25,6 @@ public class MenuDependenceService {
 	
 	@Transactional
 	public Boolean add(MenuDependence menuDependence) {
-		// 등록자 id 설정
-		menuDependence.setRegUserId(SecurityUtility.getLoginUserId());
-		
 		int insertCount = menuDependenceMapper.insert(menuDependence);
 		return insertCount > 0 ? true : false;
 	}

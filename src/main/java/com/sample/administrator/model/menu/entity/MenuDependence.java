@@ -1,8 +1,6 @@
 package com.sample.administrator.model.menu.entity;
 
-import com.sample.administrator.core.archetype.entity.BaseEntity;
-
-public class MenuDependence extends BaseEntity {
+public class MenuDependence {
 
 	private Integer sequence;
 	private Integer menuId;

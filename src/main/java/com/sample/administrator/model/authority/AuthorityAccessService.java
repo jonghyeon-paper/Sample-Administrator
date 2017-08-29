@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sample.administrator.model.authority.entity.AuthorityAccess;
 import com.sample.administrator.model.authority.entity.element.AccessMode;
 import com.sample.administrator.model.authority.persistence.AuthorityAccessMapper;
-import com.sample.administrator.security.utility.SecurityUtility;
 
 @Service
 public class AuthorityAccessService {
@@ -31,9 +30,6 @@ public class AuthorityAccessService {
 	
 	@Transactional
 	public Boolean add(AuthorityAccess authorityAccess) {
-		// 등록자 id 설정
-		authorityAccess.setRegUserId(SecurityUtility.getLoginUserId());
-		
 		int insertCount = authorityAccessMapper.insert(authorityAccess);
 		return insertCount > 0 ? true : false;
 	}

@@ -15,7 +15,6 @@ import com.sample.administrator.model.authority.AuthorityMenuService;
 import com.sample.administrator.model.menu.entity.Menu;
 import com.sample.administrator.model.menu.entity.MenuDependence;
 import com.sample.administrator.model.menu.persistence.MenuMapper;
-import com.sample.administrator.security.utility.SecurityUtility;
 import com.sample.administrator.web.element.UseState;
 
 @Service
@@ -44,10 +43,6 @@ public class MenuService {
 	
 	@Transactional
 	public Boolean add(Menu menu) {
-		// 등록,수정자 id 설정
-		menu.setRegUserId(SecurityUtility.getLoginUserId());
-		menu.setModUserId(SecurityUtility.getLoginUserId());
-		
 		// 메뉴 등록
 		int insertCount = menuMapper.insert(menu);
 		
@@ -75,9 +70,6 @@ public class MenuService {
 	
 	@Transactional
 	public Boolean edit(Menu menu) {
-		// 수정자 id 설정
-		menu.setModUserId(SecurityUtility.getLoginUserId());
-		
 		// 메뉴 수정
 		int updateCount = menuMapper.update(menu);
 		

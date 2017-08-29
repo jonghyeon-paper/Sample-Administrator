@@ -1,8 +1,6 @@
 package com.sample.administrator.model.authority.entity;
 
-import com.sample.administrator.core.archetype.entity.BaseEntity;
-
-public class AuthorityMenu extends BaseEntity {
+public class AuthorityMenu {
 
 	private String authorityId;
 	private Integer menuId;

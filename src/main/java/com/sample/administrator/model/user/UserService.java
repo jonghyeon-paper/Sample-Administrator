@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sample.administrator.core.archetype.AbstractPageRetrieveService;
 import com.sample.administrator.model.user.entity.User;
 import com.sample.administrator.model.user.persistence.UserMapper;
-import com.sample.administrator.security.utility.SecurityUtility;
 
 @Service
 public class UserService extends AbstractPageRetrieveService<User, UserMapper> {
@@ -36,10 +35,6 @@ public class UserService extends AbstractPageRetrieveService<User, UserMapper> {
 	
 	@Transactional
 	public Boolean add(User user) {
-		// 등록, 수정자 id 설정
-		user.setRegUserId(SecurityUtility.getLoginUserId());
-		user.setModUserId(SecurityUtility.getLoginUserId());
-		
 		// 사용자 등록
 		int insertCount = userMapper.insert(user);
 		
@@ -64,9 +59,6 @@ public class UserService extends AbstractPageRetrieveService<User, UserMapper> {
 	
 	@Transactional
 	public Boolean edit(User user) {
-		// 수정자 id 설정
-		user.setModUserId(SecurityUtility.getLoginUserId());
-		
 		// 사용자 정보 수정
 		int updateCount = userMapper.update(user);
 		

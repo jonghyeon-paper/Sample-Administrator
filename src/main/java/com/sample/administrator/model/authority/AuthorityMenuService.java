@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sample.administrator.model.authority.entity.AuthorityMenu;
 import com.sample.administrator.model.authority.persistence.AuthorityMenuMapper;
-import com.sample.administrator.security.utility.SecurityUtility;
 
 @Service
 public class AuthorityMenuService {
@@ -34,9 +33,6 @@ public class AuthorityMenuService {
 	
 	@Transactional
 	public Boolean add(AuthorityMenu authorityMenu) {
-		// 등록자 id 설정
-		authorityMenu.setRegUserId(SecurityUtility.getLoginUserId());
-		
 		int insertCount = authorityMenuMapper.insert(authorityMenu);
 		return insertCount > 0 ? true : false;
 	}

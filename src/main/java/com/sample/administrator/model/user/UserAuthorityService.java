@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sample.administrator.model.user.entity.UserAuthority;
 import com.sample.administrator.model.user.persistence.UserAuthorityMapper;
-import com.sample.administrator.security.utility.SecurityUtility;
 
 @Service
 public class UserAuthorityService {
@@ -26,9 +25,6 @@ public class UserAuthorityService {
 	
 	@Transactional
 	public Boolean add(UserAuthority userAuthority) {
-		// 등록자 id 설정
-		userAuthority.setRegUserId(SecurityUtility.getLoginUserId());
-		
 		int insertCount = userAuthorityMapper.insert(userAuthority);
 		return insertCount > 0 ? true : false;
 	}

@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sample.administrator.model.code.entity.Code;
 import com.sample.administrator.model.code.persistence.CodeMapper;
-import com.sample.administrator.security.utility.SecurityUtility;
 import com.sample.administrator.web.element.UseState;
 
 @Service
@@ -32,10 +31,6 @@ public class CodeService {
 	
 	@Transactional
 	public Boolean add(Code code) {
-		// 등록,수정자 id 설정
-		code.setRegUserId(SecurityUtility.getLoginUserId());
-		code.setModUserId(SecurityUtility.getLoginUserId());
-		
 		int insertCount = codeMapper.insert(code);
 		return insertCount > 0 ? true : false;
 	}
@@ -51,9 +46,6 @@ public class CodeService {
 	
 	@Transactional
 	public Boolean edit(Code code) {
-		// 수정자 id 설정
-		code.setModUserId(SecurityUtility.getLoginUserId());
-		
 		int updateCount = codeMapper.update(code);
 		return updateCount > 0 ? true : false;
 	}
