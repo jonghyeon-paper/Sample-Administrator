@@ -83,10 +83,6 @@
 						actionType: $targetArea.find('#actionType').val(),
 						userId: $targetArea.find('#userId').val(),
 						userName: $targetArea.find('#userName').val(),
-						department: $targetArea.find('#department').val(),
-						position: $targetArea.find('#position').val(),
-						contact: $targetArea.find('#contact').val(),
-						omsId: $targetArea.find('#omsId').val(),
 						useState: $targetArea.find('#useState').val(),
 						userAuthorityList: userAuthorityList
 				};
@@ -206,9 +202,9 @@
 			if (writeFlag) {
 				(function(){
 					var $tr = $('<tr>').appendTo($tbody);
-					$('<th>').html('사번')
+					$('<th>').html('ID')
 					         .appendTo($tr);
-					$('<td>').append($textObject.clone().attr({id: 'userId', value: data.userId}).prop('readonly', true))
+					$('<td>').append($textObject.clone().attr({id: 'userId', value: data.userId}))
 					         .appendTo($tr);
 				}());
 				
@@ -216,39 +212,7 @@
 					var $tr = $('<tr>').appendTo($tbody);
 					$('<th>').html('이름')
 					         .appendTo($tr);
-					$('<td>').append($textObject.clone().attr({id: 'userName', value: data.userName}).prop('readonly', true))
-					         .appendTo($tr);
-				}());
-				
-				(function(){
-					var $tr = $('<tr>').appendTo($tbody);
-					$('<th>').html('부서')
-					         .appendTo($tr);
-					$('<td>').append($textObject.clone().attr({id: 'department', value: data.department}).prop('readonly', true))
-					         .appendTo($tr);
-				}());
-				
-				(function(){
-					var $tr = $('<tr>').appendTo($tbody);
-					$('<th>').html('직책')
-					         .appendTo($tr);
-					$('<td>').append($textObject.clone().attr({id: 'position', value: data.position}).prop('readonly', true))
-					         .appendTo($tr);
-				}());
-				
-				(function(){
-					var $tr = $('<tr>').appendTo($tbody);
-					$('<th>').html('연락처')
-					         .appendTo($tr);
-					$('<td>').append($textObject.clone().attr({id: 'contact', value: data.contact}).prop('readonly', true))
-					         .appendTo($tr);
-				}());
-				
-				(function(){
-					var $tr = $('<tr>').appendTo($tbody);
-					$('<th>').html('OMS ID')
-					         .appendTo($tr);
-					$('<td>').append($textObject.clone().attr({id: 'omsId', value: data.omsId}))
+					$('<td>').append($textObject.clone().attr({id: 'userName', value: data.userName}))
 					         .appendTo($tr);
 				}());
 				
@@ -288,38 +252,6 @@
 				
 				(function(){
 					var $tr = $('<tr>').appendTo($tbody);
-					$('<th>').html('부서')
-					         .appendTo($tr);
-					$('<td>').append($textObject.clone().html(data.department))
-					         .appendTo($tr);
-				}());
-				
-				(function(){
-					var $tr = $('<tr>').appendTo($tbody);
-					$('<th>').html('직책')
-					         .appendTo($tr);
-					$('<td>').append($textObject.clone().html(data.position))
-					         .appendTo($tr);
-				}());
-				
-				(function(){
-					var $tr = $('<tr>').appendTo($tbody);
-					$('<th>').html('연락처')
-					         .appendTo($tr);
-					$('<td>').append($textObject.clone().html(data.contact))
-					         .appendTo($tr);
-				}());
-				
-				(function(){
-					var $tr = $('<tr>').appendTo($tbody);
-					$('<th>').html('OMS ID')
-					         .appendTo($tr);
-					$('<td>').append($textObject.clone().html(data.omsId))
-					         .appendTo($tr);
-				}());
-				
-				(function(){
-					var $tr = $('<tr>').appendTo($tbody);
 					$('<th>').html('사용 상태')
 					         .appendTo($tr);
 					$('<td>').append($textObject.clone().html(data.useState.description))
@@ -334,10 +266,6 @@
 			var $targetArea = $('#userInfoArea');
 			$targetArea.find('#userId').val(data.userId);
 			$targetArea.find('#userName').val(data.userName);
-			$targetArea.find('#department').val(data.department);
-			$targetArea.find('#position').val(data.position);
-			$targetArea.find('#contact').val(data.contact);
-			//$targetArea.find('#omsId').val(''); // 입력받는값임
 			$targetArea.find('#useState').val(data.useState);
 		};
 		
