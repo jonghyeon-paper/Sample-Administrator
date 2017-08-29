@@ -22,8 +22,8 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery/jquery-3.2.1.min.js?v=${version}"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery/jquery.form.js?v=${version}"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/bootstrap/bootstrap.min.js?v=${version}"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/common/IbaUtil.js?v=${version}"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/common/PageUtil-0.0.1.js?v=${version}"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/common/share.js?v=${version}"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/common/page.js?v=${version}"></script>
 </head>
 <body>
 <tiles:insertAttribute name="body" />

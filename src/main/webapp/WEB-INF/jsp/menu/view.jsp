@@ -82,7 +82,7 @@
 		var loadMenuHierarchy = function(parameters) {
 			parameters = parameters || {};
 			
-			IbaUtil.jsonAjax(globalContextPath + '/menu/hierarchy.do', parameters, function(reponse){
+			share.jsonAjax(globalContextPath + '/menu/hierarchy.do', parameters, function(reponse){
 				var $targetArea = $('#meuHierarchyArea').empty();
 				
 				var $menuHierarchyObject = drawMenuHierarchyObject(reponse);
@@ -196,7 +196,7 @@
 			}
 			
 			// 상세 정보 확인(데이터가 있는 경우)
-			IbaUtil.jsonAjax(globalContextPath + '/menu/info.do', {menuId: parameters.menuId}, function(reponse){
+			share.jsonAjax(globalContextPath + '/menu/info.do', {menuId: parameters.menuId}, function(reponse){
 				(function(){
 					var $targetArea = $('#menuInfoArea').empty();
 					var $menuInfoObject = drawMenuInfoObject(reponse, writeFlag);
@@ -455,7 +455,7 @@
 				return false;
 			}
 			
-			IbaUtil.jsonAjax(url, parameters, function(reponse){
+			share.jsonAjax(url, parameters, function(reponse){
 				if (reponse.responseCode === 'SUCCESS') {
 					alert(reponse.responseMessage);
 					location.reload();

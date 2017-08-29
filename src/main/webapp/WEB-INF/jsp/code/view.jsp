@@ -64,7 +64,7 @@
 		};
 		
 		var loadCodeHierarchy = function(focusParameters) {
-			IbaUtil.jsonAjax(globalContextPath + '/code/hierarchy.do', {}, function(reponse){
+			share.jsonAjax(globalContextPath + '/code/hierarchy.do', {}, function(reponse){
 				var $targetArea = $('#hierarchyCodeArea').empty();
 				
 				var $codeHierarchyObject = drawCodeHierarchyObject(reponse);
@@ -367,7 +367,7 @@
 				return false;
 			}
 			
-			IbaUtil.jsonAjax(url, parameters, function(reponse){
+			share.jsonAjax(url, parameters, function(reponse){
 				if (reponse.responseCode === 'SUCCESS') {
 					alert(reponse.responseMessage);
 					//location.reload();

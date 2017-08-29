@@ -135,7 +135,7 @@
 			}
 			
 			// 파라미터가 있는 경우
-			IbaUtil.jsonAjax(globalContextPath + '/user/info.do', parameters, function(reponse){
+			share.jsonAjax(globalContextPath + '/user/info.do', parameters, function(reponse){
 				(function(){
 					var $targetArea = $('#userInfoArea').empty();
 					var $userInfoObject = drawUserInfoOject(reponse, writeFlag);
@@ -291,7 +291,7 @@
 				return false;
 			}
 			
-			IbaUtil.jsonAjax(url, parameters, function(reponse){
+			share.jsonAjax(url, parameters, function(reponse){
 				if (reponse.responseCode === 'SUCCESS') {
 					alert(reponse.responseMessage);
 					loadUserInfo({userId: parameters.userId});
@@ -319,7 +319,7 @@
 				var parameters = {
 						useState: 'USE'
 				};
-				IbaUtil.ajax(globalContextPath + '/authority/list.do', false, 'application/json', 'post', JSON.stringify(parameters), 'json', function(reponse){
+				share.ajax(globalContextPath + '/authority/list.do', false, 'application/json', 'post', JSON.stringify(parameters), 'json', function(reponse){
 					authorityList = reponse;
 				});
 			}
@@ -433,7 +433,7 @@
 				return false;
 			}
 			
-			IbaUtil.jsonAjax(globalContextPath + '/ilmuser/list.do', parameters, function(reponse){
+			share.jsonAjax(globalContextPath + '/ilmuser/list.do', parameters, function(reponse){
 				var $targetArea = $('#ilmUserListArea').empty();
 				
 				var $ilmUserListObject = drawIlmUserListObject(reponse);

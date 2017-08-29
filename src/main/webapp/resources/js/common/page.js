@@ -1,6 +1,6 @@
-PageUtil = function(){}
+page = function(){}
 
-PageUtil.draw = function(pagingContents, parameters, loadFunction) {
+page.draw = function(pagingContents, parameters, loadFunction) {
 	
 	var pageNumber = pagingContents.page;
 	var totalPage = pagingContents.totalPage;

@@ -47,7 +47,7 @@
 			parameters.page = parameters.page || 1;  // 페이지값이 없으면 기본 1
 			parameters.countPerPage = parameters.countPerPage || 15;  // 없으면 기본 15개
 			
-			IbaUtil.formAjax(globalContextPath + '/user/page.do', 'post', parameters, function(reponse){
+			share.formAjax(globalContextPath + '/user/page.do', 'post', parameters, function(reponse){
 				(function(){
 					var $targetArea = $('#userListArea').empty();
 					var $userListObject = drawUserListObject(reponse.contents);
@@ -56,7 +56,7 @@
 				
 				(function(){
 					var $targetArea = $('#paginationArea').empty();
-					var $pageObject = PageUtil.draw(reponse, parameters, loadUserList);
+					var $pageObject = page.draw(reponse, parameters, loadUserList);
 					$pageObject.appendTo($targetArea);
 				}());
 			});
@@ -124,7 +124,7 @@
 		var remove = function(parameters) {
 			parameters = parameters || {};
 			
-			IbaUtil.jsonAjax(globalContextPath + '/user/remove.do', parameters, function(reponse){
+			share.jsonAjax(globalContextPath + '/user/remove.do', parameters, function(reponse){
 				if (reponse.responseCode === 'SUCCESS') {
 					alert(reponse.responseMessage);
 					location.reload();
