@@ -14,6 +14,7 @@ import com.sample.administrator.model.user.UserAuthorityService;
 import com.sample.administrator.model.user.UserService;
 import com.sample.administrator.model.user.entity.User;
 import com.sample.administrator.model.user.entity.UserAuthority;
+import com.sample.administrator.web.element.UseState;
 
 public class CustomUserDetailService implements UserDetailsService {
 	
@@ -36,7 +37,10 @@ public class CustomUserDetailService implements UserDetailsService {
 		 */
 		
 		String userId = username;
-		User user = userService.retrieve(userId);
+		User userSearchCondition = new User();
+		userSearchCondition.setUserId(userId);
+		userSearchCondition.setUseState(UseState.USE);
+		User user = userService.retrieve(userSearchCondition);
 		if (user == null) {
 			throw new UsernameNotFoundException(userId);
 		}

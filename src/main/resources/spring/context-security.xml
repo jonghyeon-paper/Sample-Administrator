@@ -67,7 +67,6 @@
 		<custom-filter ref="uriAccessPermissionFilter" after="LAST"/>
 	</http>
 	
-	<beans:bean id="customLdapAuthenticationProvider" class="com.sample.administrator.security.authentication.CustomLdapAuthenticationProvider"/>
 	<beans:bean id="customAuthenticationProvider" class="com.sample.administrator.security.authentication.CustomAuthenticationProvider"/>
 	<beans:bean id="customUserDetailService" class="com.sample.administrator.security.authentication.service.CustomUserDetailService"/>
 	
@@ -80,8 +79,6 @@
  		</authentication-provider>
 		 -->
 		 
-		<!-- LDAP 인증 프로바이더 -->
-		<authentication-provider ref="customLdapAuthenticationProvider"/>
 		<!-- 로컬 DB 인증 프로바이더 -->
 		<authentication-provider ref="customAuthenticationProvider"/>
 		

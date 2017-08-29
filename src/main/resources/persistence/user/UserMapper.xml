@@ -6,10 +6,6 @@
 	<select id="selectList" resultType="com.sample.administrator.model.user.entity.User">
 	SELECT USER_ID,
 	       USER_NAME,
-	       DEPARTMENT,
-	       POSITION,
-	       CONTACT,
-	       OMS_ID,
 	       USE_STATE,
 	       REG_DATE
 	  FROM USER
@@ -32,10 +28,6 @@
 	<select id="selectOne" resultMap="userWithAuthority">
 	SELECT USER_ID,
 	       USER_NAME,
-	       DEPARTMENT,
-	       POSITION,
-	       CONTACT,
-	       OMS_ID,
 	       USE_STATE,
 	       REG_DATE
 	  FROM USER
@@ -53,10 +45,6 @@
 	INSERT INTO USER(
 		USER_ID,
 		USER_NAME,
-		DEPARTMENT,
-		POSITION,
-		CONTACT,
-		OMS_ID,
 		USE_STATE,
 		REG_USER_ID,
 		REG_DATE,
@@ -65,10 +53,6 @@
 	)VALUES(
 		#{userId},
 		#{userName},
-		#{department},
-		#{position},
-		#{contact},
-		#{omsId},
 		#{useState},
 		#{regUserId},
 		NOW(),
@@ -102,10 +86,6 @@
 	<select id="selectPage" resultType="com.sample.administrator.model.user.entity.User">
 	SELECT USER_ID,
 	       USER_NAME,
-	       DEPARTMENT,
-	       POSITION,
-	       CONTACT,
-	       OMS_ID,
 	       USE_STATE,
 	       REG_DATE
 	  FROM USER
