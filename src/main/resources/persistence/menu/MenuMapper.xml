@@ -74,22 +74,14 @@
 		URI,
 		DESCRIPTION,
 		DISPLAY_ORDER,
-		USE_STATE,
-		REG_USER_ID,
-		REG_DATE,
-		MOD_USER_ID,
-		MOD_DATE
+		USE_STATE
 	)VALUES(
 		#{parentMenuId},
 		#{menuName},
 		#{uri},
 		#{description},
 		#{displayOrder},
-		#{useState},
-		#{regUserId},
-		NOW(),
-		#{modUserId},
-		NOW()
+		#{useState}
 	)
 	</insert>
 	
@@ -110,10 +102,6 @@
 	    </if>
 	    <if test="useState != null and !''.equals(useState)">
 	       USE_STATE = #{useState},
-	    </if>
-	    <if test="modUserId != null and !''.equals(modUserId)">
-	       MOD_USER_ID = #{modUserId},
-	       MOD_DATE = NOW()
 	    </if>
 	   </set>
 	 WHERE MENU_ID = #{menuId}

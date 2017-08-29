@@ -34,14 +34,10 @@
 	<insert id="insert">
 	INSERT INTO USER_AUTHORITY(
 		USER_ID,
-		AUTHORITY_ID,
-		REG_USER_ID,
-		REG_DATE
+		AUTHORITY_ID
 	)VALUES(
 		#{userId},
-		#{authorityId},
-		#{regUserId},
-		NOW()
+		#{authorityId}
 	)
 	</insert>
 	

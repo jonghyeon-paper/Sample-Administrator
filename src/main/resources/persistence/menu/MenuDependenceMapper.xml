@@ -42,14 +42,10 @@
 	<insert id="insert" useGeneratedKeys="true" keyProperty="sequence">
 	INSERT INTO MENU_DEPENDENCE(
 		MENU_ID,
-		DEPENDENCE_URI,
-		REG_USER_ID,
-		REG_DATE
+		DEPENDENCE_URI
 	)VALUES(
 		#{menuId},
-		#{dependenceUri},
-		#{regUserId},
-		NOW()
+		#{dependenceUri}
 	)
 	</insert>
 	

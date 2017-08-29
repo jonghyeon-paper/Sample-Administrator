@@ -41,14 +41,10 @@
 	<insert id="insert">
 	INSERT INTO AUTHORITY_ACCESS(
 		AUTHORITY_ID,
-		ACCESS_MODE,
-		REG_USER_ID,
-		REG_DATE
+		ACCESS_MODE
 	)VALUES(
 		#{authorityId},
-		#{accessMode},
-		#{regUserId},
-		NOW()
+		#{accessMode}
 	)
 	</insert>
 	

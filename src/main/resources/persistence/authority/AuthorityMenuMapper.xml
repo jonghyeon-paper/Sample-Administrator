@@ -48,14 +48,10 @@
 	<insert id="insert">
 	INSERT INTO AUTHORITY_MENU(
 		AUTHORITY_ID,
-		MENU_ID,
-		REG_USER_ID,
-		REG_DATE
+		MENU_ID
 	)VALUES(
 		#{authorityId},
-		#{menuId},
-		#{regUserId},
-		NOW()
+		#{menuId}
 	)
 	</insert>
 	
